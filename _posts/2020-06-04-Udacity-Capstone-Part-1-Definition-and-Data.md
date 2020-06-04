@@ -1,6 +1,14 @@
-# A Machine Learning Engineer Nanodegree Capstone Project
+---
+toc: true
+layout: post
+description: Udacity Machine Learning Engineer Nanodegree Capstone Project - Part 1 - Definition and Data
+categories: [markdown]
+title: Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1
+---
 
-## Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio 
+
+
+# Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio
 
 ## Part 1 - Definition and Data
 
