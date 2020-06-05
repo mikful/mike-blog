@@ -3,7 +3,7 @@ toc: false
 layout: post
 description: A Udacity Machine Learning Engineer Nanodegree Capstone Project
 categories: [markdown, fastai2, audio, machine learning]
-title: Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data
+title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 Audio - Part 1 - Definition and Data
 ---
 
 
