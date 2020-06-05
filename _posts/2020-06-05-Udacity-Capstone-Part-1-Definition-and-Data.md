@@ -184,7 +184,7 @@ Therefore, in the development of the model the following factors will need to be
 
 
 
-### Algorithms and Techniques
+## Algorithms and Techniques
 
 **Mel-Spectrograms**
 
@@ -214,7 +214,7 @@ The length uniformity of the audio clips in is important, as it allows 2D tensor
 
 Sci-Kit Learn's KFolds Validation function was used to split the datasets into 5 folds, to allow all of the available data to be used in the training and to further allow the 5 created models to give ensembled predictions on the Test set, which provides a significant performance improvement over a single model.
 
-**MixUP**
+**MixUp**
 
 MixUp, whereby two spectrograms are combined to form a third, was also used during the longer Curated Training Set procedure. Detailed further below.
 
@@ -249,9 +249,13 @@ The Baseline performance for the Kaggle Competition was set at 0.53792 which pro
 
 
 
-### Up Next
+## Up Next
 
 In Part 2 of this blog series, we will look at the methodology and implementation of training the model and improving it iteratively.
 
+
+
+
+## References:
 
 
