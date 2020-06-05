@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://mikful.github.io/mike-blog/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html</loc>
+<loc>https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html</loc>
 <lastmod>2020-06-05T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>https://mikful.github.io/mike-blog/drafts/Learning-How-To-Learn-Part-1.html</loc>
 </url>
 <url>
 <loc>https://mikful.github.io/mike-blog/about/</loc>
