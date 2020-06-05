@@ -89,9 +89,11 @@ Due to the advancement of multi-label audio classification in recent years, a si
 As such, the competition used label-weighted label-ranking average precision (a.k.a lwl-rap) as the evaluation metric. The basis for the metric, the label-ranking average precision algorithm, is described in detail within the Sci-Kit Learn implementation[^6]. The additional adaptations of the metric are to provide the average precision of predicting a ranked list of relevant labels per audio file, which is a significantly more complex problem to solve than a standard multi-label accuracy metric. The overall score is the average over all the labels in the test set, with each label having equal weight (rather than equal weight per test item), as indicated by the "label-weighted" prefix. This is defined as follows[^7]:
 
 
+
 $$
 lwlrap = \frac{1}{\sum_{s} \left | C(s) \right |}\sum_{a}\sum_{e\epsilon\ C(s)}Prec(s,c)
 $$
+
 
 
 where $$Prec(s,c)$$ is the label-ranking precision for the list of labels up to class $$c$$ and the set of ground-truth classes for sample $$s$$ is $$C(s)$$. $$|C(s)|$$ is the number of true class labels for sample $$s$$. 
@@ -102,7 +104,7 @@ The Kaggle competition provides a Google Colab example implementation[^8].
 [^7]: Fonseca et al. - *Audio tagging with noisy labels and minimal supervision*. In Proceedings of DCASE2019 Workshop, NYC, US (2019). URL: https://arxiv.org/abs/1906.02975 ↩ ↩ ↩ ↩ ↩
 [^8]: (https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8)
 
-<div style="page-break-after: always; break-after: page;"></div>
+
 
 
 ## II. Analysis
@@ -122,7 +124,7 @@ In order to undertake the analysis of the data, the numerical data analysis pack
 
 Pandas Profiling[^10] is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels).
 
-![]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417150251804.png "Pandas Profiling metadata" }}
+![Pandas Profiling metadata]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417150251804.png }})
 
 
 
@@ -134,14 +136,14 @@ Using these two packages the following was found:
 
 For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):
 
-![]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417150839322.png "Pandas Profiling - Curated set" }}
+![Pandas Profiling - Curated set]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417150839322.png }})
 
 
 ​									Fig 2. Pandas Profiling for the Curated Train Data set
 
 In terms of the file durations, the average file length was 7.63 seconds and the files ranged between just over 0 and 30 seconds long, with the lengths predominantly in the 0-5 seconds length range. This will affect the mel-spectrogram processing of the data, i.e. we will need to ensure a sufficient amount of both the longer and smaller audio files are taken, in order for the feature learning of the CNN to be accurate.
 
-![]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417151105376.png "Pandas Profiling - Curated set" }}
+![Pandas Profiling - Curated set]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417151105376.png }})
 
 
 ​									Fig 3. Pandas Profiling information for the audio file durations
@@ -150,14 +152,14 @@ In terms of the file durations, the average file length was 7.63 seconds and the
 
 As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):
 
-![]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417151545657.png "Pandas Profiling - Noisy set" }}
+![Pandas Profiling - Noisy set]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417151545657.png }})
 
 
 ​									Fig 4. Pandas Profiling for the Noisy Train dataset
 
 The Noisy Train dataset average file length was significantly longer on average than the Curated set at 14.6s long, however, the files ranged between 1 and 16 seconds long. There is therefore a significant difference in terms of length between the two datasets.
 
-![]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417151832940.png "Pandas Profiling - Durations" }}
+![Pandas Profiling - Durations]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/image-20200417151832940.png }})
 
 
 ​									Fig 5. Pandas Profiling information for the audio file durations
@@ -191,7 +193,7 @@ Therefore, in the development of the model the following factors will need to be
 This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear[^11]. The chosen settings will be discussed and shown further in the Data Preprocessing section.
 
 
-![]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/wav-melspec-conversion.jpg "Waveform to Mel pectrogram" }}
+![Waveform to Mel pectrogram]({{ https://github.com/mikful/mike-blog/udacity-capstone-series/wav-melspec-conversion.jpg  }})
 
 
 ​												Fig 7. Conversion from Waveform to Mel-spectrogram representation
