@@ -35,8 +35,8 @@ As an acoustic engineer, I am extremely intrigued by this new field. Recent deve
 
 The in-development user-contributed fast.ai2 Audio library[^2] inspired me to undertake the development of a deep learning audio-tagging system for this Udacity Capstone project, described herein.
 
-[^1]: [http://dcase.community/challenge2020/index]
-[^2]: https://github.com/rbracco/fastai2_audio
+[^1]: [http://dcase.community/challenge2020/index](http://dcase.community/challenge2020/index)
+[^2]: [https://github.com/rbracco/fastai2_audio](https://github.com/rbracco/fastai2_audio)
 
 
 
@@ -58,10 +58,12 @@ The competition dataset comprises audio clips from the following existing datase
 - "Curated Train Set" - Freesound Dataset ([FSD](https://annotator.freesound.org/fsd/)): a smaller dataset collected at the [MTG-UPF](https://www.upf.edu/web/mtg) based on [Freesound](https://freesound.org/) content organized with the [AudioSet Ontology](https://research.google.com/audioset////////ontology/index.html) and manually labelled by humans.  4964 files.
 - "Noisy Train Set" - The soundtracks of a pool of Flickr videos taken from the [Yahoo Flickr Creative Commons 100M dataset (YFCC)](http://code.flickr.net/2014/10/15/the-ins-and-outs-of-the-yahoo-flickr-100-million-creative-commons-dataset/) which are automatically labelled using metadata from the original Flickr clips. These items therefore have significantly more label noise than the Freesound Dataset items. 19815 files.
 
-The data comprises 80 categories labelled according to Google's Audioset Ontology [^3] with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1 kHz mono audio files.
+The data comprises 80 categories labelled according to Google's Audioset Ontology [^3] with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1kHz mono audio files.
 
-[^3]: https://www.kaggle.com/c/freesound-audio-tagging-2019/overview ↩
-[^4]: Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019 https://arxiv.org/abs/1901.01189
+[^3]: [https://www.kaggle.com/c/freesound-audio-tagging-2019/overview](https://www.kaggle.com/c/freesound-audio-tagging-2019/overview) ↩
+[^4]: [Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019](https://arxiv.org/abs/1901.01189)
+
+
 
 #### Solution Statement
 
@@ -78,7 +80,7 @@ With the above competition requirements in mind, the proposed solution was follo
    * Test-Time-Augmentation (TTA) will be used to gain averaged predictions from all 5 final models on the test set. The predictions will be submitted as a Late-Submission for the analysis of the results.
    * This will be repeated, with tweaks to the model augmentations in order to try to improve the results iteratively.
 
-[^5]: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html
+[^5]: [https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html)
 
 
 
@@ -100,9 +102,9 @@ where $$Prec(s,c)$$ is the label-ranking precision for the list of labels up to 
 
 The Kaggle competition provides a Google Colab example implementation[^8]. 
 
-[^6]: https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision) 
-[^7]: Fonseca et al. - *Audio tagging with noisy labels and minimal supervision*. In Proceedings of DCASE2019 Workshop, NYC, US (2019). URL: https://arxiv.org/abs/1906.02975 
-[^8]: (https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8)
+[^6]: [https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision](https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision) 
+[^7]: [Fonseca et al. - *Audio tagging with noisy labels and minimal supervision*. In Proceedings of DCASE2019 Workshop, NYC, US (2019).] (https://arxiv.org/abs/1906.02975) 
+[^8]: [https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8](https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8)
 
 
 
@@ -118,23 +120,29 @@ Downloading the dataset was undertaken using guidance given within the Kaggle Fo
 
 The files were then unzipped for the EDA. For further details, please see the notebook directly.
 
+
+
 **Pandas and Pandas Profiling**
 
 In order to undertake the analysis of the data, the numerical data analysis packages Pandas and Pandas Profiling were used.
 
 Pandas Profiling[^10] is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels).
 
+
+
 ![Pandas Profiling metadata]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417150251804.png)
-
-
 
 ​										Fig 1. An example Pandas DataFrame of extracted audio file info
 
-Using these two packages the following was found:
+Using these two packages the following was found.
+
+
 
 **Curated Train Data**
 
-For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):
+For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):
+
+
 
 ![Pandas Profiling - Curated set]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417150839322.png)
 
@@ -148,9 +156,13 @@ In terms of the file durations, the average file length was 7.63 seconds and the
 
 ​									Fig 3. Pandas Profiling information for the audio file durations
 
+
+
 **Noisy Train Data**
 
-As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):
+As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):
+
+
 
 ![Pandas Profiling - Noisy set]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417151545657.png)
 
@@ -158,6 +170,8 @@ As with the Curated dataset, with the Noisy Train dataset it was found that the 
 ​									Fig 4. Pandas Profiling for the Noisy Train dataset
 
 The Noisy Train dataset average file length was significantly longer on average than the Curated set at 14.6s long, however, the files ranged between 1 and 16 seconds long. There is therefore a significant difference in terms of length between the two datasets.
+
+
 
 ![Pandas Profiling - Durations]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417151832940.png)
 
@@ -171,6 +185,8 @@ In addition, as the name implies, the Noisy Train set files have a significantly
 ## Data Visualisation
 
 The following figure clearly illustrates the differences between the difference in durations of audio files between the two datasets:
+
+
 
 ![Pandas Profiling - Durations]({{ site.baseurl }}/images/udacity-capstone-series/dataset-length-comp.jpg)
 
@@ -193,6 +209,8 @@ Therefore, in the development of the model the following factors will need to be
 This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear[^11]. The chosen settings will be discussed and shown further in the Data Preprocessing section.
 
 
+
+
 ![Waveform to Mel spectrogram]({{ site.baseurl }}/images/udacity-capstone-series/wav-melspec-conversion.jpg)
 
 
@@ -207,10 +225,16 @@ The length uniformity of the audio clips in is important, as it allows 2D tensor
 * Architecture: fastai2's XResNet50 based on the Bag of Tricks[^13] research paper which includes tweaks to the optimisation methods for higher performance. ResNets use skip connections in order to allow propagation of information more deeply into the architecture, giving significant speed improvements for deeper networks and allowing the gradient descent to backpropagate through the network which aids in increasing training accuracy. This has further been augmented in the Bag of Tricks paper, whereby the residual block convolutional layers have been re-arranged such that further efficiency gains are made.
 
 - Activation Function: Mish[^14] which has been shown to provide performance improvements over the standard ReLU activation function due to its smoothing of the activations rather than the cut-off of the ReLU function for values below 0.
+
 - Optimizer Function: Ranger which is a combination of the RAdam[^15] and Lookahead[^16] optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.
+
 - Layer tweaks: Self-Attention Layers[^17]
+
 - Replacing Max Pooling Layers with "MaxBlurPool" layers for better generalization
+
 - Flat-Cosine decay learning rate scheduling
+
+  
 
 **K-Folds Validation**
 
@@ -247,7 +271,7 @@ The Baseline performance for the Kaggle Competition was set at 0.53792 which pro
 > - Hand relabeling of the curated dataset samples with a low score
 > - Ensembling with an MLP second-level model and a geometric mean blending
 
-[^19]: https://github.com/lRomul/argus-freesound
+[^19]: [https://github.com/lRomul/argus-freesound](https://github.com/lRomul/argus-freesound)
 
 
 
