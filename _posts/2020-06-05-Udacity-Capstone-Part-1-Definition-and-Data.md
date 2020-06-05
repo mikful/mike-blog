@@ -16,7 +16,7 @@ The blog series will be structured as follows:
 2. Implementation
 3. Results and Analysis
 
-Links will be provided as the series progresses. Please see [the associated GitHub repository](https://github.com/mikful/udacity-mlend-capstone) for all notebooks, please contact me with any queries.
+Links will be provided as the series progresses. Please see [the associated GitHub repository](https://github.com/mikful/udacity-mlend-capstone) for all notebooks.
 
 
 
@@ -254,6 +254,10 @@ The Baseline performance for the Kaggle Competition was set at 0.53792 which pro
 ## Up Next
 
 In Part 2 of this blog series, we will look at the methodology and implementation of training the model and improving it iteratively.
+
+
+
+If you have any questions or feedback about this post, I'd be very happy to hear it. Please contact me at my GitHub or Twitter using the links below.
 
 
 
