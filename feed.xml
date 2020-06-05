@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/mike-blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/mike-blog/" rel="alternate" type="text/html" /><updated>2020-06-05T18:19:12-05:00</updated><id>https://mikful.github.io/mike-blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data</title><link href="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data" /><published>2020-06-05T00:00:00-05:00</published><updated>2020-06-05T00:00:00-05:00</updated><id>https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data</id><content type="html" xml:base="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html">&lt;p&gt;Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/mike-blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/mike-blog/" rel="alternate" type="text/html" /><updated>2020-06-05T18:22:02-05:00</updated><id>https://mikful.github.io/mike-blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data</title><link href="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data" /><published>2020-06-05T00:00:00-05:00</published><updated>2020-06-05T00:00:00-05:00</updated><id>https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data</id><content type="html" xml:base="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html">&lt;p&gt;Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.&lt;/p&gt;
 
 &lt;p&gt;The blog series will be structured as follows:&lt;/p&gt;
 
@@ -8,7 +8,7 @@
   &lt;li&gt;Results and Analysis&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Links will be provided as the series progresses. Please see &lt;a href=&quot;https://github.com/mikful/udacity-mlend-capstone&quot;&gt;the associated GitHub repository&lt;/a&gt; for all notebooks, please contact me with any queries.&lt;/p&gt;
+&lt;p&gt;Links will be provided as the series progresses. Please see &lt;a href=&quot;https://github.com/mikful/udacity-mlend-capstone&quot;&gt;the associated GitHub repository&lt;/a&gt; for all notebooks.&lt;/p&gt;
 
 &lt;h2 id=&quot;i-problem-definition&quot;&gt;I. Problem Definition&lt;/h2&gt;
 &lt;h3 id=&quot;overview&quot;&gt;Overview&lt;/h3&gt;
@@ -213,6 +213,8 @@
 &lt;h2 id=&quot;up-next&quot;&gt;Up Next&lt;/h2&gt;
 
 &lt;p&gt;In Part 2 of this blog series, we will look at the methodology and implementation of training the model and improving it iteratively.&lt;/p&gt;
+
+&lt;p&gt;If you have any questions or feedback about this post, I’d be very happy to hear it. Please contact me at my GitHub or Twitter using the links below.&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References:&lt;/h2&gt;
 
