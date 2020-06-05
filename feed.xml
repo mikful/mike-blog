@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/mike-blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/mike-blog/" rel="alternate" type="text/html" /><updated>2020-06-05T18:07:14-05:00</updated><id>https://mikful.github.io/mike-blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data</title><link href="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data" /><published>2020-06-05T00:00:00-05:00</published><updated>2020-06-05T00:00:00-05:00</updated><id>https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data</id><content type="html" xml:base="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html">&lt;p&gt;Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/mike-blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/mike-blog/" rel="alternate" type="text/html" /><updated>2020-06-05T18:11:16-05:00</updated><id>https://mikful.github.io/mike-blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data</title><link href="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data" /><published>2020-06-05T00:00:00-05:00</published><updated>2020-06-05T00:00:00-05:00</updated><id>https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data</id><content type="html" xml:base="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html">&lt;p&gt;Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.&lt;/p&gt;
 
 &lt;p&gt;The blog series will be structured as follows:&lt;/p&gt;
 
@@ -108,7 +108,7 @@
 
 &lt;p&gt;Pandas Profiling&lt;sup id=&quot;fnref:10&quot;&gt;&lt;a href=&quot;#fn:10&quot; class=&quot;footnote&quot;&gt;10&lt;/a&gt;&lt;/sup&gt; is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;&quot; alt=&quot;Pandas Profiling metadata&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/udacity-capstone-series/image-20200417150251804.png&quot; alt=&quot;Pandas Profiling metadata&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;​										Fig 1. An example Pandas DataFrame of extracted audio file info&lt;/p&gt;
 
@@ -118,13 +118,13 @@
 
 &lt;p&gt;For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;&quot; alt=&quot;Pandas Profiling - Curated set&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/udacity-capstone-series/image-20200417150839322.png&quot; alt=&quot;Pandas Profiling - Curated set&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;​									Fig 2. Pandas Profiling for the Curated Train Data set&lt;/p&gt;
 
 &lt;p&gt;In terms of the file durations, the average file length was 7.63 seconds and the files ranged between just over 0 and 30 seconds long, with the lengths predominantly in the 0-5 seconds length range. This will affect the mel-spectrogram processing of the data, i.e. we will need to ensure a sufficient amount of both the longer and smaller audio files are taken, in order for the feature learning of the CNN to be accurate.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;&quot; alt=&quot;Pandas Profiling - Curated set&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/udacity-capstone-series/image-20200417151105376.png&quot; alt=&quot;Pandas Profiling - Curated set&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;​									Fig 3. Pandas Profiling information for the audio file durations&lt;/p&gt;
 
@@ -132,13 +132,13 @@
 
 &lt;p&gt;As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;&quot; alt=&quot;Pandas Profiling - Noisy set&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/udacity-capstone-series/image-20200417151545657.png}}&quot; alt=&quot;Pandas Profiling - Noisy set&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;​									Fig 4. Pandas Profiling for the Noisy Train dataset&lt;/p&gt;
 
 &lt;p&gt;The Noisy Train dataset average file length was significantly longer on average than the Curated set at 14.6s long, however, the files ranged between 1 and 16 seconds long. There is therefore a significant difference in terms of length between the two datasets.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;&quot; alt=&quot;Pandas Profiling - Durations&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/udacity-capstone-series/image-20200417151832940.png }}&quot; alt=&quot;Pandas Profiling - Durations&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;​									Fig 5. Pandas Profiling information for the audio file durations&lt;/p&gt;
 
@@ -148,7 +148,7 @@
 
 &lt;p&gt;The following figure clearly illustrates the differences between the difference in durations of audio files between the two datasets:&lt;/p&gt;
 
-&lt;p&gt;![](&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/udacity-capstone-series/dataset-length-comp.jpg&quot; alt=&quot;Pandas Profiling - Durations&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;​											Fig 6. Train vs Noisy dataset durations (x-axis = seconds)&lt;/p&gt;
 
@@ -165,7 +165,7 @@
 
 &lt;p&gt;This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear&lt;sup id=&quot;fnref:11&quot;&gt;&lt;a href=&quot;#fn:11&quot; class=&quot;footnote&quot;&gt;11&lt;/a&gt;&lt;/sup&gt;. The chosen settings will be discussed and shown further in the Data Preprocessing section.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;&quot; alt=&quot;Waveform to Mel pectrogram&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/udacity-capstone-series/wav-melspec-conversion.jpg&quot; alt=&quot;Waveform to Mel pectrogram&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;​												Fig 7. Conversion from Waveform to Mel-spectrogram representation&lt;/p&gt;
 
@@ -198,7 +198,7 @@
 
 &lt;h3 id=&quot;benchmark&quot;&gt;Benchmark&lt;/h3&gt;
 
-&lt;p&gt;The Baseline performance for the Kaggle Competition was set at 0.53792 which provided a minimum target. The winner&lt;sup id=&quot;fnref:19&quot;&gt;&lt;a href=&quot;#fn:19&quot; class=&quot;footnote&quot;&gt;18&lt;/a&gt;&lt;/sup&gt; of the competition acheived 0.75980, which provided the upper target. The details of the winning model and training method can be found on the linked GitHub page, but for brevity, the basic details of the system from the GitHub repo, were as follows:&lt;/p&gt;
+&lt;p&gt;The Baseline performance for the Kaggle Competition was set at 0.53792 which provided a minimum target. The winner&lt;sup id=&quot;fnref:19&quot;&gt;&lt;a href=&quot;#fn:19&quot; class=&quot;footnote&quot;&gt;18&lt;/a&gt;&lt;/sup&gt; of the competition achieved 0.75980, which provided the upper target. The details of the winning model and training method can be found on the linked GitHub page, but for brevity, the basic details of the system from the GitHub repo, were as follows:&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;ul&gt;
