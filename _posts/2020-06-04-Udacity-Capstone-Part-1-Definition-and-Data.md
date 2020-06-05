@@ -89,9 +89,13 @@ With the above competition requirements in mind, the proposed solution was follo
 Due to the advancement of multi-label audio classification in recent years, a simple multi-label accuracy metric was not used within the Kaggle competition, as performances of the systems can easily exceed 95% within a few epochs of training.
 
 As such, the competition used label-weighted label-ranking average precision (a.k.a lwl-rap) as the evaluation metric. The basis for the metric, the label-ranking average precision algorithm, is described in detail within the Sci-Kit Learn implementation[^6]. The additional adaptations of the metric are to provide the average precision of predicting a ranked list of relevant labels per audio file, which is a significantly more complex problem to solve than a standard multi-label accuracy metric. The overall score is the average over all the labels in the test set, with each label having equal weight (rather than equal weight per test item), as indicated by the "label-weighted" prefix. This is defined as follows[^7]:
+
+
 $$
 lwlrap = \frac{1}{\sum_{s} \left | C(s) \right |}\sum_{a}\sum_{e\epsilon\ C(s)}Prec(s,c)
 $$
+
+
 where $Prec(s,c)$ is the label-ranking precision for the list of labels up to class $$c$$ and the set of ground-truth classes for sample $$s$$ is $$C(s)$$. $$|C(s)|$$ is the number of true class labels for sample $$s$$. 
 
 The Kaggle competition provides a Google Colab example implementation[^8]. 
@@ -245,3 +249,6 @@ The Baseline performance for the Kaggle Competition was set at 0.53792 which pro
 ### Up next
 
 In the next Part 2 of this blog series, we will look at the methodology and implementation of training the model and improving it iteratively.
+
+
+
