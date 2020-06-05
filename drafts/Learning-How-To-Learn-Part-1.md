@@ -1,5 +1,6 @@
 ---
 toc: true
+hide: true
 layout: post
 description: What is Learning? Modes of Thinking and Sleep.
 categories: [markdown]
