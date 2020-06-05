@@ -183,7 +183,7 @@ window.onload = wrap_img;
   <li>“Noisy Train Set” - The soundtracks of a pool of Flickr videos taken from the <a href="http://code.flickr.net/2014/10/15/the-ins-and-outs-of-the-yahoo-flickr-100-million-creative-commons-dataset/">Yahoo Flickr Creative Commons 100M dataset (YFCC)</a> which are automatically labelled using metadata from the original Flickr clips. These items therefore have significantly more label noise than the Freesound Dataset items. 19815 files.</li>
 </ul>
 
-<p>The data comprises 80 categories labelled according to Google’s Audioset Ontology <sup id="fnref:3:1"><a href="#fn:3" class="footnote">3</a></sup> with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1 kHz mono audio files.</p>
+<p>The data comprises 80 categories labelled according to Google’s Audioset Ontology <sup id="fnref:3:1"><a href="#fn:3" class="footnote">3</a></sup> with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1kHz mono audio files.</p>
 
 <h4 id="solution-statement">Solution Statement</h4>
 
@@ -238,11 +238,11 @@ window.onload = wrap_img;
 
 <p>​										Fig 1. An example Pandas DataFrame of extracted audio file info</p>
 
-<p>Using these two packages the following was found:</p>
+<p>Using these two packages the following was found.</p>
 
 <p><strong>Curated Train Data</strong></p>
 
-<p>For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):</p>
+<p>For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):</p>
 
 <p><img src="/mike-blog/images/udacity-capstone-series/image-20200417150839322.png" alt="Pandas Profiling - Curated set" /></p>
 
@@ -256,7 +256,7 @@ window.onload = wrap_img;
 
 <p><strong>Noisy Train Data</strong></p>
 
-<p>As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):</p>
+<p>As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):</p>
 
 <p><img src="/mike-blog/images/udacity-capstone-series/image-20200417151545657.png" alt="Pandas Profiling - Noisy set" /></p>
 
@@ -303,11 +303,21 @@ window.onload = wrap_img;
   <li>
     <p>Architecture: fastai2’s XResNet50 based on the Bag of Tricks<sup id="fnref:13"><a href="#fn:13" class="footnote">13</a></sup> research paper which includes tweaks to the optimisation methods for higher performance. ResNets use skip connections in order to allow propagation of information more deeply into the architecture, giving significant speed improvements for deeper networks and allowing the gradient descent to backpropagate through the network which aids in increasing training accuracy. This has further been augmented in the Bag of Tricks paper, whereby the residual block convolutional layers have been re-arranged such that further efficiency gains are made.</p>
   </li>
-  <li>Activation Function: Mish<sup id="fnref:14"><a href="#fn:14" class="footnote">14</a></sup> which has been shown to provide performance improvements over the standard ReLU activation function due to its smoothing of the activations rather than the cut-off of the ReLU function for values below 0.</li>
-  <li>Optimizer Function: Ranger which is a combination of the RAdam<sup id="fnref:15"><a href="#fn:15" class="footnote">15</a></sup> and Lookahead<sup id="fnref:16"><a href="#fn:16" class="footnote">16</a></sup> optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.</li>
-  <li>Layer tweaks: Self-Attention Layers<sup id="fnref:17"><a href="#fn:17" class="footnote">17</a></sup></li>
-  <li>Replacing Max Pooling Layers with “MaxBlurPool” layers for better generalization</li>
-  <li>Flat-Cosine decay learning rate scheduling</li>
+  <li>
+    <p>Activation Function: Mish<sup id="fnref:14"><a href="#fn:14" class="footnote">14</a></sup> which has been shown to provide performance improvements over the standard ReLU activation function due to its smoothing of the activations rather than the cut-off of the ReLU function for values below 0.</p>
+  </li>
+  <li>
+    <p>Optimizer Function: Ranger which is a combination of the RAdam<sup id="fnref:15"><a href="#fn:15" class="footnote">15</a></sup> and Lookahead<sup id="fnref:16"><a href="#fn:16" class="footnote">16</a></sup> optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.</p>
+  </li>
+  <li>
+    <p>Layer tweaks: Self-Attention Layers<sup id="fnref:17"><a href="#fn:17" class="footnote">17</a></sup></p>
+  </li>
+  <li>
+    <p>Replacing Max Pooling Layers with “MaxBlurPool” layers for better generalization</p>
+  </li>
+  <li>
+    <p>Flat-Cosine decay learning rate scheduling</p>
+  </li>
 </ul>
 
 <p><strong>K-Folds Validation</strong></p>
@@ -347,28 +357,28 @@ window.onload = wrap_img;
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p>[http://dcase.community/challenge2020/index] <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p><a href="http://dcase.community/challenge2020/index">http://dcase.community/challenge2020/index</a> <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:2">
-      <p>https://github.com/rbracco/fastai2_audio <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://github.com/rbracco/fastai2_audio">https://github.com/rbracco/fastai2_audio</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:3">
-      <p>https://www.kaggle.com/c/freesound-audio-tagging-2019/overview ↩ <a href="#fnref:3" class="reversefootnote">&#8617;</a> <a href="#fnref:3:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
+      <p><a href="https://www.kaggle.com/c/freesound-audio-tagging-2019/overview">https://www.kaggle.com/c/freesound-audio-tagging-2019/overview</a> ↩ <a href="#fnref:3" class="reversefootnote">&#8617;</a> <a href="#fnref:3:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
     </li>
     <li id="fn:4">
-      <p>Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019 https://arxiv.org/abs/1901.01189 <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://arxiv.org/abs/1901.01189">Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019</a> <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:5">
-      <p>https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html <a href="#fnref:5" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html">https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html</a> <a href="#fnref:5" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:6">
-      <p>https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision) <a href="#fnref:6" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision">https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision</a> <a href="#fnref:6" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:7">
-      <p>Fonseca et al. - <em>Audio tagging with noisy labels and minimal supervision</em>. In Proceedings of DCASE2019 Workshop, NYC, US (2019). URL: https://arxiv.org/abs/1906.02975 <a href="#fnref:7" class="reversefootnote">&#8617;</a></p>
+      <p>[Fonseca et al. - <em>Audio tagging with noisy labels and minimal supervision</em>. In Proceedings of DCASE2019 Workshop, NYC, US (2019).] (https://arxiv.org/abs/1906.02975) <a href="#fnref:7" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:8">
-      <p>(https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8) <a href="#fnref:8" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8">https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8</a> <a href="#fnref:8" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:9">
       <p>https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521) <a href="#fnref:9" class="reversefootnote">&#8617;</a></p>
@@ -398,7 +408,7 @@ window.onload = wrap_img;
       <p><a href="https://arxiv.org/abs/1805.08318">Han Zhang, Ian Goodfellow, Dimitris Metaxas, Augustus Odena 2018 - Self-Attention Generative Adversarial Networks</a> <a href="#fnref:17" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:19">
-      <p>https://github.com/lRomul/argus-freesound <a href="#fnref:19" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://github.com/lRomul/argus-freesound">https://github.com/lRomul/argus-freesound</a> <a href="#fnref:19" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>

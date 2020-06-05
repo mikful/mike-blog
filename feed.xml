@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/mike-blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/mike-blog/" rel="alternate" type="text/html" /><updated>2020-06-05T18:37:39-05:00</updated><id>https://mikful.github.io/mike-blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data</title><link href="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data" /><published>2020-06-05T00:00:00-05:00</published><updated>2020-06-05T00:00:00-05:00</updated><id>https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data</id><content type="html" xml:base="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html">&lt;p&gt;Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/mike-blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/mike-blog/" rel="alternate" type="text/html" /><updated>2020-06-05T18:48:51-05:00</updated><id>https://mikful.github.io/mike-blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data</title><link href="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio - Part 1 - Definition and Data" /><published>2020-06-05T00:00:00-05:00</published><updated>2020-06-05T00:00:00-05:00</updated><id>https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data</id><content type="html" xml:base="https://mikful.github.io/mike-blog/markdown/fastai2/audio/machine%20learning/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html">&lt;p&gt;Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.&lt;/p&gt;
 
 &lt;p&gt;The blog series will be structured as follows:&lt;/p&gt;
 
@@ -49,7 +49,7 @@
   &lt;li&gt;“Noisy Train Set” - The soundtracks of a pool of Flickr videos taken from the &lt;a href=&quot;http://code.flickr.net/2014/10/15/the-ins-and-outs-of-the-yahoo-flickr-100-million-creative-commons-dataset/&quot;&gt;Yahoo Flickr Creative Commons 100M dataset (YFCC)&lt;/a&gt; which are automatically labelled using metadata from the original Flickr clips. These items therefore have significantly more label noise than the Freesound Dataset items. 19815 files.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The data comprises 80 categories labelled according to Google’s Audioset Ontology &lt;sup id=&quot;fnref:3:1&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1 kHz mono audio files.&lt;/p&gt;
+&lt;p&gt;The data comprises 80 categories labelled according to Google’s Audioset Ontology &lt;sup id=&quot;fnref:3:1&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1kHz mono audio files.&lt;/p&gt;
 
 &lt;h4 id=&quot;solution-statement&quot;&gt;Solution Statement&lt;/h4&gt;
 
@@ -104,11 +104,11 @@
 
 &lt;p&gt;​										Fig 1. An example Pandas DataFrame of extracted audio file info&lt;/p&gt;
 
-&lt;p&gt;Using these two packages the following was found:&lt;/p&gt;
+&lt;p&gt;Using these two packages the following was found.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Curated Train Data&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):&lt;/p&gt;
+&lt;p&gt;For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mike-blog/images/udacity-capstone-series/image-20200417150839322.png&quot; alt=&quot;Pandas Profiling - Curated set&quot; /&gt;&lt;/p&gt;
 
@@ -122,7 +122,7 @@
 
 &lt;p&gt;&lt;strong&gt;Noisy Train Data&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44100kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):&lt;/p&gt;
+&lt;p&gt;As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/mike-blog/images/udacity-capstone-series/image-20200417151545657.png&quot; alt=&quot;Pandas Profiling - Noisy set&quot; /&gt;&lt;/p&gt;
 
@@ -169,11 +169,21 @@
   &lt;li&gt;
     &lt;p&gt;Architecture: fastai2’s XResNet50 based on the Bag of Tricks&lt;sup id=&quot;fnref:13&quot;&gt;&lt;a href=&quot;#fn:13&quot; class=&quot;footnote&quot;&gt;13&lt;/a&gt;&lt;/sup&gt; research paper which includes tweaks to the optimisation methods for higher performance. ResNets use skip connections in order to allow propagation of information more deeply into the architecture, giving significant speed improvements for deeper networks and allowing the gradient descent to backpropagate through the network which aids in increasing training accuracy. This has further been augmented in the Bag of Tricks paper, whereby the residual block convolutional layers have been re-arranged such that further efficiency gains are made.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;Activation Function: Mish&lt;sup id=&quot;fnref:14&quot;&gt;&lt;a href=&quot;#fn:14&quot; class=&quot;footnote&quot;&gt;14&lt;/a&gt;&lt;/sup&gt; which has been shown to provide performance improvements over the standard ReLU activation function due to its smoothing of the activations rather than the cut-off of the ReLU function for values below 0.&lt;/li&gt;
-  &lt;li&gt;Optimizer Function: Ranger which is a combination of the RAdam&lt;sup id=&quot;fnref:15&quot;&gt;&lt;a href=&quot;#fn:15&quot; class=&quot;footnote&quot;&gt;15&lt;/a&gt;&lt;/sup&gt; and Lookahead&lt;sup id=&quot;fnref:16&quot;&gt;&lt;a href=&quot;#fn:16&quot; class=&quot;footnote&quot;&gt;16&lt;/a&gt;&lt;/sup&gt; optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.&lt;/li&gt;
-  &lt;li&gt;Layer tweaks: Self-Attention Layers&lt;sup id=&quot;fnref:17&quot;&gt;&lt;a href=&quot;#fn:17&quot; class=&quot;footnote&quot;&gt;17&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-  &lt;li&gt;Replacing Max Pooling Layers with “MaxBlurPool” layers for better generalization&lt;/li&gt;
-  &lt;li&gt;Flat-Cosine decay learning rate scheduling&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Activation Function: Mish&lt;sup id=&quot;fnref:14&quot;&gt;&lt;a href=&quot;#fn:14&quot; class=&quot;footnote&quot;&gt;14&lt;/a&gt;&lt;/sup&gt; which has been shown to provide performance improvements over the standard ReLU activation function due to its smoothing of the activations rather than the cut-off of the ReLU function for values below 0.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Optimizer Function: Ranger which is a combination of the RAdam&lt;sup id=&quot;fnref:15&quot;&gt;&lt;a href=&quot;#fn:15&quot; class=&quot;footnote&quot;&gt;15&lt;/a&gt;&lt;/sup&gt; and Lookahead&lt;sup id=&quot;fnref:16&quot;&gt;&lt;a href=&quot;#fn:16&quot; class=&quot;footnote&quot;&gt;16&lt;/a&gt;&lt;/sup&gt; optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Layer tweaks: Self-Attention Layers&lt;sup id=&quot;fnref:17&quot;&gt;&lt;a href=&quot;#fn:17&quot; class=&quot;footnote&quot;&gt;17&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Replacing Max Pooling Layers with “MaxBlurPool” layers for better generalization&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flat-Cosine decay learning rate scheduling&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;K-Folds Validation&lt;/strong&gt;&lt;/p&gt;
@@ -213,28 +223,28 @@
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;[http://dcase.community/challenge2020/index] &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://dcase.community/challenge2020/index&quot;&gt;http://dcase.community/challenge2020/index&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;https://github.com/rbracco/fastai2_audio &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://github.com/rbracco/fastai2_audio&quot;&gt;https://github.com/rbracco/fastai2_audio&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;https://www.kaggle.com/c/freesound-audio-tagging-2019/overview ↩ &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:3:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://www.kaggle.com/c/freesound-audio-tagging-2019/overview&quot;&gt;https://www.kaggle.com/c/freesound-audio-tagging-2019/overview&lt;/a&gt; ↩ &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:3:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:4&quot;&gt;
-      &lt;p&gt;Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019 https://arxiv.org/abs/1901.01189 &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1901.01189&quot;&gt;Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019&lt;/a&gt; &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:5&quot;&gt;
-      &lt;p&gt;https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html&quot;&gt;https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html&lt;/a&gt; &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:6&quot;&gt;
-      &lt;p&gt;https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision) &lt;a href=&quot;#fnref:6&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision&quot;&gt;https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision&lt;/a&gt; &lt;a href=&quot;#fnref:6&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:7&quot;&gt;
-      &lt;p&gt;Fonseca et al. - &lt;em&gt;Audio tagging with noisy labels and minimal supervision&lt;/em&gt;. In Proceedings of DCASE2019 Workshop, NYC, US (2019). URL: https://arxiv.org/abs/1906.02975 &lt;a href=&quot;#fnref:7&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;[Fonseca et al. - &lt;em&gt;Audio tagging with noisy labels and minimal supervision&lt;/em&gt;. In Proceedings of DCASE2019 Workshop, NYC, US (2019).] (https://arxiv.org/abs/1906.02975) &lt;a href=&quot;#fnref:7&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:8&quot;&gt;
-      &lt;p&gt;(https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8) &lt;a href=&quot;#fnref:8&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8&quot;&gt;https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8&lt;/a&gt; &lt;a href=&quot;#fnref:8&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:9&quot;&gt;
       &lt;p&gt;https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521) &lt;a href=&quot;#fnref:9&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
@@ -264,7 +274,7 @@
       &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.08318&quot;&gt;Han Zhang, Ian Goodfellow, Dimitris Metaxas, Augustus Odena 2018 - Self-Attention Generative Adversarial Networks&lt;/a&gt; &lt;a href=&quot;#fnref:17&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:19&quot;&gt;
-      &lt;p&gt;https://github.com/lRomul/argus-freesound &lt;a href=&quot;#fnref:19&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://github.com/lRomul/argus-freesound&quot;&gt;https://github.com/lRomul/argus-freesound&lt;/a&gt; &lt;a href=&quot;#fnref:19&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name></name></author><summary type="html">Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project. This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.</summary></entry></feed>
