@@ -1,10 +1,10 @@
 ---
-toc: true
-hide: true
-layout: post
-description: What is Learning? Modes of Thinking and Sleep.
-categories: [markdown]
-title: Learning How to Learn - Part 1
+#toc: true
+#hide: true
+#layout: post
+#description: What is Learning? Modes of Thinking and Sleep.
+#categories: [markdown]
+#title: Learning How to Learn - Part 1
 ---
 
 
