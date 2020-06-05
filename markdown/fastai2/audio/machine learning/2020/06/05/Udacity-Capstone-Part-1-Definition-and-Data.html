@@ -297,7 +297,7 @@ window.onload = wrap_img;
 
 <p><strong>Convolutional Neural Network (CNN)</strong></p>
 
-<p>The length uniformity of the audio clips in is important, as it allows 2D tensors of the mel-spectrograms to be fed in batches into a CNN. The model variety used was as follows, based on the state of the art findings of the fastai community<sup id="fnref:12"><a href="#fn:12" class="footnote">12</a></sup> and other research described below. The model and architecture used the following settings:</p>
+<p>The length uniformity of the audio clips in is important, as it allows Rank-2 tensors of the mel-spectrograms to be flattened to Rank-1 and fed in batches into the CNN. The model variety used was as follows, based on the state of the art findings of the fastai community<sup id="fnref:12"><a href="#fn:12" class="footnote">12</a></sup> and other research described below. The model and architecture used the following settings:</p>
 
 <ul>
   <li>
