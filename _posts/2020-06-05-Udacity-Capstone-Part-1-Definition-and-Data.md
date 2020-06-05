@@ -60,7 +60,7 @@ The competition dataset comprises audio clips from the following existing datase
 
 The data comprises 80 categories labelled according to Google's Audioset Ontology [^3] with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1kHz mono audio files.
 
-[^3]: [https://www.kaggle.com/c/freesound-audio-tagging-2019/overview](https://www.kaggle.com/c/freesound-audio-tagging-2019/overview) ↩
+[^3]: [https://www.kaggle.com/c/freesound-audio-tagging-2019/overview](https://www.kaggle.com/c/freesound-audio-tagging-2019/overview) 
 [^4]: [Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019](https://arxiv.org/abs/1901.01189)
 
 
@@ -103,7 +103,7 @@ where $$Prec(s,c)$$ is the label-ranking precision for the list of labels up to 
 The Kaggle competition provides a Google Colab example implementation[^8]. 
 
 [^6]: [https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision](https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision) 
-[^7]: [Fonseca et al. - *Audio tagging with noisy labels and minimal supervision*. In Proceedings of DCASE2019 Workshop, NYC, US (2019).] (https://arxiv.org/abs/1906.02975) 
+[^7]: [Fonseca et al. - *Audio tagging with noisy labels and minimal supervision*. In Proceedings of DCASE2019 Workshop, NYC, US (2019).](https://arxiv.org/abs/1906.02975) 
 [^8]: [https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8](https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8)
 
 
@@ -248,8 +248,8 @@ MixUp, whereby two spectrograms are combined to form a third, was also used duri
 
 In addition to the methods outlined above, Test-Time augmentations were applied to the test set, such that the data transformations were used as part of the testing procedure in order to give a further performance boost.
 
-[^9]:https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521)
-[^10]: https://github.com/pandas-profiling/pandas-profiling
+[^9]: [https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521](https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521)
+[^10]: [https://github.com/pandas-profiling/pandas-profiling](https://github.com/pandas-profiling/pandas-profiling)
 [^11]: Computational Analysis of Sound Scenes and Events, pg. 22 - Virtanen et al.
 [^12]:  [https://github.com/muellerzr/Practical-Deep-Learning-for-Coders-2.0/blob/master/Computer%20Vision/04_ImageWoof.ipynb](https://github.com/muellerzr/Practical-Deep-Learning-for-Coders-2.0/blob/master/Computer Vision/04_ImageWoof.ipynb)
 [^13]: [He, Tong, Zhi Zhang, Hang Zhang, Zhongyue Zhang, Junyuan Xie, and Mu Li. 2018. “Bag of Tricks for Image Classification with Convolutional Neural Networks.” *CoRR* abs/1812.01187](http://arxiv.org/abs/1812.01187)
