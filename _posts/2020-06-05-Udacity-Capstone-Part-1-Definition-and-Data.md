@@ -196,7 +196,7 @@ This signal processing stage will involve trimming (to ensure uniform duration) 
 
 **Convolutional Neural Network (CNN)**
 
-The length uniformity of the audio clips in is important, as it allows Rank-2 tensors of the mel-spectrograms to be flattened to Rank-1 and fed in batches into the CNN. The model variety used was as follows, based on the state of the art findings of the fastai community[^12] and other research described below. The model and architecture used the following settings:
+The length uniformity of the audio clips in is important, as it allows Rank-2 tensors of the mel-spectrograms to be fed in batches into the CNN. The model variety used was as follows, based on the state of the art findings of the fastai community[^12] and other research described below. The model and architecture used the following settings:
 
 * Architecture: fastai2's XResNet50 based on the Bag of Tricks[^13] research paper which includes tweaks to the optimisation methods for higher performance. ResNets use skip connections in order to allow propagation of information more deeply into the architecture, giving significant speed improvements for deeper networks while allowing the gradient descent to backpropagate through the network efficiently which aids in increasing training accuracy. This has further been augmented in the Bag of Tricks paper, whereby the residual block convolutional layers have been re-arranged such that further efficiency gains are made.
 
