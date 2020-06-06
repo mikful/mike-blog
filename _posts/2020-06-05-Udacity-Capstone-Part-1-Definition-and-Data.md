@@ -2,8 +2,8 @@
 toc: false
 layout: post
 description: A Udacity Machine Learning Engineer Nanodegree Capstone Project
-categories: [markdown, fastai2, audio, machine learning]
-title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 Audio - Part 1 - Definition and Data
+categories: [deep learning, fastai2, audio, markdown]
+title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Definition and Data
 ---
 
 
@@ -75,8 +75,8 @@ With the above competition requirements in mind, the proposed solution was follo
    * The fastai2 and fastai2 audio libraries will be installed
    * The fastai2 audio library will be used for the data processing, in order to convert the audio files into tensor representations of mel-spectrograms on-the-fly, rather than in a separate pre-processing stage. This is a significant benefit of the library in terms of allowing quick experimentation and iteration within the model development over other methods such as converting all audio files to mel-spectrogram images separately.
    * In-line with the competition rubric, a non-pretrained convolutional neural network (CNN) using the fastai2 library for PyTorch will be developed using state-of-the-art methods and additions.
-   * The model will be trained on the "Noisy Train Set" in a 5-Folds Cross Validation manner, using Sci-Kit Learn's K-Fold model selection module[^5], for a shorter period due to the large amount of data.
-   * The results of these 5 models will be used to train on the "Curated Train Set" in the same 5-Folds Cross Validation manner as the noisy train set, but for a longer period.
+   * The model will be trained on the "Curated Train" set in a 5-Folds Cross Validation manner, using Sci-Kit Learn's K-Fold model selection module[^5].
+   * The results of these 5 models will be used to train on the "Noisy Train" set in the same 5-Folds Cross Validation manner as the Curated Train set, but for a shorter period due to the large amount of data.
    * Test-Time-Augmentation (TTA) will be used to gain averaged predictions from all 5 final models on the test set. The predictions will be submitted as a Late-Submission for the analysis of the results.
    * This will be repeated, with tweaks to the model augmentations in order to try to improve the results iteratively.
 
