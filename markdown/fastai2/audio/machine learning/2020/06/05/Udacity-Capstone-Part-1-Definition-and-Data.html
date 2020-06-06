@@ -297,7 +297,7 @@ window.onload = wrap_img;
 
 <p><strong>Mel-Spectrograms</strong></p>
 
-<p>This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear<sup id="fnref:11"><a href="#fn:11" class="footnote">11</a></sup>. The chosen settings will be discussed and shown further in the Data Preprocessing section.</p>
+<p>This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform (x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity) which has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human hearing<sup id="fnref:11"><a href="#fn:11" class="footnote">11</a></sup>. The chosen settings will be discussed and shown further in the Data Preprocessing section.</p>
 
 <p>&nbsp;</p>
 <p><img src="/mike-blog/images/udacity-capstone-series/wav-melspec-conversion.jpg" alt="Waveform to Mel spectrogram" /></p>
@@ -319,7 +319,7 @@ window.onload = wrap_img;
     <p>Optimizer Function: Ranger which is a combination of the RAdam<sup id="fnref:15"><a href="#fn:15" class="footnote">15</a></sup> and Lookahead<sup id="fnref:16"><a href="#fn:16" class="footnote">16</a></sup> optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.</p>
   </li>
   <li>
-    <p>Layer tweaks: Self-Attention Layers<sup id="fnref:17"><a href="#fn:17" class="footnote">17</a></sup></p>
+    <p>Layer tweaks: Self-Attention Layers<sup id="fnref:17"><a href="#fn:17" class="footnote">17</a></sup> which allow the network to focus on a subset on the features learned to be most pertinent to the data label.</p>
   </li>
   <li>
     <p>Replacing Max Pooling Layers with “MaxBlurPool” layers for better generalization</p>
