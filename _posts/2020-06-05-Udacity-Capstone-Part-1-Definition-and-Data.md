@@ -95,6 +95,7 @@ $$
 lwlrap = \frac{1}{\sum_{s} \left | C(s) \right |}\sum_{a}\sum_{e\epsilon\ C(s)}Prec(s,c)
 $$
 
+<p>&nbsp;</p>
 where $$Prec(s,c)$$ is the label-ranking precision for the list of labels up to class $$c$$ and the set of ground-truth classes for sample $$s$$ is $$C(s)$$. $$\mid C(s)\mid$$ is the number of true class labels for sample $$s$$. 
 
 The Kaggle competition provides a Google Colab example implementation[^8]. 
@@ -165,7 +166,7 @@ The Noisy Train dataset average file length was significantly longer on average 
 In addition, as the name implies, the Noisy Train set files have a significantly higher noise floor than the Curated Train set due to the provenance of the files.
 
 
-## Data Visualisation
+### Data Visualisation
 
 The following figure clearly illustrates the differences between the difference in durations of audio files between the two datasets: 
 
@@ -181,7 +182,7 @@ Therefore, in the development of the model the following factors will need to be
 
 
 
-## Algorithms and Techniques
+## III. Algorithms and Techniques
 
 **Mel-Spectrograms**
 
