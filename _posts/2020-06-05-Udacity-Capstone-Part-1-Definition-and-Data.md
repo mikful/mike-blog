@@ -65,7 +65,7 @@ The data comprises 80 categories labelled according to Google's Audioset Ontolog
 
 
 
-#### Solution Statement
+### Solution Statement
 
 With the above competition requirements in mind, the proposed solution was followed and was undertaken initially within a Pytorch AWS SageMaker notebook instance using Jupyter Notebooks, and further, using a Google Cloud Platform AI Notebook using fastai2 and fastai2 audio libraries , due to the extra credits required for the long training times on a GPU instance:
 
@@ -126,13 +126,12 @@ The files were then unzipped for the EDA. For further details, please see the no
 
 In order to undertake the analysis of the data, the numerical data analysis packages Pandas and Pandas Profiling were used.
 
-Pandas Profiling[^10] is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels).  
-
-
+Pandas Profiling[^10] is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels). 
+<p>&nbsp;</p>
 
 ![Pandas Profiling metadata]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417150251804.png)
 
-​										Fig 1. An example Pandas DataFrame of extracted audio file info
+<p style="text-align: center;">Fig 1. An example Pandas DataFrame of extracted audio file info</p>
 
 Using these two packages the following was found.
 
@@ -141,42 +140,40 @@ Using these two packages the following was found.
 **Curated Train Data**
 
 For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):  
-
-
+<p>&nbsp;</p>
 
 ![Pandas Profiling - Curated set]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417150839322.png)
 
 
-​									Fig 2. Pandas Profiling for the Curated Train Data set
+<p style="text-align: center;">Fig 2. Pandas Profiling for the Curated Train Data set</p>
 
-In terms of the file durations, the average file length was 7.63 seconds and the files ranged between just over 0 and 30 seconds long, with the lengths predominantly in the 0-5 seconds length range. This will affect the mel-spectrogram processing of the data, i.e. we will need to ensure a sufficient amount of both the longer and smaller audio files are taken, in order for the feature learning of the CNN to be accurate.  
+In terms of the file durations, the average file length was 7.63 seconds and the files ranged between just over 0 and 30 seconds long, with the lengths predominantly in the 0-5 seconds length range. This will affect the mel-spectrogram processing of the data, i.e. we will need to ensure a sufficient amount of both the longer and smaller audio files are taken, in order for the feature learning of the CNN to be accurate. 
+<p>&nbsp;</p>
 
 ![Pandas Profiling - Curated set]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417151105376.png)
 
 
-​									Fig 3. Pandas Profiling information for the audio file durations
+<p style="text-align: center;">Fig 3. Pandas Profiling information for the audio file durations</p>
 
 
 
 **Noisy Train Data**
 
-As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):  
-
-
+As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files): 
+<p>&nbsp;</p>
 
 ![Pandas Profiling - Noisy set]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417151545657.png)
 
 
-​									Fig 4. Pandas Profiling for the Noisy Train dataset
+<p style="text-align: center;">Fig 4. Pandas Profiling for the Noisy Train dataset</p>
 
-The Noisy Train dataset average file length was significantly longer on average than the Curated set at 14.6s long, however, the files ranged between 1 and 16 seconds long. There is therefore a significant difference in terms of length between the two datasets.  
-
-
+The Noisy Train dataset average file length was significantly longer on average than the Curated set at 14.6s long, however, the files ranged between 1 and 16 seconds long. There is therefore a significant difference in terms of length between the two datasets. 
+<p>&nbsp;</p>
 
 ![Pandas Profiling - Durations]({{ site.baseurl }}/images/udacity-capstone-series/image-20200417151832940.png)
 
 
-​									Fig 5. Pandas Profiling information for the audio file durations
+<p style="text-align: center;">Fig 5. Pandas Profiling information for the audio file durations</p>
 
 In addition, as the name implies, the Noisy Train set files have a significantly higher noise floor than the Curated Train set due to the provenance of the files.
 
@@ -184,14 +181,13 @@ In addition, as the name implies, the Noisy Train set files have a significantly
 
 ## Data Visualisation
 
-The following figure clearly illustrates the differences between the difference in durations of audio files between the two datasets:  
-
-
+The following figure clearly illustrates the differences between the difference in durations of audio files between the two datasets: 
+<p>&nbsp;</p>
 
 ![Pandas Profiling - Durations]({{ site.baseurl }}/images/udacity-capstone-series/dataset-length-comp.jpg)
 
 
-​											Fig 6. Train vs Noisy dataset durations (x-axis = seconds)
+<p style="text-align: center;">Fig 6. Train vs Noisy dataset durations (x-axis = seconds)</p>
 
 
 
@@ -206,15 +202,13 @@ Therefore, in the development of the model the following factors will need to be
 
 **Mel-Spectrograms**
 
-This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear[^11]. The chosen settings will be discussed and shown further in the Data Preprocessing section.  
-
-
-
+This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear[^11]. The chosen settings will be discussed and shown further in the Data Preprocessing section. 
+<p>&nbsp;</p>
 
 ![Waveform to Mel spectrogram]({{ site.baseurl }}/images/udacity-capstone-series/wav-melspec-conversion.jpg)
 
 
-​												Fig 7. Conversion from Waveform to Mel-spectrogram representation
+<p style="text-align: center;">Fig 7. Conversion from Waveform to Mel-spectrogram representation</p>
 
 
 
