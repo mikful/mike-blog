@@ -143,6 +143,7 @@ window.onload = wrap_img;
 </ol>
 
 <p>Links will be provided as the series progresses. Please see <a href="https://github.com/mikful/udacity-mlend-capstone">the associated GitHub repository</a> for all notebooks.</p>
+<p>&nbsp;</p>
 
 <h2 id="i-problem-definition">I. Problem Definition</h2>
 <h3 id="overview">Overview</h3>
@@ -210,6 +211,7 @@ window.onload = wrap_img;
 <p>Due to the advancement of multi-label audio classification in recent years, a simple multi-label accuracy metric was not used within the Kaggle competition, as performances of the systems can easily exceed 95% within a few epochs of training.</p>
 
 <p>As such, the competition used label-weighted label-ranking average precision (a.k.a lwl-rap) as the evaluation metric. The basis for the metric, the label-ranking average precision algorithm, is described in detail within the Sci-Kit Learn implementation<sup id="fnref:6"><a href="#fn:6" class="footnote">6</a></sup>. The additional adaptations of the metric are to provide the average precision of predicting a ranked list of relevant labels per audio file, which is a significantly more complex problem to solve than a standard multi-label accuracy metric. The overall score is the average over all the labels in the test set, with each label having equal weight (rather than equal weight per test item), as indicated by the “label-weighted” prefix. This is defined as follows<sup id="fnref:7"><a href="#fn:7" class="footnote">7</a></sup>:</p>
+<p>&nbsp;</p>
 
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>w</mi><mi>l</mi><mi>r</mi><mi>a</mi><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><munder><mo>∑</mo><mi>s</mi></munder><mrow><mo fence="true">∣</mo><mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo fence="true">∣</mo></mrow></mrow></mfrac><munder><mo>∑</mo><mi>a</mi></munder><munder><mo>∑</mo><mrow><mi>e</mi><mi>ϵ</mi><mtext> </mtext><mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></munder><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mo stretchy="false">(</mo><mi>s</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">lwlrap = \frac{1}{\sum_{s} \left | C(s) \right |}\sum_{a}\sum_{e\epsilon\ C(s)}Prec(s,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.8374449999999998em;vertical-align:-1.516005em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0016819999999999613em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">∣</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">∣</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9857100000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.8999949999999999em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.250005em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.808995em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">ϵ</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">s</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516005em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span></span>
 
@@ -233,56 +235,56 @@ window.onload = wrap_img;
 <p>In order to undertake the analysis of the data, the numerical data analysis packages Pandas and Pandas Profiling were used.</p>
 
 <p>Pandas Profiling<sup id="fnref:10"><a href="#fn:10" class="footnote">10</a></sup> is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels).</p>
+
 <p>&nbsp;</p>
-
 <p><img src="/mike-blog/images/udacity-capstone-series/image-20200417150251804.png" alt="Pandas Profiling metadata" /></p>
-
 <p style="text-align: center;">Fig 1. An example Pandas DataFrame of extracted audio file info</p>
+<p>&nbsp;</p>
 
 <p>Using these two packages the following was found.</p>
 
 <p><strong>Curated Train Data</strong></p>
 
 <p>For the Curated Train dataset, it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz and that there were 213 different tagging combinations of the 80 audio labels over the total file count (4964 files):</p>
+
 <p>&nbsp;</p>
-
 <p><img src="/mike-blog/images/udacity-capstone-series/image-20200417150839322.png" alt="Pandas Profiling - Curated set" /></p>
-
 <p style="text-align: center;">Fig 2. Pandas Profiling for the Curated Train Data set</p>
+<p>&nbsp;</p>
 
 <p>In terms of the file durations, the average file length was 7.63 seconds and the files ranged between just over 0 and 30 seconds long, with the lengths predominantly in the 0-5 seconds length range. This will affect the mel-spectrogram processing of the data, i.e. we will need to ensure a sufficient amount of both the longer and smaller audio files are taken, in order for the feature learning of the CNN to be accurate.</p>
+
 <p>&nbsp;</p>
-
 <p><img src="/mike-blog/images/udacity-capstone-series/image-20200417151105376.png" alt="Pandas Profiling - Curated set" /></p>
-
 <p style="text-align: center;">Fig 3. Pandas Profiling information for the audio file durations</p>
+<p>&nbsp;</p>
 
 <p><strong>Noisy Train Data</strong></p>
 
 <p>As with the Curated dataset, with the Noisy Train dataset it was found that the bit-rate was a constant 16bits, the channels a constant 1 (mono), constant sample rate of 44.1kHz. However, in this dataset there were 1168 different tagging combinations of the 80 audio labels over the total file count (19815 files):</p>
+
 <p>&nbsp;</p>
-
 <p><img src="/mike-blog/images/udacity-capstone-series/image-20200417151545657.png" alt="Pandas Profiling - Noisy set" /></p>
-
 <p style="text-align: center;">Fig 4. Pandas Profiling for the Noisy Train dataset</p>
+<p>&nbsp;</p>
 
 <p>The Noisy Train dataset average file length was significantly longer on average than the Curated set at 14.6s long, however, the files ranged between 1 and 16 seconds long. There is therefore a significant difference in terms of length between the two datasets.</p>
+
 <p>&nbsp;</p>
-
 <p><img src="/mike-blog/images/udacity-capstone-series/image-20200417151832940.png" alt="Pandas Profiling - Durations" /></p>
-
 <p style="text-align: center;">Fig 5. Pandas Profiling information for the audio file durations</p>
+<p>&nbsp;</p>
 
 <p>In addition, as the name implies, the Noisy Train set files have a significantly higher noise floor than the Curated Train set due to the provenance of the files.</p>
 
 <h2 id="data-visualisation">Data Visualisation</h2>
 
 <p>The following figure clearly illustrates the differences between the difference in durations of audio files between the two datasets:</p>
+
 <p>&nbsp;</p>
-
 <p><img src="/mike-blog/images/udacity-capstone-series/dataset-length-comp.jpg" alt="Pandas Profiling - Durations" /></p>
-
 <p style="text-align: center;">Fig 6. Train vs Noisy dataset durations (x-axis = seconds)</p>
+<p>&nbsp;</p>
 
 <p>Therefore, in the development of the model the following factors will need to be considered:</p>
 
@@ -296,11 +298,11 @@ window.onload = wrap_img;
 <p><strong>Mel-Spectrograms</strong></p>
 
 <p>This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear<sup id="fnref:11"><a href="#fn:11" class="footnote">11</a></sup>. The chosen settings will be discussed and shown further in the Data Preprocessing section.</p>
+
 <p>&nbsp;</p>
-
 <p><img src="/mike-blog/images/udacity-capstone-series/wav-melspec-conversion.jpg" alt="Waveform to Mel spectrogram" /></p>
-
 <p style="text-align: center;">Fig 7. Conversion from Waveform to Mel-spectrogram representation</p>
+<p>&nbsp;</p>
 
 <p><strong>Convolutional Neural Network (CNN)</strong></p>
 
