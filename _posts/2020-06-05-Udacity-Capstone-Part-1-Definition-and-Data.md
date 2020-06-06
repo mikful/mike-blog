@@ -185,7 +185,7 @@ Therefore, in the development of the model the following factors will need to be
 
 **Mel-Spectrograms**
 
-This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform, with x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity, which has been has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human ear[^11]. The chosen settings will be discussed and shown further in the Data Preprocessing section. 
+This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform (x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity) which has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human hearing[^11]. The chosen settings will be discussed and shown further in the Data Preprocessing section. 
 
 <p>&nbsp;</p>
 ![Waveform to Mel spectrogram]({{ site.baseurl }}/images/udacity-capstone-series/wav-melspec-conversion.jpg)
@@ -203,7 +203,7 @@ The length uniformity of the audio clips in is important, as it allows Rank-2 te
 
 - Optimizer Function: Ranger which is a combination of the RAdam[^15] and Lookahead[^16] optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.
 
-- Layer tweaks: Self-Attention Layers[^17]
+- Layer tweaks: Self-Attention Layers[^17] which allow the network to focus on a subset on the features learned to be most pertinent to the data label.
 
 - Replacing Max Pooling Layers with "MaxBlurPool" layers for better generalization
 
