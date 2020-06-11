@@ -8,15 +8,18 @@ title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Definiti
 
 
 
-Welcome to part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.
+Welcome to Part 1 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This initial section deals with the problem definition, outlines the solution approach using the in-development fastai2 audio library and discusses the dataset.
 
 The blog series will be structured as follows:
 
 1.  Problem Definition, Proposed Solution and Data Exploration
-2. Implementation
+2. [Implementation](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html)
 3. Results and Analysis
 
 Links will be provided as the series progresses. Please see [the associated GitHub repository](https://github.com/mikful/udacity-mlend-capstone) for all notebooks.
+
+A huge thanks goes to fastai and the fastai2 audio contributors for their amazing work.
+
 <p>&nbsp;</p>
 
 
@@ -257,7 +260,7 @@ In Part 2 of this blog series, we will look at the methodology and implementatio
 
 
 
-If you have any questions or feedback about this post, I'd be very happy to hear it. Please contact me at my GitHub or Twitter using the links below.
+If you have any questions or feedback about this post, I'd be very happy to hear them. Please contact me at my GitHub or Twitter using the links below.
 
 
 
