@@ -29,11 +29,11 @@ A huge thanks goes to fastai and the fastai2 audio contributors for their amazin
 
 **Fastai2 Audio**
 
-The fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of efficient data processing rather than pre-processing and saving to a different dataset. This was done using the following process:
+The remarkable in-development fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of highly efficient data processing, rather than pre-processing and having to save spectrograms to a different dataset. This was done using the following process:
 
 1. Create Pandas DataFrames for the files, suing the `train_curated.csv` and `train_noisy.csv` files provided by the competition, removing corrupted or empty files as given in the competition guidance:
-
-```Python
+<p>&nbsp;</p>
+```python
 def create_train_curated_df(file, remove_files=[]):
     df_curated = pd.read_csv(file)
     df_curated['fname'] = '../data/train_curated/' + 	df_curated['fname'] 
@@ -59,7 +59,7 @@ df_curated.head()
 ```
 
 The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio `item_transformations` which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:
-
+<p>&nbsp;</p>
 ```python
 DBMelSpec = SpectrogramTransformer(mel=True, to_db=True) # convert to Mel-spectrograms
 
@@ -74,7 +74,7 @@ win_length = 1024 # sample windowing
 top_db = 60 # highest noise level in relative db
 ```
 
-* The ` top_db` parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.
+* The `top_db` parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.
 
 In addition to the mel-spectrogram settings above, the following additional item transformations were undertaken:
 
@@ -83,7 +83,7 @@ In addition to the mel-spectrogram settings above, the following additional item
 * `aud2spec` - The mel-spectrogram settings from above
 * `MaskTime` - Uses Google's SpecAugment[^20] time masking procedure to zero-out time domain information as a form of data augmentation
 * `MaskFreq` - Uses Google's SpecAugment[^20] frequency masking procedure to zero-out frequency domain information as a form of data augmentation
-
+<p>&nbsp;</p>
 ```python
 item_tfms = [RemoveSilence(threshold=20),  
              CropSignal(clip_length*1000),  
@@ -98,7 +98,7 @@ In addition to the item transforms above, Batch Transforms were used as part of 
 * `Normalize()` - normalizes the data taking a single batch's statistics
 * `RatioResize(256)` - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.
 * `Brightness and Contrast` augmentations were also applied in the training cycles to improve performance
-
+<p>&nbsp;</p>
 ```python
 batch_tfms = [Normalize(),
               RatioResize(256),
@@ -106,9 +106,9 @@ batch_tfms = [Normalize(),
               Contrast(max_lighting=0.2, p=0.75)]
 ```
 
-No further augmentations were applied, as would be typical in many image processes many typical image augmentations applied during other classification purposes are not suitable for spectrogram representations of audio. For example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.s
+No further augmentations were applied as would otherwise be typical in many image classification processes. Many typical image augmentations applied  are not suitable for spectrogram representations of audio, for example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.
 
-The above augmentations (prior to batch transformations), produced the following mel-spectrograms as 2D tensors, plotted via matplotlib:
+The above augmentations (prior to batch transformations), produced the following mel-spectrograms as 2D tensors (note the time and frequency masking augmentations):
 
 <p>&nbsp;</p>
 ![Augmented Mel Spectrograms]({{ site.baseurl }}/images/udacity-capstone-series/aug-mel-spectrograms.jpg)
@@ -132,12 +132,12 @@ The implemented training method was chosen based on the Competitions 6th place w
 
 **Stage 1 - Noisy Training Set**
 
-As can be seen below, the following 5-Fold training cycle was used on the noisy set. The indices of the DataFrame were shuffled to ensure the data splits were chosen at random, but without overlap using SKLearns k-Folds module. The cycle began with 10 epochs of training at a higher learning rate and then 10 epochs of training at a lower learning rate (set after using fastai's learning rate finder during the testing stage) used to fine-tune the model's weights further. Please see the associated Jupyter Notebook for the training output.
+As can be seen below, the following 5-Fold training cycle was used on the noisy set. The indices of the DataFrame were shuffled to ensure the data splits were chosen at random, but without overlap using SKLearn's k-Folds module. The cycle began with 10 epochs of training at a higher learning rate and then 10 epochs of training at a lower learning rate (set after using fastai's learning rate finder during the testing stage) used to fine-tune the model's weights further. Please see the associated Jupyter Notebook for the training output.
 
 The models were then saved for further training on the curated training set.
 
 *Note: No MixUp augmentations were used on the Noisy Training set.*
-
+<p>&nbsp;</p>
 ```python
 from sklearn.model_selection import KFold
 
@@ -201,8 +201,8 @@ for fold, (train_idx, valid_idx) in enumerate(kf.split(df)):
 
 After all 5 models had been trained on the Noisy set, the models were then trained on different 5-folds of the Curated Set. This essentially gave 5 distinct models, all trained on different data for later ensembling. 
 
-*Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tenors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.*
-
+*Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tensors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.*
+<p>&nbsp;</p>
 ```python
 ## K-Folds training loop
 
@@ -248,7 +248,7 @@ for fold, (train_idx, valid_idx) in enumerate(kf.split(df)):
 **Testing**
 
 At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.
-
+<p>&nbsp;</p>
 ```python
 # grab test filenames from submission csv
 df_fnames = pd.read_csv('../data/sample_submission.csv')
