@@ -211,7 +211,7 @@ window.onload = wrap_img;
   <li><code class="highlighter-rouge">MaskTime</code> - Uses Google’s SpecAugment<sup id="fnref:20"><a href="#fn:20" class="footnote">1</a></sup> time masking procedure to zero-out time domain information as a form of data augmentation</li>
   <li><code class="highlighter-rouge">MaskFreq</code> - Uses Google’s SpecAugment<sup id="fnref:20:1"><a href="#fn:20" class="footnote">1</a></sup> frequency masking procedure to zero-out frequency domain information as a form of data augmentation</li>
 </ul>
-<p>&nbsp;</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">item_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">RemoveSilence</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>  
              <span class="n">CropSignal</span><span class="p">(</span><span class="n">clip_length</span><span class="o">*</span><span class="mi">1000</span><span class="p">),</span>  
              <span class="n">aud2spec</span><span class="p">,</span>
@@ -226,13 +226,14 @@ window.onload = wrap_img;
   <li><code class="highlighter-rouge">Normalize()</code> - normalizes the data taking a single batch’s statistics</li>
   <li><code class="highlighter-rouge">RatioResize(256)</code> - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.</li>
   <li><code class="highlighter-rouge">Brightness and Contrast</code> augmentations were also applied in the training cycles to improve performance</li>
+  <li>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Normalize</span><span class="p">(),</span>
+          <span class="n">RatioResize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+          <span class="n">Brightness</span><span class="p">(</span><span class="n">max_lighting</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">),</span>
+          <span class="n">Contrast</span><span class="p">(</span><span class="n">max_lighting</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)]</span>
+</code></pre></div>    </div>
+  </li>
 </ul>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Normalize</span><span class="p">(),</span>
-              <span class="n">RatioResize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
-              <span class="n">Brightness</span><span class="p">(</span><span class="n">max_lighting</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">),</span>
-              <span class="n">Contrast</span><span class="p">(</span><span class="n">max_lighting</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)]</span>
-</code></pre></div></div>
 
 <p>No further augmentations were applied as would otherwise be typical in many image classification processes. Many typical image augmentations applied  are not suitable for spectrogram representations of audio, for example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.</p>
 
