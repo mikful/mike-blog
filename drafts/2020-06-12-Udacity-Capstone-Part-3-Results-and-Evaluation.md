@@ -5,7 +5,7 @@ Welcome to part 2 of a blog series based on my Udacity Machine Learning Engineer
 
 The blog series is structured as follows, please follow the links for other sections:
 
-1.  [Problem Definition, Proposed Solution and Data Exploration]([https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html](https://mikful.github.io/blog/deep learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html))
+1.  [Problem Definition, Proposed Solution and Data Exploration](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html)
 2.  Implementation
 3.  Results and Analysis
 
