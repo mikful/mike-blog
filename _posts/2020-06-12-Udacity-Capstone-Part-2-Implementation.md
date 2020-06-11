@@ -32,7 +32,7 @@ A huge thanks goes to fastai and the fastai2 audio contributors for their amazin
 The remarkable in-development fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of highly efficient data processing, rather than pre-processing and having to save spectrograms to a different dataset. This was done using the following process:
 
 1. Create Pandas DataFrames for the files, suing the `train_curated.csv` and `train_noisy.csv` files provided by the competition, removing corrupted or empty files as given in the competition guidance:
-<p>&nbsp;</p>
+
 ```python
 def create_train_curated_df(file, remove_files=[]):
     df_curated = pd.read_csv(file)
@@ -59,7 +59,7 @@ df_curated.head()
 ```
 
 The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio `item_transformations` which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:
-<p>&nbsp;</p>
+
 ```python
 DBMelSpec = SpectrogramTransformer(mel=True, to_db=True) # convert to Mel-spectrograms
 
@@ -98,7 +98,7 @@ In addition to the item transforms above, Batch Transforms were used as part of 
 * `Normalize()` - normalizes the data taking a single batch's statistics
 * `RatioResize(256)` - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.
 * `Brightness and Contrast` augmentations were also applied in the training cycles to improve performance
-<p>&nbsp;</p>
+
 ```python
 batch_tfms = [Normalize(),
               RatioResize(256),
@@ -137,7 +137,7 @@ As can be seen below, the following 5-Fold training cycle was used on the noisy 
 The models were then saved for further training on the curated training set.
 
 *Note: No MixUp augmentations were used on the Noisy Training set.*
-<p>&nbsp;</p>
+
 ```python
 from sklearn.model_selection import KFold
 
@@ -202,7 +202,7 @@ for fold, (train_idx, valid_idx) in enumerate(kf.split(df)):
 After all 5 models had been trained on the Noisy set, the models were then trained on different 5-folds of the Curated Set. This essentially gave 5 distinct models, all trained on different data for later ensembling. 
 
 *Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tensors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.*
-<p>&nbsp;</p>
+
 ```python
 ## K-Folds training loop
 
@@ -248,7 +248,7 @@ for fold, (train_idx, valid_idx) in enumerate(kf.split(df)):
 **Testing**
 
 At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.
-<p>&nbsp;</p>
+
 ```python
 # grab test filenames from submission csv
 df_fnames = pd.read_csv('../data/sample_submission.csv')
@@ -318,7 +318,7 @@ Test-Time-Augmentation was shown to provide a benefit of >3% improvement during 
 <p>&nbsp;</p>
 
 
-After reading further the writeups of the competition winners and high scorers[^19] [^21][^22], it was decided that a K-Folds validation approach was required in order to substantially improve the performance. 
+After reading further the writeups of the competition winners and high scorers [^19] [^21][^22], it was decided that a K-Folds validation approach was required in order to substantially improve the performance. 
 
 In addition, due to the large size of the spectrograms in the initial testing phase that would cause extremely slow training over so many folds (a 5x increase in epochs), these were replaced with smaller 128x128px (using 128 mel-bins and the settings shown in the above Section III: Data Preprocessing section). It was decided to first try training for a single fold on the Noisy set (90%/10% train/test split) and then split this model into 5 separate models for the further training on the Curated Set.
 
@@ -330,9 +330,9 @@ Whatsmore, the pretrained xresnet50 model was replaced by the state-of-the-art x
 <p style="text-align: center;">Fig 12. Improvement using SOTA model</p>
 <p>&nbsp;</p>
 
-
 Finally, a full 5-Fold Cross-Validation training was undertaken for both the Noisy and Curated set as detailed in Figure 9 in Section III: Implementation above, with some tweaks to the spectrograms settings, i.e. using `top_dB` of 60 to ensure only the most prominent Noisy Set features were captured by the mel-spectrograms. This this approach achieved the final score of 0.69788, a marked improvement that would have gained a bronze-medal position in the competition and could certainly be improved upon further.
 
+[^19]: [https://github.com/lRomul/argus-freesound](https://github.com/lRomul/argus-freesound)
 [^22]: [https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f](https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f)
 
 
