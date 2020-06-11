@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-06-11T18:18:04-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation" /><published>2020-06-12T00:00:00-05:00</published><updated>2020-06-12T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">&lt;p&gt;Welcome to Part 2 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-06-11T18:45:58-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation" /><published>2020-06-12T00:00:00-05:00</published><updated>2020-06-12T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">&lt;p&gt;Welcome to Part 2 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
 
 &lt;p&gt;The blog series is structured as follows, please follow the links for other sections:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html&quot;&gt;Problem Definition, Proposed Solution and Data Exploration&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Implementation&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html&quot;&gt;Problem Definition, Analysis and Methods and Algorithms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Methodology (Data Pre-processing, Implementation and Refinement)&lt;/li&gt;
   &lt;li&gt;Results and Analysis&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -14,8 +14,8 @@
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-&lt;h2 id=&quot;iii-methodology&quot;&gt;III. Methodology&lt;/h2&gt;
-&lt;h3 id=&quot;data-preprocessing&quot;&gt;Data Preprocessing&lt;/h3&gt;
+&lt;h2 id=&quot;iv-methodology&quot;&gt;IV. Methodology&lt;/h2&gt;
+&lt;h3 id=&quot;data-pre-processing&quot;&gt;Data Pre-processing&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Fastai2 Audio&lt;/strong&gt;&lt;/p&gt;
 
@@ -333,8 +333,8 @@
 &lt;p&gt;The blog series will be structured as follows:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Problem Definition, Proposed Solution and Data Exploration&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html&quot;&gt;Implementation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Problem Definition, Analysis and Methods and Algorithms&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html&quot;&gt;Methodology (Preprocessing, Implementation and Refinement)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Results and Analysis&lt;/li&gt;
 &lt;/ol&gt;
 
