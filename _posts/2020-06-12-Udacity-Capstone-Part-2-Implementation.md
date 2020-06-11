@@ -83,7 +83,7 @@ In addition to the mel-spectrogram settings above, the following additional item
 * `aud2spec` - The mel-spectrogram settings from above
 * `MaskTime` - Uses Google's SpecAugment[^20] time masking procedure to zero-out time domain information as a form of data augmentation
 * `MaskFreq` - Uses Google's SpecAugment[^20] frequency masking procedure to zero-out frequency domain information as a form of data augmentation
-<p>&nbsp;</p>
+
 ```python
 item_tfms = [RemoveSilence(threshold=20),  
              CropSignal(clip_length*1000),  
@@ -98,7 +98,7 @@ In addition to the item transforms above, Batch Transforms were used as part of 
 * `Normalize()` - normalizes the data taking a single batch's statistics
 * `RatioResize(256)` - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.
 * `Brightness and Contrast` augmentations were also applied in the training cycles to improve performance
-
+* 
 ```python
 batch_tfms = [Normalize(),
               RatioResize(256),

@@ -256,7 +256,7 @@ The Baseline performance for the Kaggle Competition was set at 0.53792 which pro
 
 ## Up Next
 
-In Part 2 of this blog series, we will look at the methodology and implementation of training the model and improving it iteratively.
+In [Part 2](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html) of this blog series, we will look at the methodology and implementation of training the model and improving it iteratively.
 
 
 
