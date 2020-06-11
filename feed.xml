@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-06-11T18:05:05-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation" /><published>2020-06-12T00:00:00-05:00</published><updated>2020-06-12T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">&lt;p&gt;Welcome to Part 2 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-06-11T18:18:04-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation" /><published>2020-06-12T00:00:00-05:00</published><updated>2020-06-12T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">&lt;p&gt;Welcome to Part 2 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
 
 &lt;p&gt;The blog series is structured as follows, please follow the links for other sections:&lt;/p&gt;
 
@@ -24,7 +24,7 @@
 &lt;ol&gt;
   &lt;li&gt;Create Pandas DataFrames for the files, suing the &lt;code class=&quot;highlighter-rouge&quot;&gt;train_curated.csv&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;train_noisy.csv&lt;/code&gt; files provided by the competition, removing corrupted or empty files as given in the competition guidance:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_train_curated_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'../data/train_curated/'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 	&lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; 
@@ -50,7 +50,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio &lt;code class=&quot;highlighter-rouge&quot;&gt;item_transformations&lt;/code&gt; which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;DBMelSpec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SpectrogramTransformer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# convert to Mel-spectrograms
 &lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;clip_length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# clip subsection length in seconds
@@ -93,7 +93,7 @@
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RatioResize(256)&lt;/code&gt; - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Brightness and Contrast&lt;/code&gt; augmentations were also applied in the training cycles to improve performance&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;batch_tfms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Normalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
               &lt;span class=&quot;n&quot;&gt;RatioResize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
               &lt;span class=&quot;n&quot;&gt;Brightness&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_lighting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
@@ -127,7 +127,7 @@
 &lt;p&gt;The models were then saved for further training on the curated training set.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Note: No MixUp augmentations were used on the Noisy Training set.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.model_selection&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KFold&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;# Declare Number Folds 
@@ -189,7 +189,7 @@
 &lt;p&gt;After all 5 models had been trained on the Noisy set, the models were then trained on different 5-folds of the Curated Set. This essentially gave 5 distinct models, all trained on different data for later ensembling.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tensors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;## K-Folds training loop
 &lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;
@@ -232,7 +232,7 @@
 &lt;p&gt;&lt;strong&gt;Testing&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# grab test filenames from submission csv
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_fnames&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'../data/sample_submission.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;fnames&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_fnames&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fname&lt;/span&gt;
@@ -293,7 +293,7 @@
 &lt;p style=&quot;text-align: center;&quot;&gt;Fig 11. Improvement using TTA&lt;/p&gt;
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
-&lt;p&gt;After reading further the writeups of the competition winners and high scorers[^19] &lt;sup id=&quot;fnref:21&quot;&gt;&lt;a href=&quot;#fn:21&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&quot;fnref:22&quot;&gt;&lt;a href=&quot;#fn:22&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, it was decided that a K-Folds validation approach was required in order to substantially improve the performance.&lt;/p&gt;
+&lt;p&gt;After reading further the writeups of the competition winners and high scorers &lt;sup id=&quot;fnref:19&quot;&gt;&lt;a href=&quot;#fn:19&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&quot;fnref:21&quot;&gt;&lt;a href=&quot;#fn:21&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&quot;fnref:22&quot;&gt;&lt;a href=&quot;#fn:22&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;, it was decided that a K-Folds validation approach was required in order to substantially improve the performance.&lt;/p&gt;
 
 &lt;p&gt;In addition, due to the large size of the spectrograms in the initial testing phase that would cause extremely slow training over so many folds (a 5x increase in epochs), these were replaced with smaller 128x128px (using 128 mel-bins and the settings shown in the above Section III: Data Preprocessing section). It was decided to first try training for a single fold on the Noisy set (90%/10% train/test split) and then split this model into 5 separate models for the further training on the Curated Set.&lt;/p&gt;
 
@@ -317,6 +317,9 @@
   &lt;ol&gt;
     &lt;li id=&quot;fn:20&quot;&gt;
       &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1904.08779&quot;&gt;Chan,Zhang,Chiu, Zoph,Cubuk,Le - 2019 - SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition&lt;/a&gt; &lt;a href=&quot;#fnref:20&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:20:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:20:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:19&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;https://github.com/lRomul/argus-freesound&quot;&gt;https://github.com/lRomul/argus-freesound&lt;/a&gt; &lt;a href=&quot;#fnref:19&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:21&quot;&gt;
       &lt;p&gt;&lt;a href=&quot;https://github.com/ebouteillon/freesound-audio-tagging-2019&quot;&gt;https://github.com/ebouteillon/freesound-audio-tagging-2019&lt;/a&gt; &lt;a href=&quot;#fnref:21&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;

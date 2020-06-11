@@ -158,7 +158,7 @@ window.onload = wrap_img;
 <ol>
   <li>Create Pandas DataFrames for the files, suing the <code class="highlighter-rouge">train_curated.csv</code> and <code class="highlighter-rouge">train_noisy.csv</code> files provided by the competition, removing corrupted or empty files as given in the competition guidance:</li>
 </ol>
-<p>&nbsp;</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_train_curated_df</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">remove_files</span><span class="o">=</span><span class="p">[]):</span>
     <span class="n">df_curated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
     <span class="n">df_curated</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'../data/train_curated/'</span> <span class="o">+</span> 	<span class="n">df_curated</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> 
@@ -184,7 +184,7 @@ window.onload = wrap_img;
 </code></pre></div></div>
 
 <p>The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio <code class="highlighter-rouge">item_transformations</code> which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:</p>
-<p>&nbsp;</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DBMelSpec</span> <span class="o">=</span> <span class="n">SpectrogramTransformer</span><span class="p">(</span><span class="n">mel</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">to_db</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># convert to Mel-spectrograms
 </span>
 <span class="n">clip_length</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># clip subsection length in seconds
@@ -227,7 +227,7 @@ window.onload = wrap_img;
   <li><code class="highlighter-rouge">RatioResize(256)</code> - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.</li>
   <li><code class="highlighter-rouge">Brightness and Contrast</code> augmentations were also applied in the training cycles to improve performance</li>
 </ul>
-<p>&nbsp;</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Normalize</span><span class="p">(),</span>
               <span class="n">RatioResize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
               <span class="n">Brightness</span><span class="p">(</span><span class="n">max_lighting</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">),</span>
@@ -261,7 +261,7 @@ window.onload = wrap_img;
 <p>The models were then saved for further training on the curated training set.</p>
 
 <p><em>Note: No MixUp augmentations were used on the Noisy Training set.</em></p>
-<p>&nbsp;</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
 <span class="c1"># Declare Number Folds 
@@ -323,7 +323,7 @@ window.onload = wrap_img;
 <p>After all 5 models had been trained on the Noisy set, the models were then trained on different 5-folds of the Curated Set. This essentially gave 5 distinct models, all trained on different data for later ensembling.</p>
 
 <p><em>Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tensors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.</em></p>
-<p>&nbsp;</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## K-Folds training loop
 </span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df_curated</span>
@@ -366,7 +366,7 @@ window.onload = wrap_img;
 <p><strong>Testing</strong></p>
 
 <p>At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.</p>
-<p>&nbsp;</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># grab test filenames from submission csv
 </span><span class="n">df_fnames</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'../data/sample_submission.csv'</span><span class="p">)</span>
 <span class="n">fnames</span> <span class="o">=</span> <span class="n">df_fnames</span><span class="o">.</span><span class="n">fname</span>
@@ -427,7 +427,7 @@ window.onload = wrap_img;
 <p style="text-align: center;">Fig 11. Improvement using TTA</p>
 <p>&nbsp;</p>
 
-<p>After reading further the writeups of the competition winners and high scorers[^19] <sup id="fnref:21"><a href="#fn:21" class="footnote">2</a></sup><sup id="fnref:22"><a href="#fn:22" class="footnote">3</a></sup>, it was decided that a K-Folds validation approach was required in order to substantially improve the performance.</p>
+<p>After reading further the writeups of the competition winners and high scorers <sup id="fnref:19"><a href="#fn:19" class="footnote">2</a></sup> <sup id="fnref:21"><a href="#fn:21" class="footnote">3</a></sup><sup id="fnref:22"><a href="#fn:22" class="footnote">4</a></sup>, it was decided that a K-Folds validation approach was required in order to substantially improve the performance.</p>
 
 <p>In addition, due to the large size of the spectrograms in the initial testing phase that would cause extremely slow training over so many folds (a 5x increase in epochs), these were replaced with smaller 128x128px (using 128 mel-bins and the settings shown in the above Section III: Data Preprocessing section). It was decided to first try training for a single fold on the Noisy set (90%/10% train/test split) and then split this model into 5 separate models for the further training on the Curated Set.</p>
 
@@ -451,6 +451,9 @@ window.onload = wrap_img;
   <ol>
     <li id="fn:20">
       <p><a href="https://arxiv.org/abs/1904.08779">Chan,Zhang,Chiu, Zoph,Cubuk,Le - 2019 - SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition</a> <a href="#fnref:20" class="reversefootnote">&#8617;</a> <a href="#fnref:20:1" class="reversefootnote">&#8617;<sup>2</sup></a> <a href="#fnref:20:2" class="reversefootnote">&#8617;<sup>3</sup></a></p>
+    </li>
+    <li id="fn:19">
+      <p><a href="https://github.com/lRomul/argus-freesound">https://github.com/lRomul/argus-freesound</a> <a href="#fnref:19" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:21">
       <p><a href="https://github.com/ebouteillon/freesound-audio-tagging-2019">https://github.com/ebouteillon/freesound-audio-tagging-2019</a> <a href="#fnref:21" class="reversefootnote">&#8617;</a></p>
