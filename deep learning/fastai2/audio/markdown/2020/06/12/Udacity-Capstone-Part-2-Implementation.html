@@ -93,7 +93,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blog/drafts/2020-06-12-Udacity-Capstone-Part-2-Implementation.html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</a><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      10 min read
+      11 min read
     
 </span></p>
 
@@ -153,38 +153,38 @@ window.onload = wrap_img;
 
 <p><strong>Fastai2 Audio</strong></p>
 
-<p>The fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of efficient data processing rather than pre-processing and saving to a different dataset. This was done using the following process:</p>
+<p>The remarkable in-development fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of highly efficient data processing, rather than pre-processing and having to save spectrograms to a different dataset. This was done using the following process:</p>
 
 <ol>
   <li>Create Pandas DataFrames for the files, suing the <code class="highlighter-rouge">train_curated.csv</code> and <code class="highlighter-rouge">train_noisy.csv</code> files provided by the competition, removing corrupted or empty files as given in the competition guidance:</li>
 </ol>
+<p>&nbsp;</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_train_curated_df</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">remove_files</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">df_curated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="n">df_curated</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'../data/train_curated/'</span> <span class="o">+</span> 	<span class="n">df_curated</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> 
+    <span class="n">df_curated</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'fname'</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">df_curated</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">remove_files</span><span class="p">]</span>
+    <span class="n">df_curated</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">remove_files</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">df_curated</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_curated</span>
 
-<pre><code class="language-Python">def create_train_curated_df(file, remove_files=[]):
-    df_curated = pd.read_csv(file)
-    df_curated['fname'] = '../data/train_curated/' + 	df_curated['fname'] 
-    df_curated.set_index('fname', inplace=True)
-    df_curated.loc[remove_files]
-    df_curated.drop(index=remove_files, inplace=True)
-    df_curated.reset_index(inplace=True)
-    return df_curated
-
-def create_train_noisy_df(file):
-    df_noisy = pd.read_csv(file)
-    df_noisy['fname'] = '../data/train_noisy/' + df_noisy['fname'] 
-    return df_noisy
+<span class="k">def</span> <span class="nf">create_train_noisy_df</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
+    <span class="n">df_noisy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="n">df_noisy</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'../data/train_noisy/'</span> <span class="o">+</span> <span class="n">df_noisy</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> 
+    <span class="k">return</span> <span class="n">df_noisy</span>
 
 
-# Create Curated training set df
+<span class="c1"># Create Curated training set df
 # Remove corrupt and empty files as per Kaggle guidance
-
-remove_files = ['f76181c4.wav', '77b925c2.wav', '6a1f682a.wav', 'c7db12aa.wav', '7752cc8a.wav', '1d44b0bd.wav']
-remove_files = ['../data/train_curated/' + i for i in remove_files]
-df_curated = create_train_curated_df('../data/train_curated.csv', remove_files=remove_files)
-df_curated.head()
-</code></pre>
+</span>
+<span class="n">remove_files</span> <span class="o">=</span> <span class="p">[</span><span class="s">'f76181c4.wav'</span><span class="p">,</span> <span class="s">'77b925c2.wav'</span><span class="p">,</span> <span class="s">'6a1f682a.wav'</span><span class="p">,</span> <span class="s">'c7db12aa.wav'</span><span class="p">,</span> <span class="s">'7752cc8a.wav'</span><span class="p">,</span> <span class="s">'1d44b0bd.wav'</span><span class="p">]</span>
+<span class="n">remove_files</span> <span class="o">=</span> <span class="p">[</span><span class="s">'../data/train_curated/'</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">remove_files</span><span class="p">]</span>
+<span class="n">df_curated</span> <span class="o">=</span> <span class="n">create_train_curated_df</span><span class="p">(</span><span class="s">'../data/train_curated.csv'</span><span class="p">,</span> <span class="n">remove_files</span><span class="o">=</span><span class="n">remove_files</span><span class="p">)</span>
+<span class="n">df_curated</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
 
 <p>The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio <code class="highlighter-rouge">item_transformations</code> which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:</p>
-
+<p>&nbsp;</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DBMelSpec</span> <span class="o">=</span> <span class="n">SpectrogramTransformer</span><span class="p">(</span><span class="n">mel</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">to_db</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># convert to Mel-spectrograms
 </span>
 <span class="n">clip_length</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># clip subsection length in seconds
@@ -199,7 +199,7 @@ df_curated.head()
 </span></code></pre></div></div>
 
 <ul>
-  <li>The ` top_db` parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.</li>
+  <li>The <code class="highlighter-rouge">top_db</code> parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.</li>
 </ul>
 
 <p>In addition to the mel-spectrogram settings above, the following additional item transformations were undertaken:</p>
@@ -211,7 +211,7 @@ df_curated.head()
   <li><code class="highlighter-rouge">MaskTime</code> - Uses Google’s SpecAugment<sup id="fnref:20"><a href="#fn:20" class="footnote">1</a></sup> time masking procedure to zero-out time domain information as a form of data augmentation</li>
   <li><code class="highlighter-rouge">MaskFreq</code> - Uses Google’s SpecAugment<sup id="fnref:20:1"><a href="#fn:20" class="footnote">1</a></sup> frequency masking procedure to zero-out frequency domain information as a form of data augmentation</li>
 </ul>
-
+<p>&nbsp;</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">item_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">RemoveSilence</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>  
              <span class="n">CropSignal</span><span class="p">(</span><span class="n">clip_length</span><span class="o">*</span><span class="mi">1000</span><span class="p">),</span>  
              <span class="n">aud2spec</span><span class="p">,</span>
@@ -227,16 +227,16 @@ df_curated.head()
   <li><code class="highlighter-rouge">RatioResize(256)</code> - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.</li>
   <li><code class="highlighter-rouge">Brightness and Contrast</code> augmentations were also applied in the training cycles to improve performance</li>
 </ul>
-
+<p>&nbsp;</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Normalize</span><span class="p">(),</span>
               <span class="n">RatioResize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
               <span class="n">Brightness</span><span class="p">(</span><span class="n">max_lighting</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">),</span>
               <span class="n">Contrast</span><span class="p">(</span><span class="n">max_lighting</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)]</span>
 </code></pre></div></div>
 
-<p>No further augmentations were applied, as would be typical in many image processes many typical image augmentations applied during other classification purposes are not suitable for spectrogram representations of audio. For example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.s</p>
+<p>No further augmentations were applied as would otherwise be typical in many image classification processes. Many typical image augmentations applied  are not suitable for spectrogram representations of audio, for example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.</p>
 
-<p>The above augmentations (prior to batch transformations), produced the following mel-spectrograms as 2D tensors, plotted via matplotlib:</p>
+<p>The above augmentations (prior to batch transformations), produced the following mel-spectrograms as 2D tensors (note the time and frequency masking augmentations):</p>
 
 <p>&nbsp;</p>
 <p><img src="/blog/images/udacity-capstone-series/aug-mel-spectrograms.jpg" alt="Augmented Mel Spectrograms" /></p>
@@ -256,12 +256,12 @@ df_curated.head()
 
 <p><strong>Stage 1 - Noisy Training Set</strong></p>
 
-<p>As can be seen below, the following 5-Fold training cycle was used on the noisy set. The indices of the DataFrame were shuffled to ensure the data splits were chosen at random, but without overlap using SKLearns k-Folds module. The cycle began with 10 epochs of training at a higher learning rate and then 10 epochs of training at a lower learning rate (set after using fastai’s learning rate finder during the testing stage) used to fine-tune the model’s weights further. Please see the associated Jupyter Notebook for the training output.</p>
+<p>As can be seen below, the following 5-Fold training cycle was used on the noisy set. The indices of the DataFrame were shuffled to ensure the data splits were chosen at random, but without overlap using SKLearn’s k-Folds module. The cycle began with 10 epochs of training at a higher learning rate and then 10 epochs of training at a lower learning rate (set after using fastai’s learning rate finder during the testing stage) used to fine-tune the model’s weights further. Please see the associated Jupyter Notebook for the training output.</p>
 
 <p>The models were then saved for further training on the curated training set.</p>
 
 <p><em>Note: No MixUp augmentations were used on the Noisy Training set.</em></p>
-
+<p>&nbsp;</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
 <span class="c1"># Declare Number Folds 
@@ -322,8 +322,8 @@ df_curated.head()
 
 <p>After all 5 models had been trained on the Noisy set, the models were then trained on different 5-folds of the Curated Set. This essentially gave 5 distinct models, all trained on different data for later ensembling.</p>
 
-<p><em>Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tenors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.</em></p>
-
+<p><em>Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tensors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.</em></p>
+<p>&nbsp;</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## K-Folds training loop
 </span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df_curated</span>
@@ -366,7 +366,7 @@ df_curated.head()
 <p><strong>Testing</strong></p>
 
 <p>At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.</p>
-
+<p>&nbsp;</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># grab test filenames from submission csv
 </span><span class="n">df_fnames</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'../data/sample_submission.csv'</span><span class="p">)</span>
 <span class="n">fnames</span> <span class="o">=</span> <span class="n">df_fnames</span><span class="o">.</span><span class="n">fname</span>

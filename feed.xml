@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-06-11T17:22:33-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation" /><published>2020-06-12T00:00:00-05:00</published><updated>2020-06-12T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">&lt;p&gt;Welcome to Part 2 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-06-11T18:05:05-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation" /><published>2020-06-12T00:00:00-05:00</published><updated>2020-06-12T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">&lt;p&gt;Welcome to Part 2 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
 
 &lt;p&gt;The blog series is structured as follows, please follow the links for other sections:&lt;/p&gt;
 
@@ -19,38 +19,38 @@
 
 &lt;p&gt;&lt;strong&gt;Fastai2 Audio&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;The fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of efficient data processing rather than pre-processing and saving to a different dataset. This was done using the following process:&lt;/p&gt;
+&lt;p&gt;The remarkable in-development fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of highly efficient data processing, rather than pre-processing and having to save spectrograms to a different dataset. This was done using the following process:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Create Pandas DataFrames for the files, suing the &lt;code class=&quot;highlighter-rouge&quot;&gt;train_curated.csv&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;train_noisy.csv&lt;/code&gt; files provided by the competition, removing corrupted or empty files as given in the competition guidance:&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_train_curated_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'../data/train_curated/'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 	&lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inplace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inplace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inplace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;def create_train_curated_df(file, remove_files=[]):
-    df_curated = pd.read_csv(file)
-    df_curated['fname'] = '../data/train_curated/' + 	df_curated['fname'] 
-    df_curated.set_index('fname', inplace=True)
-    df_curated.loc[remove_files]
-    df_curated.drop(index=remove_files, inplace=True)
-    df_curated.reset_index(inplace=True)
-    return df_curated
-
-def create_train_noisy_df(file):
-    df_noisy = pd.read_csv(file)
-    df_noisy['fname'] = '../data/train_noisy/' + df_noisy['fname'] 
-    return df_noisy
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_train_noisy_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_noisy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_noisy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'../data/train_noisy/'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_noisy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_noisy&lt;/span&gt;
 
 
-# Create Curated training set df
+&lt;span class=&quot;c1&quot;&gt;# Create Curated training set df
 # Remove corrupt and empty files as per Kaggle guidance
-
-remove_files = ['f76181c4.wav', '77b925c2.wav', '6a1f682a.wav', 'c7db12aa.wav', '7752cc8a.wav', '1d44b0bd.wav']
-remove_files = ['../data/train_curated/' + i for i in remove_files]
-df_curated = create_train_curated_df('../data/train_curated.csv', remove_files=remove_files)
-df_curated.head()
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'f76181c4.wav'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'77b925c2.wav'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'6a1f682a.wav'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'c7db12aa.wav'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'7752cc8a.wav'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'1d44b0bd.wav'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'../data/train_curated/'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_train_curated_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'../data/train_curated.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio &lt;code class=&quot;highlighter-rouge&quot;&gt;item_transformations&lt;/code&gt; which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:&lt;/p&gt;
-
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;DBMelSpec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SpectrogramTransformer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# convert to Mel-spectrograms
 &lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;clip_length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# clip subsection length in seconds
@@ -65,7 +65,7 @@ df_curated.head()
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The ` top_db` parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;top_db&lt;/code&gt; parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;In addition to the mel-spectrogram settings above, the following additional item transformations were undertaken:&lt;/p&gt;
@@ -77,7 +77,7 @@ df_curated.head()
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MaskTime&lt;/code&gt; - Uses Google’s SpecAugment&lt;sup id=&quot;fnref:20&quot;&gt;&lt;a href=&quot;#fn:20&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; time masking procedure to zero-out time domain information as a form of data augmentation&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MaskFreq&lt;/code&gt; - Uses Google’s SpecAugment&lt;sup id=&quot;fnref:20:1&quot;&gt;&lt;a href=&quot;#fn:20&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; frequency masking procedure to zero-out frequency domain information as a form of data augmentation&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;item_tfms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RemoveSilence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;threshold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;  
              &lt;span class=&quot;n&quot;&gt;CropSignal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clip_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;  
              &lt;span class=&quot;n&quot;&gt;aud2spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -93,16 +93,16 @@ df_curated.head()
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RatioResize(256)&lt;/code&gt; - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Brightness and Contrast&lt;/code&gt; augmentations were also applied in the training cycles to improve performance&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;batch_tfms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Normalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
               &lt;span class=&quot;n&quot;&gt;RatioResize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
               &lt;span class=&quot;n&quot;&gt;Brightness&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_lighting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
               &lt;span class=&quot;n&quot;&gt;Contrast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_lighting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;No further augmentations were applied, as would be typical in many image processes many typical image augmentations applied during other classification purposes are not suitable for spectrogram representations of audio. For example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.s&lt;/p&gt;
+&lt;p&gt;No further augmentations were applied as would otherwise be typical in many image classification processes. Many typical image augmentations applied  are not suitable for spectrogram representations of audio, for example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.&lt;/p&gt;
 
-&lt;p&gt;The above augmentations (prior to batch transformations), produced the following mel-spectrograms as 2D tensors, plotted via matplotlib:&lt;/p&gt;
+&lt;p&gt;The above augmentations (prior to batch transformations), produced the following mel-spectrograms as 2D tensors (note the time and frequency masking augmentations):&lt;/p&gt;
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/blog/images/udacity-capstone-series/aug-mel-spectrograms.jpg&quot; alt=&quot;Augmented Mel Spectrograms&quot; /&gt;&lt;/p&gt;
@@ -122,12 +122,12 @@ df_curated.head()
 
 &lt;p&gt;&lt;strong&gt;Stage 1 - Noisy Training Set&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;As can be seen below, the following 5-Fold training cycle was used on the noisy set. The indices of the DataFrame were shuffled to ensure the data splits were chosen at random, but without overlap using SKLearns k-Folds module. The cycle began with 10 epochs of training at a higher learning rate and then 10 epochs of training at a lower learning rate (set after using fastai’s learning rate finder during the testing stage) used to fine-tune the model’s weights further. Please see the associated Jupyter Notebook for the training output.&lt;/p&gt;
+&lt;p&gt;As can be seen below, the following 5-Fold training cycle was used on the noisy set. The indices of the DataFrame were shuffled to ensure the data splits were chosen at random, but without overlap using SKLearn’s k-Folds module. The cycle began with 10 epochs of training at a higher learning rate and then 10 epochs of training at a lower learning rate (set after using fastai’s learning rate finder during the testing stage) used to fine-tune the model’s weights further. Please see the associated Jupyter Notebook for the training output.&lt;/p&gt;
 
 &lt;p&gt;The models were then saved for further training on the curated training set.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Note: No MixUp augmentations were used on the Noisy Training set.&lt;/em&gt;&lt;/p&gt;
-
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.model_selection&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KFold&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;# Declare Number Folds 
@@ -188,8 +188,8 @@ df_curated.head()
 
 &lt;p&gt;After all 5 models had been trained on the Noisy set, the models were then trained on different 5-folds of the Curated Set. This essentially gave 5 distinct models, all trained on different data for later ensembling.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tenors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.&lt;/em&gt;&lt;/p&gt;
-
+&lt;p&gt;&lt;em&gt;Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tensors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;## K-Folds training loop
 &lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_curated&lt;/span&gt;
@@ -232,7 +232,7 @@ df_curated.head()
 &lt;p&gt;&lt;strong&gt;Testing&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.&lt;/p&gt;
-
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# grab test filenames from submission csv
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_fnames&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'../data/sample_submission.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;fnames&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_fnames&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fname&lt;/span&gt;
@@ -394,8 +394,8 @@ df_curated.head()
       &lt;li&gt;The fastai2 and fastai2 audio libraries will be installed&lt;/li&gt;
       &lt;li&gt;The fastai2 audio library will be used for the data processing, in order to convert the audio files into tensor representations of mel-spectrograms on-the-fly, rather than in a separate pre-processing stage. This is a significant benefit of the library in terms of allowing quick experimentation and iteration within the model development over other methods such as converting all audio files to mel-spectrogram images separately.&lt;/li&gt;
       &lt;li&gt;In-line with the competition rubric, a non-pretrained convolutional neural network (CNN) using the fastai2 library for PyTorch will be developed using state-of-the-art methods and additions.&lt;/li&gt;
-      &lt;li&gt;The model will be trained on the “Curated Train” set in a 5-Folds Cross Validation manner, using Sci-Kit Learn’s K-Fold model selection module&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
-      &lt;li&gt;The results of these 5 models will be used to train on the “Noisy Train” set in the same 5-Folds Cross Validation manner as the Curated Train set, but for a shorter period due to the large amount of data.&lt;/li&gt;
+      &lt;li&gt;The model will be trained on the “Noisy Train” set in a 5-Folds Cross Validation manner, using Sci-Kit Learn’s K-Fold model selection module&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+      &lt;li&gt;The results of these 5 models will be used to train on the “Curated Train” set in the same 5-Folds Cross Validation manner as the Curated Train set in order to gain 5 separate models.&lt;/li&gt;
       &lt;li&gt;Test-Time-Augmentation (TTA) will be used to gain averaged predictions from all 5 final models on the test set. The predictions will be submitted as a Late-Submission for the analysis of the results.&lt;/li&gt;
       &lt;li&gt;This will be repeated, with tweaks to the model augmentations in order to try to improve the results iteratively.&lt;/li&gt;
     &lt;/ul&gt;

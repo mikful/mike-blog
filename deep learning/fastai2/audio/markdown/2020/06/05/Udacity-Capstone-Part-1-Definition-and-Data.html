@@ -93,7 +93,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blog/drafts/2020-06-12-Udacity-Capstone-Part-2-Implementation.html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Implementation</a><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -201,8 +201,8 @@ window.onload = wrap_img;
       <li>The fastai2 and fastai2 audio libraries will be installed</li>
       <li>The fastai2 audio library will be used for the data processing, in order to convert the audio files into tensor representations of mel-spectrograms on-the-fly, rather than in a separate pre-processing stage. This is a significant benefit of the library in terms of allowing quick experimentation and iteration within the model development over other methods such as converting all audio files to mel-spectrogram images separately.</li>
       <li>In-line with the competition rubric, a non-pretrained convolutional neural network (CNN) using the fastai2 library for PyTorch will be developed using state-of-the-art methods and additions.</li>
-      <li>The model will be trained on the “Curated Train” set in a 5-Folds Cross Validation manner, using Sci-Kit Learn’s K-Fold model selection module<sup id="fnref:5"><a href="#fn:5" class="footnote">5</a></sup>.</li>
-      <li>The results of these 5 models will be used to train on the “Noisy Train” set in the same 5-Folds Cross Validation manner as the Curated Train set, but for a shorter period due to the large amount of data.</li>
+      <li>The model will be trained on the “Noisy Train” set in a 5-Folds Cross Validation manner, using Sci-Kit Learn’s K-Fold model selection module<sup id="fnref:5"><a href="#fn:5" class="footnote">5</a></sup>.</li>
+      <li>The results of these 5 models will be used to train on the “Curated Train” set in the same 5-Folds Cross Validation manner as the Curated Train set in order to gain 5 separate models.</li>
       <li>Test-Time-Augmentation (TTA) will be used to gain averaged predictions from all 5 final models on the test set. The predictions will be submitted as a Late-Submission for the analysis of the results.</li>
       <li>This will be repeated, with tweaks to the model augmentations in order to try to improve the results iteratively.</li>
     </ul>
