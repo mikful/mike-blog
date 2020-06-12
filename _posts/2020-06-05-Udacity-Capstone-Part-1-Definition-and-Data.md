@@ -3,7 +3,7 @@ toc: false
 layout: post
 description: A Udacity Machine Learning Engineer Nanodegree Capstone Project
 categories: [deep learning, fastai2, audio, markdown]
-title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Definition and Data
+title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Problem Definition, Data Analysis, Methods and Algorithms
 ---
 
 
@@ -12,7 +12,7 @@ Welcome to Part 1 of a blog series based on my Udacity Machine Learning Engineer
 
 The blog series will be structured as follows:
 
-1.  Problem Definition, Analysis and Methods and Algorithms
+1.  Problem Definition, Data Analysis, Methods and Algorithms
 2. [Methodology (Preprocessing, Implementation and Refinement)](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html)
 3. Results and Analysis
 
