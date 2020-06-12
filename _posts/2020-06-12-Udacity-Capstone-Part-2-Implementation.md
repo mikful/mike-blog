@@ -33,6 +33,8 @@ The remarkable in-development fastai2 audio package was used to convert the audi
 
 1. Create Pandas DataFrames for the files, suing the `train_curated.csv` and `train_noisy.csv` files provided by the competition, removing corrupted or empty files as given in the competition guidance:
 
+   
+
 ```python
 def create_train_curated_df(file, remove_files=[]):
     df_curated = pd.read_csv(file)
@@ -58,7 +60,11 @@ df_curated = create_train_curated_df('../data/train_curated.csv', remove_files=r
 df_curated.head()
 ```
 
+
+
 The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio `item_transformations` which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:
+
+
 
 ```python
 DBMelSpec = SpectrogramTransformer(mel=True, to_db=True) # convert to Mel-spectrograms
@@ -74,15 +80,23 @@ win_length = 1024 # sample windowing
 top_db = 60 # highest noise level in relative db
 ```
 
+
+
 * The `top_db` parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.
 
 In addition to the mel-spectrogram settings above, the following additional item transformations were undertaken:
 
 * `RemoveSilence`  - Splits the original signal at points of silence more than `2 * pad_ms`
+
 * `CropSignal` - Crops a signal by `clip_length` seconds and adds zero-padding by default if the signal is less than `clip_length`
+
 * `aud2spec` - The mel-spectrogram settings from above
+
 * `MaskTime` - Uses Google's SpecAugment[^20] time masking procedure to zero-out time domain information as a form of data augmentation
+
 * `MaskFreq` - Uses Google's SpecAugment[^20] frequency masking procedure to zero-out frequency domain information as a form of data augmentation
+
+  
 
 ```python
 item_tfms = [RemoveSilence(threshold=20),  
@@ -91,6 +105,8 @@ item_tfms = [RemoveSilence(threshold=20),
              MaskTime(num_masks=1, size=8), MaskFreq(num_masks=1, size=8)]
 ```
 
+
+
 **Batch Transforms**
 
 In addition to the item transforms above, Batch Transforms were used as part of the DataBlock API, which are transformations applied per batch during training:
@@ -98,13 +114,16 @@ In addition to the item transforms above, Batch Transforms were used as part of 
 * `Normalize()` - normalizes the data taking a single batch's statistics
 * `RatioResize(256)` - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.
 * `Brightness and Contrast` augmentations were also applied in the training cycles to improve performance
-* 
+
+  
 ```python
 batch_tfms = [Normalize(),
               RatioResize(256),
               Brightness(max_lighting=0.2, p=0.75),
               Contrast(max_lighting=0.2, p=0.75)]
 ```
+
+
 
 No further augmentations were applied as would otherwise be typical in many image classification processes. Many typical image augmentations applied  are not suitable for spectrogram representations of audio, for example, cropping/warping/rotating the spectrogram tensor would warp the relative frequency relationship and thus, would not gain any benefit at testing time. This was found to be true during tests of various transforms.
 
@@ -137,6 +156,8 @@ As can be seen below, the following 5-Fold training cycle was used on the noisy 
 The models were then saved for further training on the curated training set.
 
 *Note: No MixUp augmentations were used on the Noisy Training set.*
+
+
 
 ```python
 from sklearn.model_selection import KFold
@@ -203,6 +224,8 @@ After all 5 models had been trained on the Noisy set, the models were then train
 
 *Note: MixUp data augmentations were applied to the Curated Train set, shown as training callback below. This is whereby two spectrogram tensors are combined into a single 2D tensor with a certain percentage blend (50% in this case), allowing the network to learn double the amount of features and labels per batch. This also provides a form of regularization for the model which improves generalization on the validation/test sets.*
 
+
+
 ```python
 ## K-Folds training loop
 
@@ -249,6 +272,8 @@ for fold, (train_idx, valid_idx) in enumerate(kf.split(df)):
 
 At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.
 
+
+
 ```python
 # grab test filenames from submission csv
 df_fnames = pd.read_csv('../data/sample_submission.csv')
@@ -285,6 +310,8 @@ df_sub.insert(0, "fname", 0)
 df_sub.fname = fnames
 df_sub.head()
 ```
+
+
 
 The produced .csv file was then submitted to Kaggle.
 
