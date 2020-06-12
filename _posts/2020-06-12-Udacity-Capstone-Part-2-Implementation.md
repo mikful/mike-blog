@@ -318,7 +318,7 @@ Test-Time-Augmentation was shown to provide a benefit of >3% improvement during 
 <p>&nbsp;</p>
 
 
-After reading further the writeups of the competition winners and high scorers [^19] [^21][^22], it was decided that a K-Folds validation approach was required in order to substantially improve the performance. 
+After reading further the writeups of the competition winners and high scorers [^19][^21][^22], it was decided that a K-Folds validation approach was required in order to substantially improve the performance. 
 
 In addition, due to the large size of the spectrograms in the initial testing phase that would cause extremely slow training over so many folds (a 5x increase in epochs), these were replaced with smaller 128x128px (using 128 mel-bins and the settings shown in the above Data Pre-processing section). It was decided to first try training for a single fold on the Noisy set (90%/10% train/test split) and then split this model into 5 separate models for the further training on the Curated Set.
 
