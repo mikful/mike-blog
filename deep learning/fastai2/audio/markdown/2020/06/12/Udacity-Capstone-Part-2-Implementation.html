@@ -428,7 +428,7 @@ window.onload = wrap_img;
 <p style="text-align: center;">Fig 11. Improvement using TTA</p>
 <p>&nbsp;</p>
 
-<p>After reading further the writeups of the competition winners and high scorers <sup id="fnref:19"><a href="#fn:19" class="footnote">2</a></sup> <sup id="fnref:21"><a href="#fn:21" class="footnote">3</a></sup><sup id="fnref:22"><a href="#fn:22" class="footnote">4</a></sup>, it was decided that a K-Folds validation approach was required in order to substantially improve the performance.</p>
+<p>After reading further the writeups of the competition winners and high scorers <sup id="fnref:19"><a href="#fn:19" class="footnote">2</a></sup><sup id="fnref:21"><a href="#fn:21" class="footnote">3</a></sup><sup id="fnref:22"><a href="#fn:22" class="footnote">4</a></sup>, it was decided that a K-Folds validation approach was required in order to substantially improve the performance.</p>
 
 <p>In addition, due to the large size of the spectrograms in the initial testing phase that would cause extremely slow training over so many folds (a 5x increase in epochs), these were replaced with smaller 128x128px (using 128 mel-bins and the settings shown in the above Data Pre-processing section). It was decided to first try training for a single fold on the Noisy set (90%/10% train/test split) and then split this model into 5 separate models for the further training on the Curated Set.</p>
 
