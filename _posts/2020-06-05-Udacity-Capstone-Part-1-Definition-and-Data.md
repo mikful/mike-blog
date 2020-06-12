@@ -13,7 +13,7 @@ Welcome to Part 1 of a blog series based on my Udacity Machine Learning Engineer
 The blog series will be structured as follows:
 
 1.  Problem Definition, Data Analysis, Methods and Algorithms
-2. [Methodology (Preprocessing, Implementation and Refinement)](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html)
+2. [Methodology and Implementation](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html)
 3. Results and Analysis
 
 Links will be provided as the series progresses. Please see [the associated GitHub repository](https://github.com/mikful/udacity-mlend-capstone) for all notebooks.
