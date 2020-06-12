@@ -320,9 +320,9 @@ Test-Time-Augmentation was shown to provide a benefit of >3% improvement during 
 
 After reading further the writeups of the competition winners and high scorers [^19] [^21][^22], it was decided that a K-Folds validation approach was required in order to substantially improve the performance. 
 
-In addition, due to the large size of the spectrograms in the initial testing phase that would cause extremely slow training over so many folds (a 5x increase in epochs), these were replaced with smaller 128x128px (using 128 mel-bins and the settings shown in the above Section III: Data Preprocessing section). It was decided to first try training for a single fold on the Noisy set (90%/10% train/test split) and then split this model into 5 separate models for the further training on the Curated Set.
+In addition, due to the large size of the spectrograms in the initial testing phase that would cause extremely slow training over so many folds (a 5x increase in epochs), these were replaced with smaller 128x128px (using 128 mel-bins and the settings shown in the above Data Pre-processing section). It was decided to first try training for a single fold on the Noisy set (90%/10% train/test split) and then split this model into 5 separate models for the further training on the Curated Set.
 
-Whatsmore, the pretrained xresnet50 model was replaced by the state-of-the-art xresnet50 model described above in Section II: Algorithms and Techniques. This was in line with the allowance of only non-pretrained models in the competition and was also shown to provide small improvements over the pretrained xresnet50 over long enough training cycles, such that the non-trained units could effectively learn, as shown below:
+What's more, the pretrained xresnet50 model was replaced by the state-of-the-art xresnet50 model described in the previous Section II: Algorithms and Techniques. This was in line with the allowance of only non-pretrained models in the competition and was also shown to provide small improvements over the pretrained xresnet50 over long enough training cycles, such that the non-trained units could effectively learn, as shown below:
 
 
 <p>&nbsp;</p>
@@ -330,7 +330,7 @@ Whatsmore, the pretrained xresnet50 model was replaced by the state-of-the-art x
 <p style="text-align: center;">Fig 12. Improvement using SOTA model</p>
 <p>&nbsp;</p>
 
-Finally, a full 5-Fold Cross-Validation training was undertaken for both the Noisy and Curated set as detailed in Figure 9 in Section III: Implementation above, with some tweaks to the spectrograms settings, i.e. using `top_dB` of 60 to ensure only the most prominent Noisy Set features were captured by the mel-spectrograms. This this approach achieved the final score of 0.69788, a marked improvement that would have gained a bronze-medal position in the competition and could certainly be improved upon further.
+Finally, a full 5-Fold Cross-Validation training was undertaken for both the Noisy and Curated set as detailed in Figure 9 in the Implementation section above, with some tweaks to the spectrograms settings, i.e. using `top_dB` of 60 to ensure only the most prominent Noisy Set features were captured by the mel-spectrograms. This this approach achieved the final score of 0.69788, a marked improvement that would have gained a bronze-medal position in the competition and could certainly be improved upon further.
 
 [^19]: [https://github.com/lRomul/argus-freesound](https://github.com/lRomul/argus-freesound)
 [^22]: [https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f](https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f)
