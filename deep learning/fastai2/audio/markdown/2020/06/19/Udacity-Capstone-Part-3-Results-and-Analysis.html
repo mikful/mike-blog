@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis | Mike’s Blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Udacity Machine Learning Engineer Nanodegree Capstone Project" />
+<meta property="og:description" content="A Udacity Machine Learning Engineer Nanodegree Capstone Project" />
+<link rel="canonical" href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html" />
+<meta property="og:url" content="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html" />
+<meta property="og:site_name" content="Mike’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","@type":"BlogPosting","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis","dateModified":"2020-06-19T00:00:00-05:00","datePublished":"2020-06-19T00:00:00-05:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis | Mike’s Blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Udacity Machine Learning Engineer Nanodegree Capstone Project" />
+<meta property="og:description" content="A Udacity Machine Learning Engineer Nanodegree Capstone Project" />
+<link rel="canonical" href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html" />
+<meta property="og:url" content="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html" />
+<meta property="og:site_name" content="Mike’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","@type":"BlogPosting","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis","dateModified":"2020-06-19T00:00:00-05:00","datePublished":"2020-06-19T00:00:00-05:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Mike&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis</h1><p class="page-description">A Udacity Machine Learning Engineer Nanodegree Capstone Project</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-06-19T00:00:00-05:00" itemprop="datePublished">
+        Jun 19, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#deep learning">deep learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#fastai2">fastai2</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#audio">audio</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#markdown">markdown</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Welcome to part 3 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.</p>
+
+<p>The blog series is structured as follows, please follow the links for other sections:</p>
+
+<ol>
+  <li><a href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html">Problem Definition, Proposed Solution and Data Exploration</a></li>
+  <li><a href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">Methodology and Implementation</a></li>
+  <li>Results and Analysis</li>
+</ol>
+
+<p>Links will be provided as the series progresses. Please see <a href="https://github.com/mikful/udacity-mlend-capstone">the associated GitHub repository</a> for all notebooks.</p>
+
+<p>A huge thanks goes to fastai and the fastai2 audio contributors for their amazing work.</p>
+
+<h2 id="iv-results">IV. Results</h2>
+
+<h3 id="model-evaluation-and-validation">Model Evaluation and Validation</h3>
+
+<p>The procedures outlined in the above sections were used to obtain a final prediction score of 0.69788.</p>
+
+<p><img src="/blog/images/udacity-capstone-series/image-20200418113906272.png" alt="Final Score" /></p>
+
+<p>​																	Fig 13. Final Prediction Score, lwl-rap</p>
+
+<h3 id="justification">Justification</h3>
+
+<p>The Competition baseline score of 0.53792 was beaten by a considerable margin of 16%. The  winning score of 0.75980 was not achieved, with a shortfall of 6%, however, the winning model and the top-scoring models documented [^19] [^21][^22] used training stages of 3x to 5x as long as the one implemented herein.</p>
+
+<p>Additionally, the amount of pre-processing within the solution presented was negligible, afforded by the very impressive fastai2 audio library, whereas other solutions involved the significant extra time and storage usage of conversion from audio files to spectrogram images</p>
+
+<p>As such, it is considered that the model performance is more than satisfactory for the task of auto-tagging audio files and further testing would be needed to see if it could achieve the same performance as the top-scorers.</p>
+
+<h2 id="v-conclusion">V. Conclusion</h2>
+
+<h3 id="free-form-visualization">Free-Form Visualization</h3>
+
+<p>One very clear visual element of the datasets is the difference in the noise level and quality of the recordings between the two datasets. This is shown clearly below:</p>
+
+<p><img src="C:\Users\mikef\Documents\GitHub\udacity-mlend-capstone\images\noisy-curated-comp.jpg" alt="noisy-curated-comp" /></p>
+
+<p>​											Fig 14. Differences in noise level between Curated and Noisy Set</p>
+
+<p>The impact of this was that, when using the noisy dataset for training alone, the lwl-rap score was approximately 20% lower than using only the curated dataset for training. As such, the two stage training method was used for bigger performance gains.</p>
+
+<h3 id="reflection">Reflection</h3>
+
+<p>The stages involved in the production of this model were varied, each step requiring careful consideration of the data and audio file to spectrogram augmentations.</p>
+
+<p>The most interesting aspects of the project were considered to be the time/performance cost balance required in the data augmentations’ effect on the training. It was extremely interesting to also see the stark impact of the K-Folds Validation training procedure and Test-Time-Augmentations on the final score.</p>
+
+<p>The main difficulties in the project were the balancing of trying to achieve a good score while minimising training and iteration costs on the Google Cloud Platform. Given the nature of the problem, the training times were necessarily long and this was not anticipated fully at the outset of choosing the problem set. In a production setting this would be a significant consideration to bear in mind.</p>
+
+<p>The final model is considered to be of good performance and will serve to inform future model development for production-stage inference of audio auto-tagging. Naturally, the TTA and ensembling of predictions means this model should only be used in an offline scenario for complex and noisy audio tagging, however, it should be noted that using this system with a standard multi-label accuracy metric, a score of over 95% was achieved within the first few epochs of training on both the Curated and Noisy Train sets.</p>
+
+<p>As such, a similar approach, perhaps using a different metric (standard multi-label accuracy), could be used for a deployed inference model to be used within applications for audio classification e.g. for bird sounds, which is an area of interest of the author.</p>
+
+<h3 id="improvement">Improvement</h3>
+
+<p>It is considered the final prediction score could be improved in a number of ways:</p>
+
+<ul>
+  <li>Longer training times</li>
+  <li>Further fine-tuning of the mel-spectrogram settings</li>
+  <li>further ensembling of models</li>
+  <li>further data engineering, such as further training on correctly predicted noisy data [^21]</li>
+</ul>
+
+<p>The majority of the techniques were implemented within the development of the model, however, in the best performing models in the competition, more advanced data engineering was undertaken such as cross-referencing prediction scores between models and only doing further training on the audio files that were correctly selected over a certain threshold across models. This would require significant extra development that the author did not achieve within the time frame available.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>That concludes the 3 part series on my Udacity Machine Learning Engineer Nanodegree Capstone project. It was a fantastic learning experience and I hope one that is also useful for others.</p>
+
+<p>If you have any questions or feedback about this post, I’d be very happy to hear them. Please contact me at my GitHub or Twitter using the links below.</p>
+
+  </div><a class="u-url" href="/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blog about my journey into Machine Learning</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/mikful" title="mikful"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/mikful" title="mikful"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
