@@ -1,12 +1,16 @@
-# Machine Learning Engineer Nanodegree Capstone Project
-
-## Multi-Label Auto-Tagging of Audio Files Using fastai2 Audio
-Welcome to part 2 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.
+---
+toc: false
+layout: post
+description: A Udacity Machine Learning Engineer Nanodegree Capstone Project
+categories: [deep learning, fastai2, audio, markdown]
+title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis
+---
+Welcome to part 3 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.
 
 The blog series is structured as follows, please follow the links for other sections:
 
 1.  [Problem Definition, Proposed Solution and Data Exploration](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html)
-2.  Implementation
+2. [Methodology and Implementation](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html)
 3.  Results and Analysis
 
 Links will be provided as the series progresses. Please see [the associated GitHub repository](https://github.com/mikful/udacity-mlend-capstone) for all notebooks.
@@ -76,13 +80,8 @@ It is considered the final prediction score could be improved in a number of way
 
 The majority of the techniques were implemented within the development of the model, however, in the best performing models in the competition, more advanced data engineering was undertaken such as cross-referencing prediction scores between models and only doing further training on the audio files that were correctly selected over a certain threshold across models. This would require significant extra development that the author did not achieve within the time frame available.
 
-## Up Next
+## Conclusion
 
-In Part 3 of this blog series, we'll look at the final results and how these could be improved upon.
+That concludes the 3 part series on my Udacity Machine Learning Engineer Nanodegree Capstone project. It was a fantastic learning experience and I hope one that is also useful for others.
 
 If you have any questions or feedback about this post, I'd be very happy to hear them. Please contact me at my GitHub or Twitter using the links below.
-
-
-
-
-## References:
