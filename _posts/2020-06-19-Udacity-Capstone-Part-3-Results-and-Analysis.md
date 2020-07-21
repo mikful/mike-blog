@@ -47,7 +47,7 @@ As such, it is considered that the model performance is more than satisfactory f
 
 One very clear visual element of the datasets is the difference in the noise level and quality of the recordings between the two datasets. This is shown clearly below:
 
-![noisy-curated-comp](C:\Users\mikef\Documents\GitHub\udacity-mlend-capstone\images\noisy-curated-comp.jpg)
+![noisy-curated-comp]({{ site.baseurl }}/images/udacity-capstone-series/noisy-curated-comp.jpg)
 
 ​											Fig 14. Differences in noise level between Curated and Noisy Set
 
@@ -85,3 +85,13 @@ The majority of the techniques were implemented within the development of the mo
 That concludes the 3 part series on my Udacity Machine Learning Engineer Nanodegree Capstone project. It was a fantastic learning experience and I hope one that is also useful for others.
 
 If you have any questions or feedback about this post, I'd be very happy to hear them. Please contact me at my GitHub or Twitter using the links below.
+
+
+
+## References:
+
+[^19]: [https://github.com/lRomul/argus-freesound](https://github.com/lRomul/argus-freesound)
+
+[^21]: [https://github.com/ebouteillon/freesound-audio-tagging-2019](https://github.com/ebouteillon/freesound-audio-tagging-2019)
+
+[^22]: [https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f](https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f)
