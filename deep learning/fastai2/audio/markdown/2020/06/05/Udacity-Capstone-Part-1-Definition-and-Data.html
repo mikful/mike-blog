@@ -139,7 +139,7 @@ window.onload = wrap_img;
 <ol>
   <li>Problem Definition, Data Analysis, Methods and Algorithms</li>
   <li><a href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html">Methodology and Implementation</a></li>
-  <li>Results and Analysis</li>
+  <li><a href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html">Results and Analysis</a></li>
 </ol>
 
 <p>Links will be provided as the series progresses. Please see <a href="https://github.com/mikful/udacity-mlend-capstone">the associated GitHub repository</a> for all notebooks.</p>
@@ -343,7 +343,7 @@ window.onload = wrap_img;
 
 <p><strong>Test-Time Augmentation (TTA)</strong></p>
 
-<p>In addition to the methods outlined above, Test-Time augmentations were applied to the test set, such that the data transformations were used as part of the testing procedure in order to give a further performance boost.</p>
+<p>In addition to the methods outlined above, Test-Time Augmentations were applied to the test set, whereby, during inference, multiple augmented versions of the images were created using the same data transformations as the training procedure and then the average of the maximum of the predictions for each augmented version is used as the final prediction. This provided a further performance boost.</p>
 
 <h3 id="benchmark">Benchmark</h3>
 

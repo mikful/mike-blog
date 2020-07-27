@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-07-21T16:04:29-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis" /><published>2020-06-19T00:00:00-05:00</published><updated>2020-06-19T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html">&lt;p&gt;Welcome to part 3 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mikful.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mikful.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-07-27T17:24:48-05:00</updated><id>https://mikful.github.io/blog/feed.xml</id><title type="html">Mike’s Blog</title><subtitle>A blog about my journey into Machine Learning</subtitle><entry><title type="html">Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis</title><link href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html" rel="alternate" type="text/html" title="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis" /><published>2020-06-19T00:00:00-05:00</published><updated>2020-06-19T00:00:00-05:00</updated><id>https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis</id><content type="html" xml:base="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html">&lt;p&gt;Welcome to part 3 of a blog series based on my Udacity Machine Learning Engineer Nanodegree Capstone project.  This section defines the model implementation using the in-development fastai2 audio library and Google Cloud AI Platform notebooks.&lt;/p&gt;
 
 &lt;p&gt;The blog series is structured as follows, please follow the links for other sections:&lt;/p&gt;
 
@@ -94,7 +94,7 @@
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html&quot;&gt;Problem Definition, Analysis, Methods and Algorithms&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Methodology and Implementation&lt;/li&gt;
-  &lt;li&gt;Results and Analysis&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html&quot;&gt;Results and Analysis&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Links will be provided as the series progresses. Please see &lt;a href=&quot;https://github.com/mikful/udacity-mlend-capstone&quot;&gt;the associated GitHub repository&lt;/a&gt; for all notebooks.&lt;/p&gt;
@@ -434,7 +434,7 @@
 &lt;ol&gt;
   &lt;li&gt;Problem Definition, Data Analysis, Methods and Algorithms&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html&quot;&gt;Methodology and Implementation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Results and Analysis&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html&quot;&gt;Results and Analysis&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Links will be provided as the series progresses. Please see &lt;a href=&quot;https://github.com/mikful/udacity-mlend-capstone&quot;&gt;the associated GitHub repository&lt;/a&gt; for all notebooks.&lt;/p&gt;
@@ -638,7 +638,7 @@
 
 &lt;p&gt;&lt;strong&gt;Test-Time Augmentation (TTA)&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;In addition to the methods outlined above, Test-Time augmentations were applied to the test set, such that the data transformations were used as part of the testing procedure in order to give a further performance boost.&lt;/p&gt;
+&lt;p&gt;In addition to the methods outlined above, Test-Time Augmentations were applied to the test set, whereby, during inference, multiple augmented versions of the images were created using the same data transformations as the training procedure and then the average of the maximum of the predictions for each augmented version is used as the final prediction. This provided a further performance boost.&lt;/p&gt;
 
 &lt;h3 id=&quot;benchmark&quot;&gt;Benchmark&lt;/h3&gt;
 
