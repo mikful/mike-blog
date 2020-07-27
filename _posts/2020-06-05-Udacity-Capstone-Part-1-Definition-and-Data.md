@@ -14,7 +14,7 @@ The blog series will be structured as follows:
 
 1.  Problem Definition, Data Analysis, Methods and Algorithms
 2. [Methodology and Implementation](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html)
-3. Results and Analysis
+3. [Results and Analysis](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html)
 
 Links will be provided as the series progresses. Please see [the associated GitHub repository](https://github.com/mikful/udacity-mlend-capstone) for all notebooks.
 
@@ -225,7 +225,7 @@ MixUp, whereby two spectrograms are combined to form a third, was also used duri
 
 **Test-Time Augmentation (TTA)**
 
-In addition to the methods outlined above, Test-Time augmentations were applied to the test set, such that the data transformations were used as part of the testing procedure in order to give a further performance boost.
+In addition to the methods outlined above, Test-Time Augmentations were applied to the test set, whereby, during inference, multiple augmented versions of the images were created using the same data transformations as the training procedure and then the average of the maximum of the predictions for each augmented version is used as the final prediction. This provided a further performance boost.
 
 [^9]: [https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521](https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521)
 [^10]: [https://github.com/pandas-profiling/pandas-profiling](https://github.com/pandas-profiling/pandas-profiling)

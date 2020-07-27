@@ -13,7 +13,7 @@ The blog series is structured as follows, please follow the links for other sect
 
 1.  [Problem Definition, Analysis, Methods and Algorithms](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html)
 2.  Methodology and Implementation
-3.  Results and Analysis
+3.  [Results and Analysis](https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html)
 
 Links will be provided as the series progresses. Please see [the associated GitHub repository](https://github.com/mikful/udacity-mlend-capstone) for all notebooks.
 
