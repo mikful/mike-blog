@@ -8,7 +8,9 @@ https://mikful.github.io/mike-blog/
 
 # Mike's Blog
 
-Welcome to my blog about my journey into learning about learning - be it Machine or Human.
+hi, I'm an acoustic engineer undergoing a career change as a current MSc Artificial Intelligence candidate at the University of Bath, UK.
+
+Welcome to my blog about my journey into machine learning and AI.
 
 If you have any queries on any of the posts, or just want to get in touch, please feel free to send me a message at the links provided.  
 
