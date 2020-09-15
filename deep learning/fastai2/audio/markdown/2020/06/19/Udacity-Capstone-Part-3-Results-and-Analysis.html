@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-06-19T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","@type":"BlogPosting","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis","dateModified":"2020-06-19T00:00:00-05:00","datePublished":"2020-06-19T00:00:00-05:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html"},"@context":"https://schema.org"}</script>
+{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis","dateModified":"2020-06-19T00:00:00-05:00","datePublished":"2020-06-19T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html"},"url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis | Mike’s Blog</title>
@@ -30,7 +30,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-06-19T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","@type":"BlogPosting","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis","dateModified":"2020-06-19T00:00:00-05:00","datePublished":"2020-06-19T00:00:00-05:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html"},"@context":"https://schema.org"}</script>
+{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 3 - Results and Analysis","dateModified":"2020-06-19T00:00:00-05:00","datePublished":"2020-06-19T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html"},"url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/19/Udacity-Capstone-Part-3-Results-and-Analysis.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -158,7 +158,7 @@ window.onload = wrap_img;
 
 <h3 id="justification">Justification</h3>
 
-<p>The Competition baseline score of 0.53792 was beaten by a considerable margin of 16%. The  winning score of 0.75980 was not achieved, with a shortfall of 6%, however, the winning model and the top-scoring models documented <sup id="fnref:19"><a href="#fn:19" class="footnote">1</a></sup> <sup id="fnref:21"><a href="#fn:21" class="footnote">2</a></sup><sup id="fnref:22"><a href="#fn:22" class="footnote">3</a></sup> used training stages of 3x to 5x as long as the one implemented herein.</p>
+<p>The Competition baseline score of 0.53792 was beaten by a considerable margin of 16%. The  winning score of 0.75980 was not achieved, with a shortfall of 6%, however, the winning model and the top-scoring models documented <sup id="fnref:19" role="doc-noteref"><a href="#fn:19" class="footnote">1</a></sup> <sup id="fnref:21" role="doc-noteref"><a href="#fn:21" class="footnote">2</a></sup><sup id="fnref:22" role="doc-noteref"><a href="#fn:22" class="footnote">3</a></sup> used training stages of 3x to 5x as long as the one implemented herein.</p>
 
 <p>Additionally, the amount of pre-processing within the solution presented was negligible, afforded by the very impressive fastai2 audio library, whereas other solutions involved the significant extra time and storage usage of conversion from audio files to spectrogram images</p>
 
@@ -196,7 +196,7 @@ window.onload = wrap_img;
   <li>Longer training times</li>
   <li>Further fine-tuning of the mel-spectrogram settings</li>
   <li>further ensembling of models</li>
-  <li>further data engineering, such as further training on correctly predicted noisy data <sup id="fnref:21:1"><a href="#fn:21" class="footnote">2</a></sup></li>
+  <li>further data engineering, such as further training on correctly predicted noisy data <sup id="fnref:21:1" role="doc-noteref"><a href="#fn:21" class="footnote">2</a></sup></li>
 </ul>
 
 <p>The majority of the techniques were implemented within the development of the model, however, in the best performing models in the competition, more advanced data engineering was undertaken such as cross-referencing prediction scores between models and only doing further training on the audio files that were correctly selected over a certain threshold across models. This would require significant extra development that the author did not achieve within the time frame available.</p>
@@ -209,16 +209,16 @@ window.onload = wrap_img;
 
 <h2 id="references">References:</h2>
 
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:19">
-      <p><a href="https://github.com/lRomul/argus-freesound">https://github.com/lRomul/argus-freesound</a> <a href="#fnref:19" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:19" role="doc-endnote">
+      <p><a href="https://github.com/lRomul/argus-freesound">https://github.com/lRomul/argus-freesound</a> <a href="#fnref:19" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:21">
-      <p><a href="https://github.com/ebouteillon/freesound-audio-tagging-2019">https://github.com/ebouteillon/freesound-audio-tagging-2019</a> <a href="#fnref:21" class="reversefootnote">&#8617;</a> <a href="#fnref:21:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
+    <li id="fn:21" role="doc-endnote">
+      <p><a href="https://github.com/ebouteillon/freesound-audio-tagging-2019">https://github.com/ebouteillon/freesound-audio-tagging-2019</a> <a href="#fnref:21" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:21:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
     </li>
-    <li id="fn:22">
-      <p><a href="https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f">https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f</a> <a href="#fnref:22" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:22" role="doc-endnote">
+      <p><a href="https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f">https://medium.com/@mnpinto/multi-label-audio-classification-7th-place-public-lb-solution-for-freesound-audio-tagging-2019-a7ccc0e0a02f</a> <a href="#fnref:22" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

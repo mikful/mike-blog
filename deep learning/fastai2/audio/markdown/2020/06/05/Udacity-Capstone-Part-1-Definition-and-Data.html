@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-06-05T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","@type":"BlogPosting","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Problem Definition, Data Analysis, Methods and Algorithms","dateModified":"2020-06-05T00:00:00-05:00","datePublished":"2020-06-05T00:00:00-05:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html"},"@context":"https://schema.org"}</script>
+{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Problem Definition, Data Analysis, Methods and Algorithms","dateModified":"2020-06-05T00:00:00-05:00","datePublished":"2020-06-05T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html"},"url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Problem Definition, Data Analysis, Methods and Algorithms | Mike’s Blog</title>
@@ -30,7 +30,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-06-05T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","@type":"BlogPosting","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Problem Definition, Data Analysis, Methods and Algorithms","dateModified":"2020-06-05T00:00:00-05:00","datePublished":"2020-06-05T00:00:00-05:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html"},"@context":"https://schema.org"}</script>
+{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 1 - Problem Definition, Data Analysis, Methods and Algorithms","dateModified":"2020-06-05T00:00:00-05:00","datePublished":"2020-06-05T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html"},"url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/05/Udacity-Capstone-Part-1-Definition-and-Data.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -151,7 +151,7 @@ window.onload = wrap_img;
 <h2 id="i-problem-definition">I. Problem Definition</h2>
 <h3 id="overview">Overview</h3>
 
-<p>The sub-field of Machine Learning known as Machine Listening is a burgeoning area of research using signal processing for the automatic extraction of information from sound by a computational analysis of audio. There are many different areas of research within this field as demonstrated by the latest Detection and Classification of Acoustic Scenes and Events (DCASE) 2020 Challenge<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>, a machine learning challenge dedicated to the research and development of new methods and algorithms for audio. These include:</p>
+<p>The sub-field of Machine Learning known as Machine Listening is a burgeoning area of research using signal processing for the automatic extraction of information from sound by a computational analysis of audio. There are many different areas of research within this field as demonstrated by the latest Detection and Classification of Acoustic Scenes and Events (DCASE) 2020 Challenge<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>, a machine learning challenge dedicated to the research and development of new methods and algorithms for audio. These include:</p>
 
 <ul>
   <li>Acoustic Scene Classification</li>
@@ -163,11 +163,11 @@ window.onload = wrap_img;
 
 <p>As an acoustic engineer, I am extremely intrigued by this new field. Recent developments in machine learning algorithms have allowed significant progress to be made within this area, with the potential applications of the technology being wide and varied and meaning the tools could prove to be extremely useful for the acoustic practitioner amongst many other uses.</p>
 
-<p>The in-development user-contributed fast.ai2 Audio library<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> inspired me to undertake the development of a deep learning audio-tagging system for this Udacity Capstone project, described herein.</p>
+<p>The in-development user-contributed fast.ai2 Audio library<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup> inspired me to undertake the development of a deep learning audio-tagging system for this Udacity Capstone project, described herein.</p>
 
 <h3 id="problem-statement">Problem Statement</h3>
 
-<p>The Freesound Audio Tagging 2019 Kaggle Competition provides the basis for my research project<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>.</p>
+<p>The Freesound Audio Tagging 2019 Kaggle Competition provides the basis for my research project<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup>.</p>
 
 <p>The challenge is to develop a system for the automatic classification of multi-labelled audio files within 80 categories, that could potentially be used for automatic audio/video file tagging with noisy or untagged audio data. This has historically been investigated in a variety of ways:</p>
 
@@ -178,7 +178,7 @@ window.onload = wrap_img;
   <li>Features representation transfer learning with custom architectures and Google’s Audioset</li>
 </ul>
 
-<p>In addition, the classification of weakly labelled data from large-scale crowdsourced datasets provides a further problem for investigation<sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup>. The problem is clearly quantifiable in that a number of accuracy metrics could be used to quantify the accuracy of the model’s predictions, described below.</p>
+<p>In addition, the classification of weakly labelled data from large-scale crowdsourced datasets provides a further problem for investigation<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote">4</a></sup>. The problem is clearly quantifiable in that a number of accuracy metrics could be used to quantify the accuracy of the model’s predictions, described below.</p>
 
 <p>The competition dataset comprises audio clips from the following existing datasets:</p>
 
@@ -187,7 +187,7 @@ window.onload = wrap_img;
   <li>“Noisy Train Set” - The soundtracks of a pool of Flickr videos taken from the <a href="http://code.flickr.net/2014/10/15/the-ins-and-outs-of-the-yahoo-flickr-100-million-creative-commons-dataset/">Yahoo Flickr Creative Commons 100M dataset (YFCC)</a> which are automatically labelled using metadata from the original Flickr clips. These items therefore have significantly more label noise than the Freesound Dataset items. 19815 files.</li>
 </ul>
 
-<p>The data comprises 80 categories labelled according to Google’s Audioset Ontology <sup id="fnref:3:1"><a href="#fn:3" class="footnote">3</a></sup> with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1kHz mono audio files.</p>
+<p>The data comprises 80 categories labelled according to Google’s Audioset Ontology <sup id="fnref:3:1" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup> with ground truth labels provided at the clip level. The clips range in duration between 0.3 to 30s in uncompressed PCM 16 bit, 44.1kHz mono audio files.</p>
 
 <h3 id="solution-statement">Solution Statement</h3>
 
@@ -201,7 +201,7 @@ window.onload = wrap_img;
       <li>The fastai2 and fastai2 audio libraries will be installed</li>
       <li>The fastai2 audio library will be used for the data processing, in order to convert the audio files into tensor representations of mel-spectrograms on-the-fly, rather than in a separate pre-processing stage. This is a significant benefit of the library in terms of allowing quick experimentation and iteration within the model development over other methods such as converting all audio files to mel-spectrogram images separately.</li>
       <li>In-line with the competition rubric, a non-pretrained convolutional neural network (CNN) using the fastai2 library for PyTorch will be developed using state-of-the-art methods and additions.</li>
-      <li>The model will be trained on the “Noisy Train” set in a 5-Folds Cross Validation manner, using Sci-Kit Learn’s K-Fold model selection module<sup id="fnref:5"><a href="#fn:5" class="footnote">5</a></sup>.</li>
+      <li>The model will be trained on the “Noisy Train” set in a 5-Folds Cross Validation manner, using Sci-Kit Learn’s K-Fold model selection module<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote">5</a></sup>.</li>
       <li>The results of these 5 models will be used to train on the “Curated Train” set in the same 5-Folds Cross Validation manner as the Curated Train set in order to gain 5 separate models.</li>
       <li>Test-Time-Augmentation (TTA) will be used to gain averaged predictions from all 5 final models on the test set. The predictions will be submitted as a Late-Submission for the analysis of the results.</li>
       <li>This will be repeated, with tweaks to the model augmentations in order to try to improve the results iteratively.</li>
@@ -213,7 +213,7 @@ window.onload = wrap_img;
 
 <p>Due to the advancement of multi-label audio classification in recent years, a simple multi-label accuracy metric was not used within the Kaggle competition, as performances of the systems can easily exceed 95% within a few epochs of training.</p>
 
-<p>As such, the competition used label-weighted label-ranking average precision (a.k.a lwl-rap) as the evaluation metric. The basis for the metric, the label-ranking average precision algorithm, is described in detail within the Sci-Kit Learn implementation<sup id="fnref:6"><a href="#fn:6" class="footnote">6</a></sup>. The additional adaptations of the metric are to provide the average precision of predicting a ranked list of relevant labels per audio file, which is a significantly more complex problem to solve than a standard multi-label accuracy metric. The overall score is the average over all the labels in the test set, with each label having equal weight (rather than equal weight per test item), as indicated by the “label-weighted” prefix. This is defined as follows<sup id="fnref:7"><a href="#fn:7" class="footnote">7</a></sup>:</p>
+<p>As such, the competition used label-weighted label-ranking average precision (a.k.a lwl-rap) as the evaluation metric. The basis for the metric, the label-ranking average precision algorithm, is described in detail within the Sci-Kit Learn implementation<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote">6</a></sup>. The additional adaptations of the metric are to provide the average precision of predicting a ranked list of relevant labels per audio file, which is a significantly more complex problem to solve than a standard multi-label accuracy metric. The overall score is the average over all the labels in the test set, with each label having equal weight (rather than equal weight per test item), as indicated by the “label-weighted” prefix. This is defined as follows<sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote">7</a></sup>:</p>
 <p>&nbsp;</p>
 
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>w</mi><mi>l</mi><mi>r</mi><mi>a</mi><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><munder><mo>∑</mo><mi>s</mi></munder><mrow><mo fence="true">∣</mo><mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo fence="true">∣</mo></mrow></mrow></mfrac><munder><mo>∑</mo><mi>a</mi></munder><munder><mo>∑</mo><mrow><mi>e</mi><mi>ϵ</mi><mtext> </mtext><mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></munder><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mo stretchy="false">(</mo><mi>s</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">lwlrap = \frac{1}{\sum_{s} \left | C(s) \right |}\sum_{a}\sum_{e\epsilon\ C(s)}Prec(s,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.8374449999999998em;vertical-align:-1.516005em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0016819999999999613em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">∣</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">∣</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9857100000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.8999949999999999em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.250005em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.808995em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">ϵ</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">s</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516005em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span></span>
@@ -221,7 +221,7 @@ window.onload = wrap_img;
 <p>&nbsp;</p>
 <p>where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mo stretchy="false">(</mo><mi>s</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Prec(s,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span> is the label-ranking precision for the list of labels up to class <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> and the set of ground-truth classes for sample <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C(s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span>. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∣</mo><mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>∣</mo></mrow><annotation encoding="application/x-tex">\mid C(s)\mid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span></span></span></span> is the number of true class labels for sample <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span>.</p>
 
-<p>The Kaggle competition provides a Google Colab example implementation<sup id="fnref:8"><a href="#fn:8" class="footnote">8</a></sup>.</p>
+<p>The Kaggle competition provides a Google Colab example implementation<sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote">8</a></sup>.</p>
 
 <h2 id="ii-analysis">II. Analysis</h2>
 <h3 id="data-exploration">Data Exploration</h3>
@@ -230,7 +230,7 @@ window.onload = wrap_img;
 
 <p>The first stage of the process was to understand the dataset more fully. Fortunately, due to being a Kaggle Competition dataset it was well documented and clean in terms of organization.</p>
 
-<p>Downloading the dataset was undertaken using guidance given within the Kaggle Forums<sup id="fnref:9"><a href="#fn:9" class="footnote">9</a></sup> directly into the SageMaker/GCP Instance storage for easy access.</p>
+<p>Downloading the dataset was undertaken using guidance given within the Kaggle Forums<sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote">9</a></sup> directly into the SageMaker/GCP Instance storage for easy access.</p>
 
 <p>The files were then unzipped for the EDA. For further details, please see the notebook directly.</p>
 
@@ -238,7 +238,7 @@ window.onload = wrap_img;
 
 <p>In order to undertake the analysis of the data, the numerical data analysis packages Pandas and Pandas Profiling were used.</p>
 
-<p>Pandas Profiling<sup id="fnref:10"><a href="#fn:10" class="footnote">10</a></sup> is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels).</p>
+<p>Pandas Profiling<sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote">10</a></sup> is an extremely useful add-on package to Pandas, which creates HTML profile reports directly from Pandas DataFrames quickly and easily. From the provided .csv files file category labels were analysed and, in addition, the audio file meta-data was extracted (i.e. sample rates, bit-rates, durations, number of channels).</p>
 
 <p>&nbsp;</p>
 <p><img src="/blog/images/udacity-capstone-series/image-20200417150251804.png" alt="Pandas Profiling metadata" /></p>
@@ -301,7 +301,7 @@ window.onload = wrap_img;
 
 <p><strong>Mel-Spectrograms</strong></p>
 
-<p>This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform (x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity) which has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human hearing<sup id="fnref:11"><a href="#fn:11" class="footnote">11</a></sup>. The chosen settings will be discussed and shown further in the Data Preprocessing section.</p>
+<p>This signal processing stage will involve trimming (to ensure uniform duration) in order be converted to uniform length log-mel-spectrogram representations of the audio. A log-mel-spectrogram is a spectrogram representation of the audio i.e. a frequency-domain representation based on the Fourier Transform (x-axis = time, y axis = frequency and colour depth/pixel value = relative sound intensity) which has been converted to the Mel scale on the y-axis by a non-linear transform in order to be more representative of the highly non-linear magnitude and frequency sensitivities of the human hearing<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote">11</a></sup>. The chosen settings will be discussed and shown further in the Data Preprocessing section.</p>
 
 <p>&nbsp;</p>
 <p><img src="/blog/images/udacity-capstone-series/wav-melspec-conversion.jpg" alt="Waveform to Mel spectrogram" /></p>
@@ -310,20 +310,20 @@ window.onload = wrap_img;
 
 <p><strong>Convolutional Neural Network (CNN)</strong></p>
 
-<p>The length uniformity of the audio clips in is important, as it allows Rank-2 tensors of the mel-spectrograms to be fed in batches into the CNN. The model variety used was as follows, based on the state of the art findings of the fastai community<sup id="fnref:12"><a href="#fn:12" class="footnote">12</a></sup> and other research described below. The model and architecture used the following settings:</p>
+<p>The length uniformity of the audio clips in is important, as it allows Rank-2 tensors of the mel-spectrograms to be fed in batches into the CNN. The model variety used was as follows, based on the state of the art findings of the fastai community<sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote">12</a></sup> and other research described below. The model and architecture used the following settings:</p>
 
 <ul>
   <li>
-    <p>Architecture: fastai2’s XResNet50 based on the Bag of Tricks<sup id="fnref:13"><a href="#fn:13" class="footnote">13</a></sup> research paper which includes tweaks to the optimisation methods for higher performance. ResNets use skip connections in order to allow propagation of information more deeply into the architecture, giving significant speed improvements for deeper networks while allowing the gradient descent to backpropagate through the network efficiently which aids in increasing training accuracy. This has further been augmented in the Bag of Tricks paper, whereby the residual block convolutional layers have been re-arranged such that further efficiency gains are made.</p>
+    <p>Architecture: fastai2’s XResNet50 based on the Bag of Tricks<sup id="fnref:13" role="doc-noteref"><a href="#fn:13" class="footnote">13</a></sup> research paper which includes tweaks to the optimisation methods for higher performance. ResNets use skip connections in order to allow propagation of information more deeply into the architecture, giving significant speed improvements for deeper networks while allowing the gradient descent to backpropagate through the network efficiently which aids in increasing training accuracy. This has further been augmented in the Bag of Tricks paper, whereby the residual block convolutional layers have been re-arranged such that further efficiency gains are made.</p>
   </li>
   <li>
-    <p>Activation Function: Mish<sup id="fnref:14"><a href="#fn:14" class="footnote">14</a></sup> which has been shown to provide performance improvements over the standard ReLU activation function due to its smoothing of the activations rather than the cut-off of the ReLU function for values below 0.</p>
+    <p>Activation Function: Mish<sup id="fnref:14" role="doc-noteref"><a href="#fn:14" class="footnote">14</a></sup> which has been shown to provide performance improvements over the standard ReLU activation function due to its smoothing of the activations rather than the cut-off of the ReLU function for values below 0.</p>
   </li>
   <li>
-    <p>Optimizer Function: Ranger which is a combination of the RAdam<sup id="fnref:15"><a href="#fn:15" class="footnote">15</a></sup> and Lookahead<sup id="fnref:16"><a href="#fn:16" class="footnote">16</a></sup> optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.</p>
+    <p>Optimizer Function: Ranger which is a combination of the RAdam<sup id="fnref:15" role="doc-noteref"><a href="#fn:15" class="footnote">15</a></sup> and Lookahead<sup id="fnref:16" role="doc-noteref"><a href="#fn:16" class="footnote">16</a></sup> optimizer functions. These functions work as a searching pair, whereby one learner goes ahead of the other to explore the function topography, such that traps involving local minima can be avoided.</p>
   </li>
   <li>
-    <p>Layer tweaks: Self-Attention Layers<sup id="fnref:17"><a href="#fn:17" class="footnote">17</a></sup> which allow the network to focus on a subset on the features learned to be most pertinent to the data label.</p>
+    <p>Layer tweaks: Self-Attention Layers<sup id="fnref:17" role="doc-noteref"><a href="#fn:17" class="footnote">17</a></sup> which allow the network to focus on a subset on the features learned to be most pertinent to the data label.</p>
   </li>
   <li>
     <p>Replacing Max Pooling Layers with “MaxBlurPool” layers for better generalization</p>
@@ -347,7 +347,7 @@ window.onload = wrap_img;
 
 <h3 id="benchmark">Benchmark</h3>
 
-<p>The Baseline performance for the Kaggle Competition was set at 0.53792 which provided a minimum target. The winner<sup id="fnref:19"><a href="#fn:19" class="footnote">18</a></sup> of the competition achieved 0.75980, which provided the upper target. The details of the winning model and training method can be found on the linked GitHub page, but for brevity, the basic details of the system from the GitHub repo, were as follows:</p>
+<p>The Baseline performance for the Kaggle Competition was set at 0.53792 which provided a minimum target. The winner<sup id="fnref:19" role="doc-noteref"><a href="#fn:19" class="footnote">18</a></sup> of the competition achieved 0.75980, which provided the upper target. The details of the winning model and training method can be found on the linked GitHub page, but for brevity, the basic details of the system from the GitHub repo, were as follows:</p>
 
 <blockquote>
   <ul>
@@ -367,61 +367,61 @@ window.onload = wrap_img;
 
 <h2 id="references">References:</h2>
 
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:1">
-      <p><a href="http://dcase.community/challenge2020/index">http://dcase.community/challenge2020/index</a> <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="http://dcase.community/challenge2020/index">http://dcase.community/challenge2020/index</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:2">
-      <p><a href="https://github.com/rbracco/fastai2_audio">https://github.com/rbracco/fastai2_audio</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://github.com/rbracco/fastai2_audio">https://github.com/rbracco/fastai2_audio</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:3">
-      <p><a href="https://www.kaggle.com/c/freesound-audio-tagging-2019/overview">https://www.kaggle.com/c/freesound-audio-tagging-2019/overview</a> <a href="#fnref:3" class="reversefootnote">&#8617;</a> <a href="#fnref:3:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://www.kaggle.com/c/freesound-audio-tagging-2019/overview">https://www.kaggle.com/c/freesound-audio-tagging-2019/overview</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:3:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
     </li>
-    <li id="fn:4">
-      <p><a href="https://arxiv.org/abs/1901.01189">Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019</a> <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:4" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/1901.01189">Learning Sound Event Classifiers from Web Audio with Noisy Labels - Fonseca et al. 2019</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:5">
-      <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html">https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html</a> <a href="#fnref:5" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:5" role="doc-endnote">
+      <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html">https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html</a> <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:6">
-      <p><a href="https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision">https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision</a> <a href="#fnref:6" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:6" role="doc-endnote">
+      <p><a href="https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision">https://scikit-learn.org/stable/modules/model_evaluation.html#label-ranking-average-precision</a> <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:7">
-      <p><a href="https://arxiv.org/abs/1906.02975">Fonseca et al. - <em>Audio tagging with noisy labels and minimal supervision</em>. In Proceedings of DCASE2019 Workshop, NYC, US (2019).</a> <a href="#fnref:7" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:7" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/1906.02975">Fonseca et al. - <em>Audio tagging with noisy labels and minimal supervision</em>. In Proceedings of DCASE2019 Workshop, NYC, US (2019).</a> <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:8">
-      <p><a href="https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8">https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8</a> <a href="#fnref:8" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:8" role="doc-endnote">
+      <p><a href="https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8">https://colab.research.google.com/drive/1AgPdhSp7ttY18O3fEoHOQKlt_3HJDLi8</a> <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:9">
-      <p><a href="https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521">https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521</a> <a href="#fnref:9" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:9" role="doc-endnote">
+      <p><a href="https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521">https://www.kaggle.com/c/deepfake-detection-challenge/discussion/129521</a> <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:10">
-      <p><a href="https://github.com/pandas-profiling/pandas-profiling">https://github.com/pandas-profiling/pandas-profiling</a> <a href="#fnref:10" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:10" role="doc-endnote">
+      <p><a href="https://github.com/pandas-profiling/pandas-profiling">https://github.com/pandas-profiling/pandas-profiling</a> <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:11">
-      <p>Computational Analysis of Sound Scenes and Events, pg. 22 - Virtanen et al. <a href="#fnref:11" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:11" role="doc-endnote">
+      <p>Computational Analysis of Sound Scenes and Events, pg. 22 - Virtanen et al. <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:12">
-      <p><a href="https://github.com/muellerzr/Practical-Deep-Learning-for-Coders-2.0/blob/master/Computer Vision/04_ImageWoof.ipynb">https://github.com/muellerzr/Practical-Deep-Learning-for-Coders-2.0/blob/master/Computer%20Vision/04_ImageWoof.ipynb</a> <a href="#fnref:12" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:12" role="doc-endnote">
+      <p><a href="https://github.com/muellerzr/Practical-Deep-Learning-for-Coders-2.0/blob/master/Computer Vision/04_ImageWoof.ipynb">https://github.com/muellerzr/Practical-Deep-Learning-for-Coders-2.0/blob/master/Computer%20Vision/04_ImageWoof.ipynb</a> <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:13">
-      <p><a href="http://arxiv.org/abs/1812.01187">He, Tong, Zhi Zhang, Hang Zhang, Zhongyue Zhang, Junyuan Xie, and Mu Li. 2018. “Bag of Tricks for Image Classification with Convolutional Neural Networks.” <em>CoRR</em> abs/1812.01187</a> <a href="#fnref:13" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:13" role="doc-endnote">
+      <p><a href="http://arxiv.org/abs/1812.01187">He, Tong, Zhi Zhang, Hang Zhang, Zhongyue Zhang, Junyuan Xie, and Mu Li. 2018. “Bag of Tricks for Image Classification with Convolutional Neural Networks.” <em>CoRR</em> abs/1812.01187</a> <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:14">
-      <p><a href="http://arxiv.org/abs/1908.08681">Misra, Diganta. 2019. “Mish: A Self Regularized Non-Monotonic Neural Activation Function.”</a> <a href="#fnref:14" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:14" role="doc-endnote">
+      <p><a href="http://arxiv.org/abs/1908.08681">Misra, Diganta. 2019. “Mish: A Self Regularized Non-Monotonic Neural Activation Function.”</a> <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:15">
-      <p><a href="https://arxiv.org/abs/1908.03265">Liyuan Liu et al. 2019 - On the Variance of the Adaptive Learning rate and Beyond</a> <a href="#fnref:15" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:15" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/1908.03265">Liyuan Liu et al. 2019 - On the Variance of the Adaptive Learning rate and Beyond</a> <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:16">
-      <p><a href="https://arxiv.org/abs/1907.08610">Zhang, Lucas Hinton, Ba - Lookahead Optimizer: k steps forward, 1 step back</a> <a href="#fnref:16" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:16" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/1907.08610">Zhang, Lucas Hinton, Ba - Lookahead Optimizer: k steps forward, 1 step back</a> <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:17">
-      <p><a href="https://arxiv.org/abs/1805.08318">Han Zhang, Ian Goodfellow, Dimitris Metaxas, Augustus Odena 2018 - Self-Attention Generative Adversarial Networks</a> <a href="#fnref:17" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:17" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/1805.08318">Han Zhang, Ian Goodfellow, Dimitris Metaxas, Augustus Odena 2018 - Self-Attention Generative Adversarial Networks</a> <a href="#fnref:17" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:19">
-      <p><a href="https://github.com/lRomul/argus-freesound">https://github.com/lRomul/argus-freesound</a> <a href="#fnref:19" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:19" role="doc-endnote">
+      <p><a href="https://github.com/lRomul/argus-freesound">https://github.com/lRomul/argus-freesound</a> <a href="#fnref:19" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
