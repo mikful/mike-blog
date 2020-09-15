@@ -10,4 +10,10 @@
 // If you want to turn off dark background for syntax highlighting, comment or delete the below line.
 @import "minima/fastpages-dracula-highlight"; 
 
-$content-width:    60px;
+// width of the content area
+// can be set as "px" or "%"
+$content-width:    60%;
+$on-palm:          80%;
+$on-laptop:        60%;
+$on-medium:        60%;
+$on-large:         60%;
