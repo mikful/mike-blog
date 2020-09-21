@@ -3,6 +3,7 @@ toc: false
 layout: post
 description: A Udacity Machine Learning Engineer Nanodegree Capstone Project
 categories: [deep learning, fastai2, audio, markdown]
+image: ../images/udacity-capstone-series/melspec4-part2.png
 title: Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation
 ---
 
