@@ -178,7 +178,7 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Having been a user of fastai for a while, I figured it was time to try to learn PyTorch properly. As a learning exercise, I decided to try to recreate a fastai image classifier system using transfer learning within Pytorch and having also recently read about PyTorch Lightning, then take the PyTorch model and recreate it within Lightning. This blog series will therefore be in two parts, of which this is Part 2:</p>
 <ol>
-<li><a href="">fastai to PyTorch</a></li>
+<li><a href="https://mikful.github.io/blog/fastai/jupyter/pytorch/pytorch-lightning/2020/09/21/fastai-pytorch-lightning-part1.html">fastai to PyTorch</a></li>
 <li>PyTorch to PyTorch Lightning</li>
 </ol>
 <p>In part 1, we saw how easy it was to acheive 98.5% accuracy in less than 10 minutes and 10 epochs of training using fastai, and 97.9% accuracy with a bit more work within PyTorch by trying to recreate the fastai transforms, transfer learning model and staged-training (frozen then fine-tuned). The PyTorch model also took slightly longer to train at 11.5 minutes for the 10 epochs.</p>
@@ -1415,7 +1415,7 @@ LR finder stopped early due to diverging loss.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this case, I had set the discrminative learning rate parameter directly within the Lightning Module above, such that the learning rate for the pretrained body was lr / 100. So now we'll set that learning rate (which applies to the custom head only).</p>
+<p>In this case, I had set the discrminative learning rate parameter directly within the Lightning Module above, such that the learning rate for the pretrained body was the custom head learning rate / 100. So now we'll set the main learning rate.</p>
 
 </div>
 </div>
@@ -1530,7 +1530,7 @@ CUDA_VISIBLE_DEVICES: [0]
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can see from the tensorboard output, that the learning rates were cycling correctly. Initially in with a single maximum learning rate for the initial frozen body/unfrozen head training and then within two parameter groups (pg1 / pg2) for the discriminative layer learning rates in the second fine-tuning stage.</p>
+<p>We can see from the tensorboard output that the learning rates were cycling correctly. Initially in with a single maximum learning rate for the initial frozen body/unfrozen head training and then within two parameter groups (pg1 / pg2) for the discriminative layer learning rates in the second fine-tuning stage.</p>
 
 </div>
 </div>

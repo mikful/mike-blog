@@ -176,16 +176,16 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Having been a user of fastai for a while, I figured it was time to try to learn PyTorch properly. As a learning exercise, I decided to try to recreate a fastai image classifier system using transfer learning within Pytorch and having also recently read about PyTorch Lightning, then take the PyTorch model and recreate it within Lightning. This blog series will therefore be in two parts, of which this is Part 1:</p>
+<p>Having been a user of fastai for a while, I figured it was time to try to learn PyTorch properly. As a learning exercise, I decided to try to recreate a fastai image classifier system using transfer learning within Pytorch and, having also recently read about PyTorch Lightning, then take the PyTorch model and recreate it within PyTorch Lightning. This blog series will therefore be in two parts, of which this is Part 1:</p>
 <ol>
 <li>fastai to PyTorch</li>
-<li><a href="">PyTorch to PyTorch Lightning</a></li>
+<li><a href="https://mikful.github.io/blog/fastai/jupyter/pytorch/pytorch-lightning/2020/09/21/fastai-pytorch-lightning-part2.html">PyTorch to PyTorch Lightning</a></li>
 </ol>
 <p>I found this exercise to be very beneficial for a number of reasons:</p>
 <ol>
 <li>I came to understand training a PyTorch model in far greater detail than I had before</li>
 <li>I learned about the trickiness of training a pure PyTorch model to high accuracy vs the by-default implemented best-practices of fastai for image classification</li>
-<li>Having seen how pure Pytorch is implemented, I came to appreciate the benefits of organising my code into PyTorch Lightning modules</li>
+<li>Having seen how pure PyTorch model is implemented, I came to appreciate the benefits of organising my code into PyTorch Lightning modules</li>
 </ol>
 <p>For the comparison we will use the Imagenette dataset, a subset of 10 classes from the original ImageNet dataset devised by fastai to aid the implementation of new algorithms, which is simple enough for the exercise.</p>
 
