@@ -234,7 +234,8 @@ window.onload = wrap_img;
 <li>Our splits</li>
 <li>Normalization</li>
 <li>How the data was prepared</li>
-<li>batch sizes</li>
+<li>Batch sizes</li>
+<li>DataLoaders</li>
 </ul>
 <p><a href="https://pytorch-lightning.readthedocs.io/en/latest/datamodules.html">https://pytorch-lightning.readthedocs.io/en/latest/datamodules.html</a></p>
 <p>Essential we need to create a class and give it attributes and methods for the setup we've already made in PyTorch. (In this case, I had to shuffle the validation dataset also, as otherwise all of the targets would have been <code>0</code>'s for the first batches, leading to a 0 target error.</p>
