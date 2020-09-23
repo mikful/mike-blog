@@ -12,8 +12,16 @@
 
 $on-palm:          90%;
 
+.post img {
+  width: 100%;
+}
+
 @media (max-width: 414px) {
   .wrapper {
     max-width: none;
+  }
+
+  figure {
+    margin: auto;
   }
 }
