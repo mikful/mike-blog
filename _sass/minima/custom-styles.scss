@@ -1,6 +1,6 @@
 /*-----------------------------------*/
 /*--- IMPORT STYLES FOR FASTPAGES ---*/
-@import "minima/fastpages-styles";   
+@import "minima/fastpages-styles";
 
 
 
@@ -8,6 +8,12 @@
 /*----- ADD YOUR STYLES BELOW -------*/
 
 // If you want to turn off dark background for syntax highlighting, comment or delete the below line.
-@import "minima/fastpages-dracula-highlight"; 
+@import "minima/fastpages-dracula-highlight";
 
 $on-palm:          90%;
+
+@media (max-width: 414px) {
+  .wrapper {
+    max-width: none;
+  }
+}
