@@ -12,11 +12,11 @@
 
 $on-palm:          90%;
 
-.post img {
-  width: 100%;
-}
-
 @media (max-width: 414px) {
+  .post img {
+    width: 100%;
+  }
+
   .wrapper {
     max-width: none;
   }
