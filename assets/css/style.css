@@ -478,8 +478,6 @@ pre code { font-size: 15px !important; }
 
 p code { font-size: 19px; }
 
-.post img { width: 100%; }
-
-@media (max-width: 414px) { .wrapper { max-width: none; } figure { margin: auto; } }
+@media (max-width: 414px) { .post img { width: 100%; } .wrapper { max-width: none; } figure { margin: auto; } }
 
 /*# sourceMappingURL=style.css.map */
