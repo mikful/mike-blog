@@ -2227,14 +2227,13 @@ class: rain
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Results">Results<a class="anchor-link" href="#Results"> </a></h2><p>Following the Training, let's see some of our wandb-logged graphs.</p>
 <p>First of all, let's check the learning rates we supplied to the optimizers - flat initial stage with cosine-annealing.</p>
-<p><img src="/blog/images/copied_from_nb/../images/lr-adam.png" alt="Learning Rates" /></p>
-<p>Now let's see our training curves</p>
-<p><img src="/blog/images/copied_from_nb/../images/ESC10-fold1-comp.png" alt="Fold 1 Accuracies" />
-<img src="/blog/images/copied_from_nb/../images/ESC10-fold2-comp.png" alt="Fold 2 Accuracies" />
-<img src="/blog/images/copied_from_nb/../images/ESC10-fold3-comp.png" alt="Fold 3 Accuracies" />
-<img src="/blog/images/copied_from_nb/../images/ESC10-fold4-comp.png" alt="Fold 4 Accuracies" />
-<img src="/blog/images/copied_from_nb/../images/ESC10-fold5-comp.png" alt="Fold 5 Accuracies" /></p>
-<p>Unfortunately, the 16K Gammatone Filterbank Initialised network training failed and, as such, we only have results for the first 3 folds. However, we can clearly see that it is typically inferior to the standard convolutional networks and therefore requires further investigation to improve the performance.</p>
+<p><img src="/blog/images/copied_from_nb/../images/lr-adam.png" alt="" title="Cosine-annealed Learning Rate Schedule" /></p>
+<p>Now let's see our training curves. Unfortunately, the 16K Gammatone Filterbank Initialised network training failed and, as such, we only have results for the first 3 folds. However, we can clearly see that it is typically inferior to the standard convolutional networks and therefore requires further investigation to improve the performance.</p>
+<p><img src="/blog/images/copied_from_nb/../images/ESC10-fold1-comp.png" alt="" title="Fold 1 Accuracies" />
+<img src="/blog/images/copied_from_nb/../images/ESC10-fold2-comp.png" alt="" title="Fold 2 Accuracies" />
+<img src="/blog/images/copied_from_nb/../images/ESC10-fold3-comp.png" alt="" title="Fold 3 Accuracies" />
+<img src="/blog/images/copied_from_nb/../images/ESC10-fold4-comp.png" alt="" title="Fold 4 Accuracies" />
+<img src="/blog/images/copied_from_nb/../images/ESC10-fold5-comp.png" alt="" title="Fold 5 Accuracies" /></p>
 
 </div>
 </div>
