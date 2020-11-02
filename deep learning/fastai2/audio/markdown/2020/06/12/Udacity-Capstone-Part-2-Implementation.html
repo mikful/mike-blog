@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation | Mike’s Blog</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A Udacity Machine Learning Engineer Nanodegree Capstone Project" />
@@ -16,31 +17,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-06-12T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation","dateModified":"2020-06-12T00:00:00-05:00","datePublished":"2020-06-12T00:00:00-05:00","@type":"BlogPosting","image":"https://mikful.github.io/blog/images/udacity-capstone-series/melspec4-part2.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html"},"url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html","@context":"https://schema.org"}</script>
+{"headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation","dateModified":"2020-06-12T00:00:00-05:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html","datePublished":"2020-06-12T00:00:00-05:00","@type":"BlogPosting","image":"https://mikful.github.io/blog/images/udacity-capstone-series/melspec4-part2.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html"},"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation | Mike’s Blog</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="A Udacity Machine Learning Engineer Nanodegree Capstone Project" />
-<meta property="og:description" content="A Udacity Machine Learning Engineer Nanodegree Capstone Project" />
-<link rel="canonical" href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" />
-<meta property="og:url" content="https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html" />
-<meta property="og:site_name" content="Mike’s Blog" />
-<meta property="og:image" content="https://mikful.github.io/blog/images/udacity-capstone-series/melspec4-part2.png" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-06-12T00:00:00-05:00" />
-<script type="application/ld+json">
-{"description":"A Udacity Machine Learning Engineer Nanodegree Capstone Project","headline":"Multi-Label Auto-Tagging of Noisy Audio Using fastai2 - Part 2 - Methodology and Implementation","dateModified":"2020-06-12T00:00:00-05:00","datePublished":"2020-06-12T00:00:00-05:00","@type":"BlogPosting","image":"https://mikful.github.io/blog/images/udacity-capstone-series/melspec4-part2.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html"},"url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/markdown/2020/06/12/Udacity-Capstone-Part-2-Implementation.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -159,20 +143,20 @@ window.onload = wrap_img;
 <p>The remarkable in-development fastai2 audio package was used to convert the audio files into mel-spectrogram 2D tensors on-the-fly, as a form of highly efficient data processing, rather than pre-processing and having to save spectrograms to a different dataset. This was done using the following process:</p>
 
 <ol>
-  <li>Create Pandas DataFrames for the files, suing the <code class="highlighter-rouge">train_curated.csv</code> and <code class="highlighter-rouge">train_noisy.csv</code> files provided by the competition, removing corrupted or empty files as given in the competition guidance:</li>
+  <li>Create Pandas DataFrames for the files, suing the <code class="language-plaintext highlighter-rouge">train_curated.csv</code> and <code class="language-plaintext highlighter-rouge">train_noisy.csv</code> files provided by the competition, removing corrupted or empty files as given in the competition guidance:</li>
 </ol>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_train_curated_df</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">remove_files</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="n">df_curated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="n">df_curated</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
     <span class="n">df_curated</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'../data/train_curated/'</span> <span class="o">+</span> 	<span class="n">df_curated</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> 
-    <span class="n">df_curated</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'fname'</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">df_curated</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">remove_files</span><span class="p">]</span>
-    <span class="n">df_curated</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">remove_files</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">df_curated</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">df_curated</span><span class="p">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'fname'</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">df_curated</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">remove_files</span><span class="p">]</span>
+    <span class="n">df_curated</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">remove_files</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">df_curated</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df_curated</span>
 
 <span class="k">def</span> <span class="nf">create_train_noisy_df</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
-    <span class="n">df_noisy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="n">df_noisy</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
     <span class="n">df_noisy</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'../data/train_noisy/'</span> <span class="o">+</span> <span class="n">df_noisy</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span> 
     <span class="k">return</span> <span class="n">df_noisy</span>
 
@@ -183,10 +167,10 @@ window.onload = wrap_img;
 <span class="n">remove_files</span> <span class="o">=</span> <span class="p">[</span><span class="s">'f76181c4.wav'</span><span class="p">,</span> <span class="s">'77b925c2.wav'</span><span class="p">,</span> <span class="s">'6a1f682a.wav'</span><span class="p">,</span> <span class="s">'c7db12aa.wav'</span><span class="p">,</span> <span class="s">'7752cc8a.wav'</span><span class="p">,</span> <span class="s">'1d44b0bd.wav'</span><span class="p">]</span>
 <span class="n">remove_files</span> <span class="o">=</span> <span class="p">[</span><span class="s">'../data/train_curated/'</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">remove_files</span><span class="p">]</span>
 <span class="n">df_curated</span> <span class="o">=</span> <span class="n">create_train_curated_df</span><span class="p">(</span><span class="s">'../data/train_curated.csv'</span><span class="p">,</span> <span class="n">remove_files</span><span class="o">=</span><span class="n">remove_files</span><span class="p">)</span>
-<span class="n">df_curated</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df_curated</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p>The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio <code class="highlighter-rouge">item_transformations</code> which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:</p>
+<p>The DataFrames were then used to supply the fastai DataBlock API with the filenames, which could then be processed using the fastai2 audio <code class="language-plaintext highlighter-rouge">item_transformations</code> which are applied to each file before training. After significant testing iterations the audio transformation settings were chosen as follows:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DBMelSpec</span> <span class="o">=</span> <span class="n">SpectrogramTransformer</span><span class="p">(</span><span class="n">mel</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">to_db</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># convert to Mel-spectrograms
 </span>
@@ -195,33 +179,33 @@ window.onload = wrap_img;
 </span><span class="n">f_min</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># mel-spectrogram minimum frequency
 </span><span class="n">f_max</span> <span class="o">=</span> <span class="mi">20000</span> <span class="c1"># mel-spectrogram minimum frequency
 </span><span class="n">n_mels</span> <span class="o">=</span> <span class="mi">128</span> <span class="c1"># mel-frequency bins, dictates the y-axis pixel size
-</span><span class="n">hop_length</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">clip_length</span><span class="o">*</span><span class="n">sr</span><span class="p">)</span><span class="o">/</span><span class="n">n_mels</span><span class="p">)</span><span class="c1"># determines width of image. for square to match n_mels, set math.ceil((clip_length*sr)/n_mels)
+</span><span class="n">hop_length</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">clip_length</span><span class="o">*</span><span class="n">sr</span><span class="p">)</span><span class="o">/</span><span class="n">n_mels</span><span class="p">)</span><span class="c1"># determines width of image. for square to match n_mels, set math.ceil((clip_length*sr)/n_mels)
 </span><span class="n">nfft</span> <span class="o">=</span> <span class="n">n_mels</span> <span class="o">*</span> <span class="mi">20</span> <span class="c1"># = 2560 for higher resolution in y-axis
 </span><span class="n">win_length</span> <span class="o">=</span> <span class="mi">1024</span> <span class="c1"># sample windowing
 </span><span class="n">top_db</span> <span class="o">=</span> <span class="mi">60</span> <span class="c1"># highest noise level in relative db
 </span></code></pre></div></div>
 
 <ul>
-  <li>The <code class="highlighter-rouge">top_db</code> parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">top_db</code> parameter setting of 60dB was important, as the noisy train set had high background noise (low signal-to-noise ratio) which with a higher setting lead to obscured features in the mel-spectrograms.</li>
 </ul>
 
 <p>In addition to the mel-spectrogram settings above, the following additional item transformations were undertaken:</p>
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">RemoveSilence</code>  - Splits the original signal at points of silence more than <code class="highlighter-rouge">2 * pad_ms</code></p>
+    <p><code class="language-plaintext highlighter-rouge">RemoveSilence</code>  - Splits the original signal at points of silence more than <code class="language-plaintext highlighter-rouge">2 * pad_ms</code></p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">CropSignal</code> - Crops a signal by <code class="highlighter-rouge">clip_length</code> seconds and adds zero-padding by default if the signal is less than <code class="highlighter-rouge">clip_length</code></p>
+    <p><code class="language-plaintext highlighter-rouge">CropSignal</code> - Crops a signal by <code class="language-plaintext highlighter-rouge">clip_length</code> seconds and adds zero-padding by default if the signal is less than <code class="language-plaintext highlighter-rouge">clip_length</code></p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">aud2spec</code> - The mel-spectrogram settings from above</p>
+    <p><code class="language-plaintext highlighter-rouge">aud2spec</code> - The mel-spectrogram settings from above</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">MaskTime</code> - Uses Google’s SpecAugment<sup id="fnref:20" role="doc-noteref"><a href="#fn:20" class="footnote">1</a></sup> time masking procedure to zero-out time domain information as a form of data augmentation</p>
+    <p><code class="language-plaintext highlighter-rouge">MaskTime</code> - Uses Google’s SpecAugment<sup id="fnref:20" role="doc-noteref"><a href="#fn:20" class="footnote">1</a></sup> time masking procedure to zero-out time domain information as a form of data augmentation</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">MaskFreq</code> - Uses Google’s SpecAugment<sup id="fnref:20:1" role="doc-noteref"><a href="#fn:20" class="footnote">1</a></sup> frequency masking procedure to zero-out frequency domain information as a form of data augmentation</p>
+    <p><code class="language-plaintext highlighter-rouge">MaskFreq</code> - Uses Google’s SpecAugment<sup id="fnref:20:1" role="doc-noteref"><a href="#fn:20" class="footnote">1</a></sup> frequency masking procedure to zero-out frequency domain information as a form of data augmentation</p>
   </li>
 </ul>
 
@@ -236,9 +220,9 @@ window.onload = wrap_img;
 <p>In addition to the item transforms above, Batch Transforms were used as part of the DataBlock API, which are transformations applied per batch during training:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">Normalize()</code> - normalizes the data taking a single batch’s statistics</li>
-  <li><code class="highlighter-rouge">RatioResize(256)</code> - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.</li>
-  <li><code class="highlighter-rouge">Brightness and Contrast</code> augmentations were also applied in the training cycles to improve performance</li>
+  <li><code class="language-plaintext highlighter-rouge">Normalize()</code> - normalizes the data taking a single batch’s statistics</li>
+  <li><code class="language-plaintext highlighter-rouge">RatioResize(256)</code> - during training (other than the first 10 epochs of the noisy data for speed), the mel-spectrogram tensors were resized from 128x128px to 256x256px through bilinear interpolation as this has been shown to give gains in performance over simply creating a 256x256 tensor from the outset.</li>
+  <li><code class="language-plaintext highlighter-rouge">Brightness and Contrast</code> augmentations were also applied in the training cycles to improve performance</li>
 </ul>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Normalize</span><span class="p">(),</span>
@@ -284,11 +268,11 @@ window.onload = wrap_img;
 </span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df_noisy</span> <span class="c1"># to use random subset, use  df = df_.sample(frac=0.5, replace=False, random_state=1) # take random subset of the noisy dataframe for faster training (otherwise need 6.5 hours for all folds with complete dataset)
 </span>
-<span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">valid_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'</span><span class="se">\n</span><span class="s">Noisy Train Set - Fold {fold+1}/{n_splits}'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">valid_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">kf</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f'</span><span class="se">\n</span><span class="s">Noisy Train Set - Fold </span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">/</span><span class="si">{</span><span class="n">n_splits</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_x</span><span class="p">(</span><span class="n">r</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span>
-    <span class="k">def</span> <span class="nf">get_y</span><span class="p">(</span><span class="n">r</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="s">'labels'</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)</span> <span class="c1"># split labels on ','
+    <span class="k">def</span> <span class="nf">get_y</span><span class="p">(</span><span class="n">r</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="s">'labels'</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)</span> <span class="c1"># split labels on ','
 </span>        
     <span class="k">def</span> <span class="nf">get_dls</span><span class="p">(</span><span class="n">train_cycle</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">train_cycle</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -309,26 +293,26 @@ window.onload = wrap_img;
                            <span class="n">item_tfms</span> <span class="o">=</span> <span class="n">item_tfms</span><span class="p">,</span>
                            <span class="n">batch_tfms</span> <span class="o">=</span> <span class="n">batch_tfms</span>
                           <span class="p">)</span>
-        <span class="k">return</span> <span class="n">dblock</span><span class="o">.</span><span class="n">dataloaders</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dblock</span><span class="p">.</span><span class="n">dataloaders</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
     
     <span class="n">dls</span> <span class="o">=</span> <span class="n">get_dls</span><span class="p">(</span><span class="n">train_cycle</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">dls</span><span class="o">.</span><span class="n">show_batch</span><span class="p">(</span><span class="n">max_n</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">dls</span><span class="p">.</span><span class="n">show_batch</span><span class="p">(</span><span class="n">max_n</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 
     <span class="n">model</span> <span class="o">=</span> <span class="n">xresnet50</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">act_cls</span><span class="o">=</span><span class="n">Mish</span><span class="p">,</span> <span class="n">sa</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">c_in</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_out</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span> <span class="c1">#create custom xresnet: 1 input channel,  80 output nodes, self-attention, Mish activation function
-</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">convert_MP_to_blurMP</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">)</span> <span class="c1"># convert MaxPool2D layers to MaxBlurPool
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">convert_MP_to_blurMP</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">nn</span><span class="p">.</span><span class="n">MaxPool2d</span><span class="p">)</span> <span class="c1"># convert MaxPool2D layers to MaxBlurPool
 </span>    <span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="o">=</span><span class="n">BCEWithLogitsLossFlat</span><span class="p">(),</span> <span class="n">opt_func</span> <span class="o">=</span> <span class="n">ranger</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">lwlrap</span><span class="p">])</span> <span class="c1"># pass custom model to Learner, no mixup for noisy set as fewer epochs
 </span>
-    <span class="n">learn</span><span class="o">.</span><span class="n">fit_flat_cos</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>
+    <span class="n">learn</span><span class="p">.</span><span class="n">fit_flat_cos</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>
     
     <span class="k">print</span><span class="p">(</span><span class="s">'Batch transforming images to 256x256px and training further.'</span><span class="p">)</span>
     
     <span class="n">dls</span> <span class="o">=</span> <span class="n">get_dls</span><span class="p">(</span><span class="n">train_cycle</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">learn</span><span class="o">.</span><span class="n">dls</span> <span class="o">=</span> <span class="n">dls</span>
-    <span class="n">learn</span><span class="o">.</span><span class="n">fit_flat_cos</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-3</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">learn</span><span class="p">.</span><span class="n">dls</span> <span class="o">=</span> <span class="n">dls</span>
+    <span class="n">learn</span><span class="p">.</span><span class="n">fit_flat_cos</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-3</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
 
     <span class="k">print</span><span class="p">(</span><span class="s">'Saving Learner...'</span><span class="p">)</span>
-    <span class="n">learn</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="s">'stage-1_noisy_fold-{fold+1}_sota2'</span><span class="p">)</span>
+    <span class="n">learn</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">f'stage-1_noisy_fold-</span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">_sota2'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><strong>Stage 2 - Curated Train Set</strong></p>
@@ -341,11 +325,11 @@ window.onload = wrap_img;
 </span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df_curated</span>
 
-<span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">valid_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'</span><span class="se">\n</span><span class="s">Curated Train Set - Fold {fold+1}/{n_splits}'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">valid_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">kf</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f'</span><span class="se">\n</span><span class="s">Curated Train Set - Fold </span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">/</span><span class="si">{</span><span class="n">n_splits</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_x</span><span class="p">(</span><span class="n">r</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="s">'fname'</span><span class="p">]</span>
-    <span class="k">def</span> <span class="nf">get_y</span><span class="p">(</span><span class="n">r</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="s">'labels'</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)</span> <span class="c1"># split labels on ','
+    <span class="k">def</span> <span class="nf">get_y</span><span class="p">(</span><span class="n">r</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="s">'labels'</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)</span> <span class="c1"># split labels on ','
 </span>
     <span class="n">dblock</span> <span class="o">=</span> <span class="n">DataBlock</span><span class="p">(</span><span class="n">blocks</span><span class="o">=</span><span class="p">(</span><span class="n">AudioBlock</span><span class="p">,</span> <span class="n">MultiCategoryBlock</span><span class="p">),</span>
                        <span class="n">splitter</span><span class="o">=</span><span class="n">IndexSplitter</span><span class="p">(</span><span class="n">valid_idx</span><span class="p">),</span> <span class="c1"># split using df index
@@ -355,25 +339,25 @@ window.onload = wrap_img;
                        <span class="n">batch_tfms</span> <span class="o">=</span> <span class="n">batch_tfms</span> <span class="c1"># including RatioResize(256)
 </span>                      <span class="p">)</span>
 
-    <span class="n">dls</span> <span class="o">=</span> <span class="n">dblock</span><span class="o">.</span><span class="n">dataloaders</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">dls</span> <span class="o">=</span> <span class="n">dblock</span><span class="p">.</span><span class="n">dataloaders</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
 
-    <span class="n">dls</span><span class="o">.</span><span class="n">show_batch</span><span class="p">(</span><span class="n">max_n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">dls</span><span class="p">.</span><span class="n">show_batch</span><span class="p">(</span><span class="n">max_n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'</span><span class="se">\n</span><span class="s">Loading Stage 1 model - fold {fold+1}.'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f'</span><span class="se">\n</span><span class="s">Loading Stage 1 model - fold </span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">.'</span><span class="p">)</span>
     
     <span class="n">model</span> <span class="o">=</span> <span class="n">xresnet50</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">act_cls</span><span class="o">=</span><span class="n">Mish</span><span class="p">,</span> <span class="n">sa</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">c_in</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_out</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span> <span class="c1">#create custom xresnet: 1 input channel,  80 output nodes, self-attention, Mish activation function
-</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">convert_MP_to_blurMP</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">)</span> <span class="c1"># convert MaxPool2D layers to MaxBlurPool
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">convert_MP_to_blurMP</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">nn</span><span class="p">.</span><span class="n">MaxPool2d</span><span class="p">)</span> <span class="c1"># convert MaxPool2D layers to MaxBlurPool
 </span>    <span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="o">=</span><span class="n">BCEWithLogitsLossFlat</span><span class="p">(),</span>  <span class="n">opt_func</span><span class="o">=</span><span class="n">ranger</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">lwlrap</span><span class="p">])</span> <span class="c1"># pass custom model to Learner, no mixup for noisy set as fewer epochs
-</span>    <span class="n">learn</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="s">'stage-1_noisy_fold-{fold+1}_sota2'</span><span class="p">)</span>
+</span>    <span class="n">learn</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">f'stage-1_noisy_fold-</span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">_sota2'</span><span class="p">)</span>
     
-    <span class="n">learn</span><span class="o">.</span><span class="n">dls</span> <span class="o">=</span> <span class="n">dls</span>
-    <span class="n">learn</span><span class="o">.</span><span class="n">add_cb</span><span class="p">(</span><span class="n">MixUp</span><span class="p">())</span> <span class="c1"># add mixup callback
+    <span class="n">learn</span><span class="p">.</span><span class="n">dls</span> <span class="o">=</span> <span class="n">dls</span>
+    <span class="n">learn</span><span class="p">.</span><span class="n">add_cb</span><span class="p">(</span><span class="n">MixUp</span><span class="p">())</span> <span class="c1"># add mixup callback
 </span>    
     <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">Training on Curated Set:'</span><span class="p">)</span>
-    <span class="n">learn</span><span class="o">.</span><span class="n">fit_flat_cos</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">3e-4</span><span class="p">)</span>
+    <span class="n">learn</span><span class="p">.</span><span class="n">fit_flat_cos</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">3e-4</span><span class="p">)</span>
 
     <span class="k">print</span><span class="p">(</span><span class="s">'Saving model...'</span><span class="p">)</span>
-    <span class="n">learn</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="s">'stage-2_curated_fold-{fold+1}_sota2'</span><span class="p">)</span>
+    <span class="n">learn</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">f'stage-2_curated_fold-</span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">_sota2'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><strong>Testing</strong></p>
@@ -381,23 +365,23 @@ window.onload = wrap_img;
 <p>At the testing stage, Test-Time-Augmentations and ensembling the predictions of all 5 different Stage-2 models were used to improve the final predictions.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># grab test filenames from submission csv
-</span><span class="n">df_fnames</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'../data/sample_submission.csv'</span><span class="p">)</span>
-<span class="n">fnames</span> <span class="o">=</span> <span class="n">df_fnames</span><span class="o">.</span><span class="n">fname</span>
-<span class="n">df_fnames</span> <span class="o">=</span> <span class="s">'../data/test/'</span> <span class="o">+</span> <span class="n">df_fnames</span><span class="o">.</span><span class="n">fname</span>
+</span><span class="n">df_fnames</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'../data/sample_submission.csv'</span><span class="p">)</span>
+<span class="n">fnames</span> <span class="o">=</span> <span class="n">df_fnames</span><span class="p">.</span><span class="n">fname</span>
+<span class="n">df_fnames</span> <span class="o">=</span> <span class="s">'../data/test/'</span> <span class="o">+</span> <span class="n">df_fnames</span><span class="p">.</span><span class="n">fname</span>
 <span class="k">print</span><span class="p">(</span><span class="n">df_fnames</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
 
 <span class="c1"># get predictions
 </span><span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_splits</span><span class="p">):</span>
     <span class="n">stage</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'Getting predictions from stage {stage} fold {fold+1} model.'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">f'Getting predictions from stage </span><span class="si">{</span><span class="n">stage</span><span class="si">}</span><span class="s"> fold </span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s"> model.'</span><span class="p">)</span>
 
-    <span class="n">learn</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="s">'stage-2_curated_fold-{fold+1}_sota2'</span><span class="p">)</span>
+    <span class="n">learn</span> <span class="o">=</span> <span class="n">learn</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">f'stage-2_curated_fold-</span><span class="si">{</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">_sota2'</span><span class="p">)</span>
 
-    <span class="n">dl</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">test_dl</span><span class="p">(</span><span class="n">df_fnames</span><span class="p">)</span>
+    <span class="n">dl</span> <span class="o">=</span> <span class="n">learn</span><span class="p">.</span><span class="n">dls</span><span class="p">.</span><span class="n">test_dl</span><span class="p">(</span><span class="n">df_fnames</span><span class="p">)</span>
     
     <span class="c1"># predict using tta    
-</span>    <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">tta</span><span class="p">(</span><span class="n">dl</span><span class="o">=</span><span class="n">dl</span><span class="p">)</span>
-    <span class="n">preds</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span>    <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span> <span class="o">=</span> <span class="n">learn</span><span class="p">.</span><span class="n">tta</span><span class="p">(</span><span class="n">dl</span><span class="o">=</span><span class="n">dl</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">preds</span><span class="p">.</span><span class="n">cpu</span><span class="p">().</span><span class="n">numpy</span><span class="p">()</span>
     
     <span class="k">if</span> <span class="n">fold</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">predictions</span> <span class="o">=</span> <span class="n">preds</span>
@@ -409,11 +393,11 @@ window.onload = wrap_img;
 </span><span class="n">predictions</span> <span class="o">/=</span> <span class="n">n_splits</span>
 
 <span class="c1"># Create Submission DataFrame    
-</span><span class="n">df_sub</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
-<span class="n">df_sub</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">vocab</span>
-<span class="n">df_sub</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">"fname"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">df_sub</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="n">fnames</span>
-<span class="n">df_sub</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span><span class="n">df_sub</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+<span class="n">df_sub</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">learn</span><span class="p">.</span><span class="n">dls</span><span class="p">.</span><span class="n">vocab</span>
+<span class="n">df_sub</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">"fname"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df_sub</span><span class="p">.</span><span class="n">fname</span> <span class="o">=</span> <span class="n">fnames</span>
+<span class="n">df_sub</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>The produced .csv file was then submitted to Kaggle.</p>
@@ -422,7 +406,7 @@ window.onload = wrap_img;
 
 <p><strong>Initial Model</strong></p>
 
-<p>The  initial CNN architecture used was a pre-trained (on ImageNet) xresnet50 model for speed of iteration. This was trained on a single fold smaller subset of the Noisy data (ranging from 20-80% using the DataBlock API - <code class="highlighter-rouge">RandomSubsetSplitter()</code>function) used for faster iteration on the noisy subset, while all of the Curated data was used. The data augmentation settings were slightly different however, as non-square mel-spectrograms were used to see if larger spectrograms could give improved scores, which was the case, however, this was at the expense of training time.</p>
+<p>The  initial CNN architecture used was a pre-trained (on ImageNet) xresnet50 model for speed of iteration. This was trained on a single fold smaller subset of the Noisy data (ranging from 20-80% using the DataBlock API - <code class="language-plaintext highlighter-rouge">RandomSubsetSplitter()</code>function) used for faster iteration on the noisy subset, while all of the Curated data was used. The data augmentation settings were slightly different however, as non-square mel-spectrograms were used to see if larger spectrograms could give improved scores, which was the case, however, this was at the expense of training time.</p>
 
 <p>This highest score achieved by any initial model, was an lwl-rap of 0.61013 on the test-set:</p>
 
@@ -451,7 +435,7 @@ window.onload = wrap_img;
 <p style="text-align: center;">Fig 12. Improvement using SOTA model</p>
 <p>&nbsp;</p>
 
-<p>Finally, a full 5-Fold Cross-Validation training was undertaken for both the Noisy and Curated set as detailed in Figure 9 in the Implementation section above, with some tweaks to the spectrograms settings, i.e. using <code class="highlighter-rouge">top_dB</code> of 60 to ensure only the most prominent Noisy Set features were captured by the mel-spectrograms. This this approach achieved the final score of 0.69788, a marked improvement that would have gained a bronze-medal position in the competition and could certainly be improved upon further.</p>
+<p>Finally, a full 5-Fold Cross-Validation training was undertaken for both the Noisy and Curated set as detailed in Figure 9 in the Implementation section above, with some tweaks to the spectrograms settings, i.e. using <code class="language-plaintext highlighter-rouge">top_dB</code> of 60 to ensure only the most prominent Noisy Set features were captured by the mel-spectrograms. This this approach achieved the final score of 0.69788, a marked improvement that would have gained a bronze-medal position in the competition and could certainly be improved upon further.</p>
 
 <h2 id="up-next">Up Next</h2>
 
