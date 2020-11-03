@@ -4,19 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>An Audio Classification Web-app using Heroku, Docker and fastai | Mike’s Blog</title>
+<title>An Audio Classification Web App using Heroku, Docker and fastai | Mike’s Blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="An Audio Classification Web-app using Heroku, Docker and fastai" />
+<meta property="og:title" content="An Audio Classification Web App using Heroku, Docker and fastai" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:" />
-<meta property="og:description" content="This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:" />
+<meta name="description" content="This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here." />
+<meta property="og:description" content="This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here." />
 <link rel="canonical" href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html" />
 <meta property="og:url" content="https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html" />
 <meta property="og:site_name" content="Mike’s Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-11-03T00:00:00-06:00" />
 <script type="application/ld+json">
-{"headline":"An Audio Classification Web-app using Heroku, Docker and fastai","dateModified":"2020-11-03T00:00:00-06:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html","datePublished":"2020-11-03T00:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html"},"description":"This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:","@context":"https://schema.org"}</script>
+{"headline":"An Audio Classification Web App using Heroku, Docker and fastai","dateModified":"2020-11-03T00:00:00-06:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html","datePublished":"2020-11-03T00:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html"},"description":"This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,7 +87,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">An Audio Classification Web-app using Heroku, Docker and fastai</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-03T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">An Audio Classification Web App using Heroku, Docker and fastai</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-03T00:00:00-06:00" itemprop="datePublished">
         Nov 3, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -121,37 +121,36 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:</p>
-
-<p>https://audio-recorder-ctmf.herokuapp.com/</p>
+    <p>This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to <a href="https://audio-recorder-ctmf.herokuapp.com/">try out here</a>.</p>
 
 <p>In this blog we’ll quickly run through how to setup a Docker container environment on Heroku, and the Python server application that will perform the inference.</p>
 
-<p>The full code is available at the following github repo: https://github.com/mikful/audio-app-mf-ct-heroku. Please note this was made in collaboration with https://github.com/cltweedie creating the front-end web-app.</p>
+<p>The full code is available at the linked <a href="https://github.com/mikful/audio-app-mf-ct-heroku">github repo</a>. The website was made in collaboration with <a href="https://github.com/cltweedie">Chris Tweedie</a> who created created the front-end for the web app.</p>
 
 <h1 id="model-training">Model Training</h1>
 
-<p>Naturally, we’ll need a trained model to perform our inference. This blog isn’t dedicated to the training procedure, rather the deployment, however, to see the training procedure please view the notebooks within the nbs folder of the repo.</p>
+<p>Naturally, we’ll need a trained model to perform inference on the files. This blog isn’t dedicated to the training procedure, rather the deployment, however, to see the training procedure please view the notebooks within the <code class="language-plaintext highlighter-rouge">/nbs</code> directory of the repo.</p>
 
 <p>Some basic information about the training and model:</p>
 
 <ul>
   <li>The multi-label <a href="https://www.kaggle.com/c/freesound-audio-tagging-2019">Freesound 2019 Kaggle Competition</a> dataset (training and curated test set) was used to the train the model. The audio data is labelled using a vocabulary of 80 labels from Google’s <a href="https://research.google.com/audioset////////ontology/index.html">AudioSet Ontology</a>, giving a wide variety of audio classes for a general-classifier.</li>
+  <li>An 80/20 train/valid split was used</li>
   <li>The <a href="https://fastaudio.github.io/">fastaudio</a> library was used with mel-spectrograms being fed into a 2D xresnet18 architecture</li>
   <li>The model was trained for 80 epochs from scratch, with noise and volume augmentations and time and frequency masking augmentations</li>
   <li>Mixup augmentations were also applied</li>
-  <li>A cyclical learning rate schedule was used</li>
+  <li>A one-cycle learning rate schedule was used</li>
   <li>A label-weighted label-ranking average precision (lwl-rap) metric was used to delineate the best achieving model (giving an lwl-rap of 75.93%, and over 99% multi-label accuracy)</li>
 </ul>
 
 <h1 id="heroku">Heroku</h1>
 
-<p>Deploying to Heroku was straightforward, despite the fact that the fastaudio library at did not have a pypi installation package. As such, the standard method of simply creating a Python app from the requirements.txt file in the root directory (which is normally detected upon connecting the github repo adn automatically created) was not possible. To work around this, a <code class="language-plaintext highlighter-rouge">heroku.yml</code> file was created, such that a Docker environment could be built initially from the <code class="language-plaintext highlighter-rouge">requirements.txt</code> file and then install the fastaudio package separately afterwards.</p>
+<p>Deploying to Heroku had an initial problem, in that the fastaudio library did not have a pypi installation package. As such, the standard method of simply creating a Python app from the <code class="language-plaintext highlighter-rouge">requirements.txt</code> file in the root directory (which is normally detected upon pushing the github repo and automatically created) was not possible. To work around this, a <code class="language-plaintext highlighter-rouge">heroku.yml</code> file was created, such that a Docker environment could be built initially from the <code class="language-plaintext highlighter-rouge">requirements.txt</code> file and then install the fastaudio package separately afterwards from the <code class="language-plaintext highlighter-rouge">Dockerfile</code> execution.</p>
 
 <h2 id="deployment-steps">Deployment steps</h2>
 
 <ol>
-  <li>Create the heroku app and follow the steps in /deploy/heroku-git i.e.:</li>
+  <li>Create the heroku app and follow the steps in <a href="https://devcenter.heroku.com/categories/deploying-with-git">the Heroku deploy with git documentation</a> i.e.:</li>
 </ol>
 
 <ul>
@@ -168,14 +167,14 @@ window.onload = wrap_img;
 
 <h2 id="dockerfile">Dockerfile</h2>
 
-<p>We can see from the <a href="https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/Dockerfile">dockerfile</a> the install of the forked fastaudio library in the line:</p>
+<p>We can see within the <a href="https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/Dockerfile">Dockerfile</a> the install of the forked fastaudio library after the <code class="language-plaintext highlighter-rouge">requirements.txt</code> dependencies:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">RUN</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">mikful</span><span class="o">/</span><span class="n">fastaudio</span><span class="p">.</span><span class="n">git</span>
 </code></pre></div></div>
 
 <h2 id="inference">Inference</h2>
 
-<p>The inference code can be seen within <a href="https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/app/server.py">server.py</a> file. This was based on the code used within my <a href="https://mikful.github.io/blog/fastai/jupyter/render/flutter/2020/09/16/orchid-classifier-fastai-render-flutter-2.html">Orchid Classifier App with fastai, Render and Flutter</a>, but  has been modified to take an audio file stream and perform inference on the bytes data.</p>
+<p>The inference code can be seen within the <a href="https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/app/server.py">server.py</a> file. This was based on the code used within my <a href="https://mikful.github.io/blog/fastai/jupyter/render/flutter/2020/09/16/orchid-classifier-fastai-render-flutter-2.html">Orchid Classifier App with fastai, Render and Flutter</a>, but has been modified to take an audio file stream and perform inference on the bytes data.</p>
 
 <p>The main functions within the <code class="language-plaintext highlighter-rouge">server.py</code> file are fairly self evident as per the Orchid Classifier app, in that it downloads the <code class="language-plaintext highlighter-rouge">export.pkl</code> file and then loads it into a new fastai <code class="language-plaintext highlighter-rouge">Learner</code>.</p>
 
@@ -188,7 +187,7 @@ window.onload = wrap_img;
 </span><span class="n">export_file_name</span> <span class="o">=</span> <span class="s">'export.pkl'</span>
 </code></pre></div></div>
 
-<p>For the inference, the main function is contained within the following code section that takes the audio file bytes from the post request and performs the inference on it. However, this time the predictions are multi-label outputs, so we will create a tuple of tuples containing the predictions and the class label for displaying.  The prediction is then returned in the JSON response.</p>
+<p>For the inference, the main function is contained within the following code section that takes the audio bytes stream from the post request, writes the bytes to a wav file and performs the inference on it. However, this time the predictions are multi-label outputs, so we will create a tuple of tuples containing the prediction and the class label by descending order of confidence.  The prediction is then returned in the JSON response for display.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/analyze"</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="n">File</span><span class="p">(...)):</span>
@@ -203,7 +202,7 @@ window.onload = wrap_img;
     <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">({</span><span class="s">'classifications'</span><span class="p">:</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">results_ordered</span><span class="p">)})</span>
 </code></pre></div></div>
 
-<p>In addition, we need to set out ports correctly:</p>
+<p>In addition, we need to set our ports correctly:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'PORT'</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
@@ -211,11 +210,11 @@ window.onload = wrap_img;
         <span class="n">uvicorn</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">'0.0.0.0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">Port</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s">"info"</span><span class="p">)</span> <span class="c1">#heroku
 </span></code></pre></div></div>
 
-<p>And that’s it - we have a working audio classifier webapp, with very high accuracy!</p>
+<p>And that’s it - we have a working audio classifier web app, with very high accuracy!</p>
 
-<p>This was a fun little project which had a few challenges in terms of the deployment of a non pypi library. I hope to expand it with some real-time inference at a later date.</p>
+<p>This was a fun little project which had a few challenges in terms of the deployment of a non-pypi library. I hope to expand it with some real-time inference at a later date.</p>
 
-<p>Please feel to use the webapp and I’d love to hear any feedback you have, so contact me at one of the links given below.</p>
+<p>Please feel to use the web app and I’d love to hear any feedback you have, so contact me at one of the links given below.</p>
 
   </div><a class="u-url" href="/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html" hidden></a>
 </article>
