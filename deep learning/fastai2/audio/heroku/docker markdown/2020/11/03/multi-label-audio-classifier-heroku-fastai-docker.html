@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>An Audio Classification Web-app using Heroku, Docker and fastai | Mike’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="An Audio Classification Web-app using Heroku, Docker and fastai" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:" />
+<meta property="og:description" content="This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:" />
+<link rel="canonical" href="https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html" />
+<meta property="og:url" content="https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html" />
+<meta property="og:site_name" content="Mike’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-03T00:00:00-06:00" />
+<script type="application/ld+json">
+{"headline":"An Audio Classification Web-app using Heroku, Docker and fastai","dateModified":"2020-11-03T00:00:00-06:00","url":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html","datePublished":"2020-11-03T00:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html"},"description":"This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Mike&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">An Audio Classification Web-app using Heroku, Docker and fastai</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-03T00:00:00-06:00" itemprop="datePublished">
+        Nov 3, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#deep learning">deep learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#fastai2">fastai2</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#audio">audio</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#heroku">heroku</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#docker markdown">docker markdown</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:</p>
+
+<p>https://audio-recorder-ctmf.herokuapp.com/</p>
+
+<p>In this blog we’ll quickly run through how to setup a Docker container environment on Heroku, and the Python server application that will perform the inference.</p>
+
+<p>The full code is available at the following github repo: https://github.com/mikful/audio-app-mf-ct-heroku. Please note this was made in collaboration with https://github.com/cltweedie creating the front-end web-app.</p>
+
+<h1 id="model-training">Model Training</h1>
+
+<p>Naturally, we’ll need a trained model to perform our inference. This blog isn’t dedicated to the training procedure, rather the deployment, however, to see the training procedure please view the notebooks within the nbs folder of the repo.</p>
+
+<p>Some basic information about the training and model:</p>
+
+<ul>
+  <li>The multi-label <a href="https://www.kaggle.com/c/freesound-audio-tagging-2019">Freesound 2019 Kaggle Competition</a> dataset (training and curated test set) was used to the train the model. The audio data is labelled using a vocabulary of 80 labels from Google’s <a href="https://research.google.com/audioset////////ontology/index.html">AudioSet Ontology</a>, giving a wide variety of audio classes for a general-classifier.</li>
+  <li>The <a href="https://fastaudio.github.io/">fastaudio</a> library was used with mel-spectrograms being fed into a 2D xresnet18 architecture</li>
+  <li>The model was trained for 80 epochs from scratch, with noise and volume augmentations and time and frequency masking augmentations</li>
+  <li>Mixup augmentations were also applied</li>
+  <li>A cyclical learning rate schedule was used</li>
+  <li>A label-weighted label-ranking average precision (lwl-rap) metric was used to delineate the best achieving model (giving an lwl-rap of 75.93%, and over 99% multi-label accuracy)</li>
+</ul>
+
+<h1 id="heroku">Heroku</h1>
+
+<p>Deploying to Heroku was straightforward, despite the fact that the fastaudio library at did not have a pypi installation package. As such, the standard method of simply creating a Python app from the requirements.txt file in the root directory (which is normally detected upon connecting the github repo adn automatically created) was not possible. To work around this, a <code class="language-plaintext highlighter-rouge">heroku.yml</code> file was created, such that a Docker environment could be built initially from the <code class="language-plaintext highlighter-rouge">requirements.txt</code> file and then install the fastaudio package separately afterwards.</p>
+
+<h2 id="deployment-steps">Deployment steps</h2>
+
+<ol>
+  <li>Create the heroku app and follow the steps in /deploy/heroku-git i.e.:</li>
+</ol>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$ heroku login</code></li>
+  <li><code class="language-plaintext highlighter-rouge">$ cd my-project/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">$ heroku git:remote -a your-heroku-app-name</code></li>
+</ul>
+
+<ol>
+  <li>Now follow the details regarding <a href="https://devcenter.heroku.com/articles/build-docker-images-heroku-yml#getting-started">Building Docker Images with heroku.yml</a> once you have the <code class="language-plaintext highlighter-rouge">heroku.yml</code> ready. i.e. Set the stack of your app to container: <code class="language-plaintext highlighter-rouge">heroku stack:set container</code></li>
+  <li>Push your app to Heroku: <code class="language-plaintext highlighter-rouge">git push heroku master</code></li>
+  <li>Connect your github repo directly for push deployments</li>
+</ol>
+
+<h2 id="dockerfile">Dockerfile</h2>
+
+<p>We can see from the <a href="https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/Dockerfile">dockerfile</a> the install of the forked fastaudio library in the line:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">RUN</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">mikful</span><span class="o">/</span><span class="n">fastaudio</span><span class="p">.</span><span class="n">git</span>
+</code></pre></div></div>
+
+<h2 id="inference">Inference</h2>
+
+<p>The inference code can be seen within <a href="https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/app/server.py">server.py</a> file. This was based on the code used within my <a href="https://mikful.github.io/blog/fastai/jupyter/render/flutter/2020/09/16/orchid-classifier-fastai-render-flutter-2.html">Orchid Classifier App with fastai, Render and Flutter</a>, but  has been modified to take an audio file stream and perform inference on the bytes data.</p>
+
+<p>The main functions within the <code class="language-plaintext highlighter-rouge">server.py</code> file are fairly self evident as per the Orchid Classifier app, in that it downloads the <code class="language-plaintext highlighter-rouge">export.pkl</code> file and then loads it into a new fastai <code class="language-plaintext highlighter-rouge">Learner</code>.</p>
+
+<p>Now we define the location of our exported fastai Learner. We first upload this to a Google Cloud Storage bucket - we need to ensure the permissions on the file are set such that we can download this, which can be done in the file settings in the bucket (for more details <a href="https://cloud.google.com/storage/docs/access-control/making-data-public">see here</a>).</p>
+
+<p>Then we set the URL within the script:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">__file__</span><span class="p">).</span><span class="n">parent</span>
+<span class="n">export_file_url</span> <span class="o">=</span> <span class="s">'https://storage.googleapis.com/example-bucket/export.pkl'</span> <span class="c1"># google cloud bucket / file url
+</span><span class="n">export_file_name</span> <span class="o">=</span> <span class="s">'export.pkl'</span>
+</code></pre></div></div>
+
+<p>For the inference, the main function is contained within the following code section that takes the audio file bytes from the post request and performs the inference on it. However, this time the predictions are multi-label outputs, so we will create a tuple of tuples containing the predictions and the class label for displaying.  The prediction is then returned in the JSON response.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/analyze"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="nb">file</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="n">File</span><span class="p">(...)):</span>
+    <span class="n">wav</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="n">utc_time</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()))</span>
+    <span class="n">sound_file</span> <span class="o">=</span> <span class="s">"tmp/sound_"</span> <span class="o">+</span> <span class="n">utc_time</span> <span class="o">+</span> <span class="s">".wav"</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sound_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'bx'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">wav</span><span class="p">.</span><span class="n">getvalue</span><span class="p">())</span>
+    <span class="n">prediction</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">preds</span> <span class="o">=</span>  <span class="n">learn</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">sound_file</span><span class="p">))</span>
+    <span class="n">predictions_ordered</span> <span class="o">=</span> <span class="n">learn</span><span class="p">.</span><span class="n">dls</span><span class="p">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">preds</span><span class="p">.</span><span class="n">squeeze</span><span class="p">()).</span><span class="n">squeeze</span><span class="p">()][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># descending order
+</span>    <span class="n">conf_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">sort</span><span class="p">(</span><span class="n">preds</span><span class="p">.</span><span class="n">squeeze</span><span class="p">()).</span><span class="n">squeeze</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># descending order
+</span>    <span class="n">results_ordered</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">predictions_ordered</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">rint</span><span class="p">(</span><span class="n">conf_sorted</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="n">tolist</span><span class="p">()))</span>
+    <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">({</span><span class="s">'classifications'</span><span class="p">:</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">results_ordered</span><span class="p">)})</span>
+</code></pre></div></div>
+
+<p>In addition, we need to set out ports correctly:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'PORT'</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s">'serve'</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">:</span>
+        <span class="n">uvicorn</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">'0.0.0.0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">Port</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s">"info"</span><span class="p">)</span> <span class="c1">#heroku
+</span></code></pre></div></div>
+
+<p>And that’s it - we have a working audio classifier webapp, with very high accuracy!</p>
+
+<p>This was a fun little project which had a few challenges in terms of the deployment of a non pypi library. I hope to expand it with some real-time inference at a later date.</p>
+
+<p>Please feel to use the webapp and I’d love to hear any feedback you have, so contact me at one of the links given below.</p>
+
+  </div><a class="u-url" href="/blog/deep%20learning/fastai2/audio/heroku/docker%20markdown/2020/11/03/multi-label-audio-classifier-heroku-fastai-docker.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blog about my journey into machine learning and AI</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/mikful" title="mikful"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/mikful" title="mikful"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
