@@ -2,38 +2,37 @@
 toc: false
 layout: post
 categories: [deep learning, fastai2, audio, heroku, docker markdown]
-title: An Audio Classification Web-app using Heroku, Docker and fastai
+title: An Audio Classification Web App using Heroku, Docker and fastai
 
 ---
 
-This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to try out here:
-
-https://audio-recorder-ctmf.herokuapp.com/
+This is a short blog post about how to create a multi-label audio classification app using fastai and the Heroku platform, which is available to [try out here](https://audio-recorder-ctmf.herokuapp.com/).
 
 In this blog we'll quickly run through how to setup a Docker container environment on Heroku, and the Python server application that will perform the inference.
 
-The full code is available at the following github repo: https://github.com/mikful/audio-app-mf-ct-heroku. Please note this was made in collaboration with https://github.com/cltweedie creating the front-end web-app.
+The full code is available at the linked [github repo](https://github.com/mikful/audio-app-mf-ct-heroku). The website was made in collaboration with [Chris Tweedie](https://github.com/cltweedie) who created created the front-end for the web app.
 
 # Model Training
 
-Naturally, we'll need a trained model to perform our inference. This blog isn't dedicated to the training procedure, rather the deployment, however, to see the training procedure please view the notebooks within the nbs folder of the repo. 
+Naturally, we'll need a trained model to perform inference on the files. This blog isn't dedicated to the training procedure, rather the deployment, however, to see the training procedure please view the notebooks within the `/nbs` directory of the repo. 
 
 Some basic information about the training and model:
 
 * The multi-label [Freesound 2019 Kaggle Competition](https://www.kaggle.com/c/freesound-audio-tagging-2019) dataset (training and curated test set) was used to the train the model. The audio data is labelled using a vocabulary of 80 labels from Google’s [AudioSet Ontology](https://research.google.com/audioset////////ontology/index.html), giving a wide variety of audio classes for a general-classifier.
+* An 80/20 train/valid split was used
 * The [fastaudio](https://fastaudio.github.io/) library was used with mel-spectrograms being fed into a 2D xresnet18 architecture
 * The model was trained for 80 epochs from scratch, with noise and volume augmentations and time and frequency masking augmentations
 * Mixup augmentations were also applied
-* A cyclical learning rate schedule was used
+* A one-cycle learning rate schedule was used
 * A label-weighted label-ranking average precision (lwl-rap) metric was used to delineate the best achieving model (giving an lwl-rap of 75.93%, and over 99% multi-label accuracy)
 
 # Heroku
 
-Deploying to Heroku was straightforward, despite the fact that the fastaudio library at did not have a pypi installation package. As such, the standard method of simply creating a Python app from the requirements.txt file in the root directory (which is normally detected upon connecting the github repo adn automatically created) was not possible. To work around this, a `heroku.yml` file was created, such that a Docker environment could be built initially from the `requirements.txt` file and then install the fastaudio package separately afterwards.
+Deploying to Heroku had an initial problem, in that the fastaudio library did not have a pypi installation package. As such, the standard method of simply creating a Python app from the `requirements.txt` file in the root directory (which is normally detected upon pushing the github repo and automatically created) was not possible. To work around this, a `heroku.yml` file was created, such that a Docker environment could be built initially from the `requirements.txt` file and then install the fastaudio package separately afterwards from the `Dockerfile` execution.
 
 ## Deployment steps
 
-1. Create the heroku app and follow the steps in /deploy/heroku-git i.e.:
+1. Create the heroku app and follow the steps in [the Heroku deploy with git documentation](https://devcenter.heroku.com/categories/deploying-with-git) i.e.:
 
 - `$ heroku login`
 - `$ cd my-project/`
@@ -45,7 +44,7 @@ Deploying to Heroku was straightforward, despite the fact that the fastaudio lib
 
 ## Dockerfile
 
-We can see from the [dockerfile](https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/Dockerfile) the install of the forked fastaudio library in the line:
+We can see within the [Dockerfile](https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/Dockerfile) the install of the forked fastaudio library after the `requirements.txt` dependencies:
 
 ```python
 RUN pip install git+https://github.com/mikful/fastaudio.git
@@ -53,7 +52,7 @@ RUN pip install git+https://github.com/mikful/fastaudio.git
 
 ## Inference
 
-The inference code can be seen within [server.py](https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/app/server.py) file. This was based on the code used within my [Orchid Classifier App with fastai, Render and Flutter](https://mikful.github.io/blog/fastai/jupyter/render/flutter/2020/09/16/orchid-classifier-fastai-render-flutter-2.html), but  has been modified to take an audio file stream and perform inference on the bytes data.
+The inference code can be seen within the [server.py](https://github.com/mikful/audio-app-mf-ct-heroku/blob/master/app/server.py) file. This was based on the code used within my [Orchid Classifier App with fastai, Render and Flutter](https://mikful.github.io/blog/fastai/jupyter/render/flutter/2020/09/16/orchid-classifier-fastai-render-flutter-2.html), but has been modified to take an audio file stream and perform inference on the bytes data.
 
 The main functions within the `server.py` file are fairly self evident as per the Orchid Classifier app, in that it downloads the `export.pkl` file and then loads it into a new fastai `Learner`.
 
@@ -67,7 +66,7 @@ export_file_url = 'https://storage.googleapis.com/example-bucket/export.pkl' # g
 export_file_name = 'export.pkl'
 ```
 
-For the inference, the main function is contained within the following code section that takes the audio file bytes from the post request and performs the inference on it. However, this time the predictions are multi-label outputs, so we will create a tuple of tuples containing the predictions and the class label for displaying.  The prediction is then returned in the JSON response.
+For the inference, the main function is contained within the following code section that takes the audio bytes stream from the post request, writes the bytes to a wav file and performs the inference on it. However, this time the predictions are multi-label outputs, so we will create a tuple of tuples containing the prediction and the class label by descending order of confidence.  The prediction is then returned in the JSON response for display.
 
 ```python
 @app.post("/analyze")
@@ -83,7 +82,7 @@ async def analyze(file: bytes = File(...)):
     return JSONResponse({'classifications': json.dumps(results_ordered)})
 ```
 
-In addition, we need to set out ports correctly:
+In addition, we need to set our ports correctly:
 
 ```python
 Port = int(os.environ.get('PORT', 5000))
@@ -92,8 +91,8 @@ if __name__ == '__main__':
         uvicorn.run(app=app, host='0.0.0.0', port=Port, log_level="info") #heroku
 ```
 
-And that's it - we have a working audio classifier webapp, with very high accuracy!
+And that's it - we have a working audio classifier web app, with very high accuracy!
 
-This was a fun little project which had a few challenges in terms of the deployment of a non pypi library. I hope to expand it with some real-time inference at a later date.
+This was a fun little project which had a few challenges in terms of the deployment of a non-pypi library. I hope to expand it with some real-time inference at a later date.
 
-Please feel to use the webapp and I'd love to hear any feedback you have, so contact me at one of the links given below.
+Please feel to use the web app and I'd love to hear any feedback you have, so contact me at one of the links given below.
