@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Audio Classification Using Lightweight 1D End-to-End CNNs | Mike’s Blog</title>
+<title>Audio Classification Using Lightweight 1D End-to-End CNNs with PyTorch | Mike’s Blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Audio Classification Using Lightweight 1D End-to-End CNNs" />
+<meta property="og:title" content="Audio Classification Using Lightweight 1D End-to-End CNNs with PyTorch" />
 <meta name="author" content="Mike Fuller" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A blog about my journey into machine learning and AI" />
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-11-02T00:00:00-06:00" />
 <script type="application/ld+json">
-{"headline":"Audio Classification Using Lightweight 1D End-to-End CNNs","dateModified":"2020-11-02T00:00:00-06:00","url":"https://mikful.github.io/blog/pytorch/pytorch-lightning/audio/cnn/1d/2020/11/02/1Dcnn-end-to-end-16-32k-gamma-pl.html","datePublished":"2020-11-02T00:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/pytorch/pytorch-lightning/audio/cnn/1d/2020/11/02/1Dcnn-end-to-end-16-32k-gamma-pl.html"},"author":{"@type":"Person","name":"Mike Fuller"},"description":"A blog about my journey into machine learning and AI","@context":"https://schema.org"}</script>
+{"headline":"Audio Classification Using Lightweight 1D End-to-End CNNs with PyTorch","dateModified":"2020-11-02T00:00:00-06:00","url":"https://mikful.github.io/blog/pytorch/pytorch-lightning/audio/cnn/1d/2020/11/02/1Dcnn-end-to-end-16-32k-gamma-pl.html","datePublished":"2020-11-02T00:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mikful.github.io/blog/pytorch/pytorch-lightning/audio/cnn/1d/2020/11/02/1Dcnn-end-to-end-16-32k-gamma-pl.html"},"author":{"@type":"Person","name":"Mike Fuller"},"description":"A blog about my journey into machine learning and AI","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mikful.github.io/blog/feed.xml" title="Mike's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -88,7 +88,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Audio Classification Using Lightweight 1D End-to-End CNNs</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-02T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Audio Classification Using Lightweight 1D End-to-End CNNs with PyTorch</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-02T00:00:00-06:00" itemprop="datePublished">
         Nov 2, 2020
       </time>• 
           <span itemprop="author" itemscope itemtype="http://schema.org/Person">
